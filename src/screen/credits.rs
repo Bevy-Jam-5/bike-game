@@ -31,8 +31,8 @@ fn enter_credits(mut commands: Commands) {
         .insert(StateScoped(Screen::Credits))
         .with_children(|children| {
             children.header("Made by");
-            children.label("Alice - Foo");
-            children.label("Bob - Bar");
+            children.label("Jan Hohenheim - Something");
+            children.label("Joona Aalto - Something");
 
             children.header("Assets");
             children.label("Bevy logo - All rights reserved by the Bevy Foundation. Permission granted for splash screen use when unmodified.");

@@ -1,6 +1,9 @@
 [package]
 name = "bike-game"
-authors = ["Jan Hohenheim <jan@hohenheim.ch>"]
+authors = [
+    "Jan Hohenheim <jan@hohenheim.ch>",
+    "Joona Aalto <jondolf.dev@gmail.com>",
+]
 version = "0.1.0"
 edition = "2021"
 
