@@ -824,15 +824,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c115c97a5c8a263bd0aa7001b999772c744ac5ba797d07c86f25734ce381ea69"
 
 [[package]]
-name = "bevy_quickstart"
-version = "0.1.0"
-dependencies = [
- "bevy",
- "log",
- "rand",
-]
-
-[[package]]
 name = "bevy_reflect"
 version = "0.14.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1011,15 +1002,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "bike_game"
-version = "0.1.0"
-dependencies = [
- "bevy",
- "log",
- "rand",
-]
-
-[[package]]
 name = "bevy_text"
 version = "0.14.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1168,6 +1150,15 @@ dependencies = [
  "wasm-bindgen",
  "web-sys",
  "winit",
+]
+
+[[package]]
+name = "bike-game"
+version = "0.1.0"
+dependencies = [
+ "bevy",
+ "log",
+ "rand",
 ]
 
 [[package]]
