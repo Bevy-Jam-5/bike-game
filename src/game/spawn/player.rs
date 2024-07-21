@@ -13,5 +13,9 @@ pub(super) fn plugin(app: &mut App) {
 pub struct Player;
 
 fn on_player_spawn(trigger: Trigger<OnAdd, Player>, mut commands: Commands) {
-    commands.entity(trigger.entity()).insert(InputManagerBundle::with_map(PlayerAction::default_input_map()));
+    commands
+        .entity(trigger.entity())
+        .insert(InputManagerBundle::with_map(
+            PlayerAction::default_input_map(),
+        ));
 }
