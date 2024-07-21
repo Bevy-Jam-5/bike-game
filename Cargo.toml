@@ -9,7 +9,7 @@ edition = "2021"
 
 [dependencies]
 bevy = { version = "0.14", features = ["wayland"] }
-blenvy = { version = "0.1.0-alpha.1", git = "https://github.com/janhohenheim/Blenvy", branch = "fix-windows" }
+blenvy = { version = "0.1.0-alpha.1", git = "https://github.com/kaosat-dev/Blenvy", branch = "blenvy" }
 rand = "0.8"
 bevy-inspector-egui = { version = "0.25.1", optional = true }
 bevy_asset_loader = { version = "0.21.0", features = ["3d", "progress_tracking"] }
@@ -40,7 +40,6 @@ dev_native = [
     "dev",
     # Enable asset hot reloading for native dev builds.
     "bevy/file_watcher",
-    "blenvy/file_watcher",
     # Enable embedded asset hot reloading for native dev builds.
     "bevy/embedded_watcher",
 ]
