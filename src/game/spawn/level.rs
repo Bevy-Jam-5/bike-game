@@ -3,8 +3,6 @@
 use bevy::prelude::*;
 use blenvy::*;
 
-use super::player::SpawnPlayer;
-
 pub(super) fn plugin(app: &mut App) {
     app.observe(spawn_level);
 }
@@ -21,7 +19,4 @@ fn spawn_level(_trigger: Trigger<SpawnLevel>, mut commands: Commands) {
         HideUntilReady, // only reveal the level once it is ready
         GameWorldTag,
     ));
-    // The only thing we have in our level is a player,
-    // but add things like walls etc. here.
-    commands.trigger(SpawnPlayer);
 }
