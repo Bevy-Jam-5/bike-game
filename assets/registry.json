@@ -31,6 +31,27 @@
       "type": "array",
       "typeInfo": "Tuple"
     },
+    "(bike_game::game::assets::SfxKey, bike_game::game::assets::SoundtrackKey)": {
+      "isComponent": false,
+      "isResource": false,
+      "items": false,
+      "long_name": "(bike_game::game::assets::SfxKey, bike_game::game::assets::SoundtrackKey)",
+      "prefixItems": [
+        {
+          "type": {
+            "$ref": "#/$defs/bike_game::game::assets::SfxKey"
+          }
+        },
+        {
+          "type": {
+            "$ref": "#/$defs/bike_game::game::assets::SoundtrackKey"
+          }
+        }
+      ],
+      "short_name": "(SfxKey, SoundtrackKey)",
+      "type": "array",
+      "typeInfo": "Tuple"
+    },
     "(bike_game::game::movement::Movement, bike_game::game::movement::WrapWithinWindow)": {
       "isComponent": false,
       "isResource": false,
@@ -14003,60 +14024,6 @@
         }
       }
     },
-    "bevy_utils::hashbrown::HashMap<bike_game::game::assets::ImageKey, bevy_asset::handle::Handle<bevy_render::texture::image::Image>, bevy_utils::hashbrown::hash_map::DefaultHashBuilder>": {
-      "isComponent": false,
-      "isResource": false,
-      "keyType": {
-        "type": {
-          "$ref": "#/$defs/bike_game::game::assets::ImageKey"
-        }
-      },
-      "long_name": "bevy_utils::hashbrown::HashMap<bike_game::game::assets::ImageKey, bevy_asset::handle::Handle<bevy_render::texture::image::Image>, bevy_utils::hashbrown::hash_map::DefaultHashBuilder>",
-      "short_name": "HashMap<ImageKey, Handle<Image>, DefaultHashBuilder>",
-      "type": "object",
-      "typeInfo": "Map",
-      "valueType": {
-        "type": {
-          "$ref": "#/$defs/bevy_asset::handle::Handle<bevy_render::texture::image::Image>"
-        }
-      }
-    },
-    "bevy_utils::hashbrown::HashMap<bike_game::game::assets::SfxKey, bevy_asset::handle::Handle<bevy_audio::audio_source::AudioSource>, bevy_utils::hashbrown::hash_map::DefaultHashBuilder>": {
-      "isComponent": false,
-      "isResource": false,
-      "keyType": {
-        "type": {
-          "$ref": "#/$defs/bike_game::game::assets::SfxKey"
-        }
-      },
-      "long_name": "bevy_utils::hashbrown::HashMap<bike_game::game::assets::SfxKey, bevy_asset::handle::Handle<bevy_audio::audio_source::AudioSource>, bevy_utils::hashbrown::hash_map::DefaultHashBuilder>",
-      "short_name": "HashMap<SfxKey, Handle<AudioSource>, DefaultHashBuilder>",
-      "type": "object",
-      "typeInfo": "Map",
-      "valueType": {
-        "type": {
-          "$ref": "#/$defs/bevy_asset::handle::Handle<bevy_audio::audio_source::AudioSource>"
-        }
-      }
-    },
-    "bevy_utils::hashbrown::HashMap<bike_game::game::assets::SoundtrackKey, bevy_asset::handle::Handle<bevy_audio::audio_source::AudioSource>, bevy_utils::hashbrown::hash_map::DefaultHashBuilder>": {
-      "isComponent": false,
-      "isResource": false,
-      "keyType": {
-        "type": {
-          "$ref": "#/$defs/bike_game::game::assets::SoundtrackKey"
-        }
-      },
-      "long_name": "bevy_utils::hashbrown::HashMap<bike_game::game::assets::SoundtrackKey, bevy_asset::handle::Handle<bevy_audio::audio_source::AudioSource>, bevy_utils::hashbrown::hash_map::DefaultHashBuilder>",
-      "short_name": "HashMap<SoundtrackKey, Handle<AudioSource>, DefaultHashBuilder>",
-      "type": "object",
-      "typeInfo": "Map",
-      "valueType": {
-        "type": {
-          "$ref": "#/$defs/bevy_asset::handle::Handle<bevy_audio::audio_source::AudioSource>"
-        }
-      }
-    },
     "bevy_utils::hashbrown::HashMap<petgraph::graph::NodeIndex, f32, bevy_utils::hashbrown::hash_map::DefaultHashBuilder>": {
       "isComponent": false,
       "isResource": false,
@@ -15157,65 +15124,6 @@
       "type": "string",
       "typeInfo": "Enum"
     },
-    "bike_game::game::assets::HandleMap<bike_game::game::assets::ImageKey>": {
-      "isComponent": false,
-      "isResource": true,
-      "items": false,
-      "long_name": "bike_game::game::assets::HandleMap<bike_game::game::assets::ImageKey>",
-      "prefixItems": [
-        {
-          "type": {
-            "$ref": "#/$defs/bevy_utils::hashbrown::HashMap<bike_game::game::assets::ImageKey, bevy_asset::handle::Handle<bevy_render::texture::image::Image>, bevy_utils::hashbrown::hash_map::DefaultHashBuilder>"
-          }
-        }
-      ],
-      "short_name": "HandleMap<ImageKey>",
-      "type": "array",
-      "typeInfo": "TupleStruct"
-    },
-    "bike_game::game::assets::HandleMap<bike_game::game::assets::SfxKey>": {
-      "isComponent": false,
-      "isResource": true,
-      "items": false,
-      "long_name": "bike_game::game::assets::HandleMap<bike_game::game::assets::SfxKey>",
-      "prefixItems": [
-        {
-          "type": {
-            "$ref": "#/$defs/bevy_utils::hashbrown::HashMap<bike_game::game::assets::SfxKey, bevy_asset::handle::Handle<bevy_audio::audio_source::AudioSource>, bevy_utils::hashbrown::hash_map::DefaultHashBuilder>"
-          }
-        }
-      ],
-      "short_name": "HandleMap<SfxKey>",
-      "type": "array",
-      "typeInfo": "TupleStruct"
-    },
-    "bike_game::game::assets::HandleMap<bike_game::game::assets::SoundtrackKey>": {
-      "isComponent": false,
-      "isResource": true,
-      "items": false,
-      "long_name": "bike_game::game::assets::HandleMap<bike_game::game::assets::SoundtrackKey>",
-      "prefixItems": [
-        {
-          "type": {
-            "$ref": "#/$defs/bevy_utils::hashbrown::HashMap<bike_game::game::assets::SoundtrackKey, bevy_asset::handle::Handle<bevy_audio::audio_source::AudioSource>, bevy_utils::hashbrown::hash_map::DefaultHashBuilder>"
-          }
-        }
-      ],
-      "short_name": "HandleMap<SoundtrackKey>",
-      "type": "array",
-      "typeInfo": "TupleStruct"
-    },
-    "bike_game::game::assets::ImageKey": {
-      "isComponent": false,
-      "isResource": false,
-      "long_name": "bike_game::game::assets::ImageKey",
-      "oneOf": [
-        "Ducky"
-      ],
-      "short_name": "ImageKey",
-      "type": "string",
-      "typeInfo": "Enum"
-    },
     "bike_game::game::assets::SfxKey": {
       "isComponent": false,
       "isResource": false,
@@ -15298,17 +15206,6 @@
       "properties": {},
       "required": [],
       "short_name": "WrapWithinWindow",
-      "type": "object",
-      "typeInfo": "Struct"
-    },
-    "bike_game::game::spawn::player::Player": {
-      "additionalProperties": false,
-      "isComponent": true,
-      "isResource": false,
-      "long_name": "bike_game::game::spawn::player::Player",
-      "properties": {},
-      "required": [],
-      "short_name": "Player",
       "type": "object",
       "typeInfo": "Struct"
     },
