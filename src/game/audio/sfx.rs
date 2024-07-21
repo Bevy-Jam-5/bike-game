@@ -34,6 +34,7 @@ fn play_sfx(trigger: Trigger<PlaySfx>, mut commands: Commands, sfx_handles: Res<
 #[derive(Event)]
 pub enum PlaySfx {
     Key(SfxKey),
+    #[allow(dead_code)]
     RandomStep,
 }
 
