@@ -8,6 +8,3 @@
 
 # Blender backup files
 *.blend1
-
-# Files exported from Blender
-*.glb
