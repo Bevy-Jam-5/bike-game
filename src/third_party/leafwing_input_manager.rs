@@ -12,7 +12,6 @@ pub(super) fn plugin(app: &mut App) {
 pub enum PlayerAction {
     PedalLeft,
     PedalRight,
-    RotateCamera,
 }
 
 #[derive(Actionlike, PartialEq, Eq, Clone, Copy, Hash, Debug, Reflect)]
