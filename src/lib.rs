@@ -2,6 +2,7 @@
 mod dev_tools;
 mod game;
 mod screen;
+mod third_party;
 mod ui;
 
 use bevy::{
@@ -53,7 +54,12 @@ impl Plugin for AppPlugin {
         );
 
         // Add other plugins.
-        app.add_plugins((game::plugin, screen::plugin, ui::plugin));
+        app.add_plugins((
+            game::plugin,
+            screen::plugin,
+            ui::plugin,
+            third_party::plugin,
+        ));
 
         // Enable dev tools for dev builds.
         #[cfg(feature = "dev")]
@@ -77,7 +83,10 @@ enum AppSet {
 fn spawn_camera(mut commands: Commands) {
     commands.spawn((
         Name::new("Camera"),
-        Camera2dBundle::default(),
+        Camera3dBundle {
+            transform: Transform::from_xyz(10.0, 5.0, -8.0).looking_at(Vec3::ZERO, Vec3::Y),
+            ..default()
+        },
         // Render all UI to this camera.
         // Not strictly necessary since we only use one camera,
         // but if we don't use this component, our UI will disappear as soon
