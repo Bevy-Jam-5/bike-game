@@ -1,8 +1,8 @@
-mod third_party;
 #[cfg(feature = "dev")]
 mod dev_tools;
 mod game;
 mod screen;
+mod third_party;
 mod ui;
 
 use bevy::{
@@ -54,7 +54,12 @@ impl Plugin for AppPlugin {
         );
 
         // Add other plugins.
-        app.add_plugins((game::plugin, screen::plugin, ui::plugin, third_party::plugin));
+        app.add_plugins((
+            game::plugin,
+            screen::plugin,
+            ui::plugin,
+            third_party::plugin,
+        ));
 
         // Enable dev tools for dev builds.
         #[cfg(feature = "dev")]
