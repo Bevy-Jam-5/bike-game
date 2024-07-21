@@ -15,6 +15,7 @@ bevy-inspector-egui = { version = "0.25.1", optional = true }
 bevy_asset_loader = { version = "0.21.0", features = ["3d", "progress_tracking"] }
 avian3d = "0.1.1"
 iyes_progress = "0.12.0"
+leafwing-input-manager = "0.14.0"
 
 [dependencies.log]
 version = "*"
@@ -39,6 +40,7 @@ dev_native = [
     "dev",
     # Enable asset hot reloading for native dev builds.
     "bevy/file_watcher",
+    "blenvy/file_watcher",
     # Enable embedded asset hot reloading for native dev builds.
     "bevy/embedded_watcher",
 ]

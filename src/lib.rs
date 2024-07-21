@@ -5,11 +5,13 @@ mod screen;
 mod third_party;
 mod ui;
 
+use crate::third_party::leafwing_input_manager::CameraAction;
 use bevy::{
     asset::AssetMetaCheck,
     audio::{AudioPlugin, Volume},
     prelude::*,
 };
+use leafwing_input_manager::prelude::*;
 
 pub struct AppPlugin;
 
@@ -87,6 +89,7 @@ fn spawn_camera(mut commands: Commands) {
             transform: Transform::from_xyz(10.0, 5.0, -8.0).looking_at(Vec3::ZERO, Vec3::Y),
             ..default()
         },
+        InputManagerBundle::with_map(CameraAction::default_input_map()),
         // Render all UI to this camera.
         // Not strictly necessary since we only use one camera,
         // but if we don't use this component, our UI will disappear as soon
