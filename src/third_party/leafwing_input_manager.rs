@@ -41,7 +41,7 @@ impl CameraAction {
         let mut input_map = InputMap::default();
 
         // Default gamepad input bindings
-        input_map.insert(CameraAction::RotateCamera, DualAxis::right_stick());
+        input_map.insert(CameraAction::RotateCamera, DualAxis::left_stick());
 
         // Default keyboard input bindings
         input_map.insert(CameraAction::RotateCamera, DualAxis::mouse_motion());
