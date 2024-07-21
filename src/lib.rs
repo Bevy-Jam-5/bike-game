@@ -4,6 +4,7 @@ mod game;
 mod screen;
 mod third_party;
 mod ui;
+mod util;
 
 use crate::third_party::leafwing_input_manager::CameraAction;
 use bevy::{

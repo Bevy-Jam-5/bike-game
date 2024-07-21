@@ -1,6 +1,7 @@
 use bevy::prelude::*;
 use leafwing_input_manager::prelude::*;
 
+use crate::game::movement::{LastPedal, PedalTimer};
 use crate::third_party::leafwing_input_manager::PlayerAction;
 
 pub(super) fn plugin(app: &mut App) {
@@ -13,9 +14,9 @@ pub(super) fn plugin(app: &mut App) {
 pub struct Player;
 
 fn on_player_spawn(trigger: Trigger<OnAdd, Player>, mut commands: Commands) {
-    commands
-        .entity(trigger.entity())
-        .insert(InputManagerBundle::with_map(
-            PlayerAction::default_input_map(),
-        ));
+    commands.entity(trigger.entity()).insert((
+        InputManagerBundle::with_map(PlayerAction::default_input_map()),
+        LastPedal::default(),
+        PedalTimer::default(),
+    ));
 }

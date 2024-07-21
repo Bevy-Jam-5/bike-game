@@ -52,6 +52,27 @@
       "type": "array",
       "typeInfo": "Tuple"
     },
+    "(bike_game::game::movement::LastPedal, bike_game::game::movement::PedalTimer)": {
+      "isComponent": false,
+      "isResource": false,
+      "items": false,
+      "long_name": "(bike_game::game::movement::LastPedal, bike_game::game::movement::PedalTimer)",
+      "prefixItems": [
+        {
+          "type": {
+            "$ref": "#/$defs/bike_game::game::movement::LastPedal"
+          }
+        },
+        {
+          "type": {
+            "$ref": "#/$defs/bike_game::game::movement::PedalTimer"
+          }
+        }
+      ],
+      "short_name": "(LastPedal, PedalTimer)",
+      "type": "array",
+      "typeInfo": "Tuple"
+    },
     "(u8, u8)": {
       "isComponent": false,
       "isResource": false,
@@ -359,6 +380,32 @@
       },
       "long_name": "alloc::vec::Vec<glam::Vec3>",
       "short_name": "Vec<Vec3>",
+      "type": "array",
+      "typeInfo": "List"
+    },
+    "alloc::vec::Vec<leafwing_input_manager::user_input::InputKind>": {
+      "isComponent": false,
+      "isResource": false,
+      "items": {
+        "type": {
+          "$ref": "#/$defs/leafwing_input_manager::user_input::InputKind"
+        }
+      },
+      "long_name": "alloc::vec::Vec<leafwing_input_manager::user_input::InputKind>",
+      "short_name": "Vec<InputKind>",
+      "type": "array",
+      "typeInfo": "List"
+    },
+    "alloc::vec::Vec<leafwing_input_manager::user_input::UserInput>": {
+      "isComponent": false,
+      "isResource": false,
+      "items": {
+        "type": {
+          "$ref": "#/$defs/leafwing_input_manager::user_input::UserInput"
+        }
+      },
+      "long_name": "alloc::vec::Vec<leafwing_input_manager::user_input::UserInput>",
+      "short_name": "Vec<UserInput>",
       "type": "array",
       "typeInfo": "List"
     },
@@ -14003,6 +14050,78 @@
         }
       }
     },
+    "bevy_utils::hashbrown::HashMap<bike_game::third_party::leafwing_input_manager::CameraAction, alloc::vec::Vec<leafwing_input_manager::user_input::UserInput>, bevy_utils::hashbrown::hash_map::DefaultHashBuilder>": {
+      "isComponent": false,
+      "isResource": false,
+      "keyType": {
+        "type": {
+          "$ref": "#/$defs/bike_game::third_party::leafwing_input_manager::CameraAction"
+        }
+      },
+      "long_name": "bevy_utils::hashbrown::HashMap<bike_game::third_party::leafwing_input_manager::CameraAction, alloc::vec::Vec<leafwing_input_manager::user_input::UserInput>, bevy_utils::hashbrown::hash_map::DefaultHashBuilder>",
+      "short_name": "HashMap<CameraAction, Vec<UserInput>, DefaultHashBuilder>",
+      "type": "object",
+      "typeInfo": "Map",
+      "valueType": {
+        "type": {
+          "$ref": "#/$defs/alloc::vec::Vec<leafwing_input_manager::user_input::UserInput>"
+        }
+      }
+    },
+    "bevy_utils::hashbrown::HashMap<bike_game::third_party::leafwing_input_manager::CameraAction, leafwing_input_manager::action_state::ActionData, bevy_utils::hashbrown::hash_map::DefaultHashBuilder>": {
+      "isComponent": false,
+      "isResource": false,
+      "keyType": {
+        "type": {
+          "$ref": "#/$defs/bike_game::third_party::leafwing_input_manager::CameraAction"
+        }
+      },
+      "long_name": "bevy_utils::hashbrown::HashMap<bike_game::third_party::leafwing_input_manager::CameraAction, leafwing_input_manager::action_state::ActionData, bevy_utils::hashbrown::hash_map::DefaultHashBuilder>",
+      "short_name": "HashMap<CameraAction, ActionData, DefaultHashBuilder>",
+      "type": "object",
+      "typeInfo": "Map",
+      "valueType": {
+        "type": {
+          "$ref": "#/$defs/leafwing_input_manager::action_state::ActionData"
+        }
+      }
+    },
+    "bevy_utils::hashbrown::HashMap<bike_game::third_party::leafwing_input_manager::PlayerAction, alloc::vec::Vec<leafwing_input_manager::user_input::UserInput>, bevy_utils::hashbrown::hash_map::DefaultHashBuilder>": {
+      "isComponent": false,
+      "isResource": false,
+      "keyType": {
+        "type": {
+          "$ref": "#/$defs/bike_game::third_party::leafwing_input_manager::PlayerAction"
+        }
+      },
+      "long_name": "bevy_utils::hashbrown::HashMap<bike_game::third_party::leafwing_input_manager::PlayerAction, alloc::vec::Vec<leafwing_input_manager::user_input::UserInput>, bevy_utils::hashbrown::hash_map::DefaultHashBuilder>",
+      "short_name": "HashMap<PlayerAction, Vec<UserInput>, DefaultHashBuilder>",
+      "type": "object",
+      "typeInfo": "Map",
+      "valueType": {
+        "type": {
+          "$ref": "#/$defs/alloc::vec::Vec<leafwing_input_manager::user_input::UserInput>"
+        }
+      }
+    },
+    "bevy_utils::hashbrown::HashMap<bike_game::third_party::leafwing_input_manager::PlayerAction, leafwing_input_manager::action_state::ActionData, bevy_utils::hashbrown::hash_map::DefaultHashBuilder>": {
+      "isComponent": false,
+      "isResource": false,
+      "keyType": {
+        "type": {
+          "$ref": "#/$defs/bike_game::third_party::leafwing_input_manager::PlayerAction"
+        }
+      },
+      "long_name": "bevy_utils::hashbrown::HashMap<bike_game::third_party::leafwing_input_manager::PlayerAction, leafwing_input_manager::action_state::ActionData, bevy_utils::hashbrown::hash_map::DefaultHashBuilder>",
+      "short_name": "HashMap<PlayerAction, ActionData, DefaultHashBuilder>",
+      "type": "object",
+      "typeInfo": "Map",
+      "valueType": {
+        "type": {
+          "$ref": "#/$defs/leafwing_input_manager::action_state::ActionData"
+        }
+      }
+    },
     "bevy_utils::hashbrown::HashMap<petgraph::graph::NodeIndex, f32, bevy_utils::hashbrown::hash_map::DefaultHashBuilder>": {
       "isComponent": false,
       "isResource": false,
@@ -15099,6 +15218,46 @@
       "type": "object",
       "typeInfo": "Struct"
     },
+    "bike_game::game::movement::LastPedal": {
+      "isComponent": true,
+      "isResource": false,
+      "long_name": "bike_game::game::movement::LastPedal",
+      "oneOf": [
+        "Left",
+        "Right",
+        "None"
+      ],
+      "short_name": "LastPedal",
+      "type": "string",
+      "typeInfo": "Enum"
+    },
+    "bike_game::game::movement::PedalTimer": {
+      "isComponent": true,
+      "isResource": false,
+      "items": false,
+      "long_name": "bike_game::game::movement::PedalTimer",
+      "prefixItems": [
+        {
+          "type": {
+            "$ref": "#/$defs/bevy_time::timer::Timer"
+          }
+        }
+      ],
+      "short_name": "PedalTimer",
+      "type": "array",
+      "typeInfo": "TupleStruct"
+    },
+    "bike_game::game::spawn::player::Player": {
+      "additionalProperties": false,
+      "isComponent": true,
+      "isResource": false,
+      "long_name": "bike_game::game::spawn::player::Player",
+      "properties": {},
+      "required": [],
+      "short_name": "Player",
+      "type": "object",
+      "typeInfo": "Struct"
+    },
     "bike_game::screen::credits::CreditsAction": {
       "isComponent": true,
       "isResource": false,
@@ -15136,6 +15295,29 @@
         "Exit"
       ],
       "short_name": "TitleAction",
+      "type": "string",
+      "typeInfo": "Enum"
+    },
+    "bike_game::third_party::leafwing_input_manager::CameraAction": {
+      "isComponent": false,
+      "isResource": false,
+      "long_name": "bike_game::third_party::leafwing_input_manager::CameraAction",
+      "oneOf": [
+        "RotateCamera"
+      ],
+      "short_name": "CameraAction",
+      "type": "string",
+      "typeInfo": "Enum"
+    },
+    "bike_game::third_party::leafwing_input_manager::PlayerAction": {
+      "isComponent": false,
+      "isResource": false,
+      "long_name": "bike_game::third_party::leafwing_input_manager::PlayerAction",
+      "oneOf": [
+        "PedalLeft",
+        "PedalRight"
+      ],
+      "short_name": "PlayerAction",
       "type": "string",
       "typeInfo": "Enum"
     },
@@ -16007,6 +16189,33 @@
       "type": "object",
       "typeInfo": "Enum"
     },
+    "core::option::Option<bevy_input::gamepad::Gamepad>": {
+      "isComponent": false,
+      "isResource": false,
+      "long_name": "core::option::Option<bevy_input::gamepad::Gamepad>",
+      "oneOf": [
+        {
+          "long_name": "None"
+        },
+        {
+          "items": false,
+          "long_name": "Some",
+          "prefixItems": [
+            {
+              "type": {
+                "$ref": "#/$defs/bevy_input::gamepad::Gamepad"
+              }
+            }
+          ],
+          "short_name": "Some",
+          "type": "array",
+          "typeInfo": "Tuple"
+        }
+      ],
+      "short_name": "Option<Gamepad>",
+      "type": "object",
+      "typeInfo": "Enum"
+    },
     "core::option::Option<bevy_input::touch::ForceTouch>": {
       "isComponent": false,
       "isResource": false,
@@ -16436,6 +16645,33 @@
         }
       ],
       "short_name": "Option<Vec2>",
+      "type": "object",
+      "typeInfo": "Enum"
+    },
+    "core::option::Option<leafwing_input_manager::axislike::DualAxisData>": {
+      "isComponent": false,
+      "isResource": false,
+      "long_name": "core::option::Option<leafwing_input_manager::axislike::DualAxisData>",
+      "oneOf": [
+        {
+          "long_name": "None"
+        },
+        {
+          "items": false,
+          "long_name": "Some",
+          "prefixItems": [
+            {
+              "type": {
+                "$ref": "#/$defs/leafwing_input_manager::axislike::DualAxisData"
+              }
+            }
+          ],
+          "short_name": "Some",
+          "type": "array",
+          "typeInfo": "Tuple"
+        }
+      ],
+      "short_name": "Option<DualAxisData>",
       "type": "object",
       "typeInfo": "Enum"
     },
@@ -17432,6 +17668,704 @@
       "short_name": "isize",
       "type": "int",
       "typeInfo": "Value"
+    },
+    "leafwing_input_manager::action_state::ActionData": {
+      "additionalProperties": false,
+      "isComponent": false,
+      "isResource": false,
+      "long_name": "leafwing_input_manager::action_state::ActionData",
+      "properties": {
+        "axis_pair": {
+          "type": {
+            "$ref": "#/$defs/core::option::Option<leafwing_input_manager::axislike::DualAxisData>"
+          }
+        },
+        "consumed": {
+          "type": {
+            "$ref": "#/$defs/bool"
+          }
+        },
+        "state": {
+          "type": {
+            "$ref": "#/$defs/leafwing_input_manager::buttonlike::ButtonState"
+          }
+        },
+        "timing": {
+          "type": {
+            "$ref": "#/$defs/leafwing_input_manager::timing::Timing"
+          }
+        },
+        "value": {
+          "type": {
+            "$ref": "#/$defs/f32"
+          }
+        }
+      },
+      "required": [
+        "state",
+        "value",
+        "timing",
+        "consumed"
+      ],
+      "short_name": "ActionData",
+      "type": "object",
+      "typeInfo": "Struct"
+    },
+    "leafwing_input_manager::action_state::ActionState<bike_game::third_party::leafwing_input_manager::CameraAction>": {
+      "additionalProperties": false,
+      "isComponent": false,
+      "isResource": false,
+      "long_name": "leafwing_input_manager::action_state::ActionState<bike_game::third_party::leafwing_input_manager::CameraAction>",
+      "properties": {
+        "action_data": {
+          "type": {
+            "$ref": "#/$defs/bevy_utils::hashbrown::HashMap<bike_game::third_party::leafwing_input_manager::CameraAction, leafwing_input_manager::action_state::ActionData, bevy_utils::hashbrown::hash_map::DefaultHashBuilder>"
+          }
+        }
+      },
+      "required": [
+        "action_data"
+      ],
+      "short_name": "ActionState<CameraAction>",
+      "type": "object",
+      "typeInfo": "Struct"
+    },
+    "leafwing_input_manager::action_state::ActionState<bike_game::third_party::leafwing_input_manager::PlayerAction>": {
+      "additionalProperties": false,
+      "isComponent": false,
+      "isResource": false,
+      "long_name": "leafwing_input_manager::action_state::ActionState<bike_game::third_party::leafwing_input_manager::PlayerAction>",
+      "properties": {
+        "action_data": {
+          "type": {
+            "$ref": "#/$defs/bevy_utils::hashbrown::HashMap<bike_game::third_party::leafwing_input_manager::PlayerAction, leafwing_input_manager::action_state::ActionData, bevy_utils::hashbrown::hash_map::DefaultHashBuilder>"
+          }
+        }
+      },
+      "required": [
+        "action_data"
+      ],
+      "short_name": "ActionState<PlayerAction>",
+      "type": "object",
+      "typeInfo": "Struct"
+    },
+    "leafwing_input_manager::axislike::AxisType": {
+      "isComponent": false,
+      "isResource": false,
+      "long_name": "leafwing_input_manager::axislike::AxisType",
+      "oneOf": [
+        {
+          "items": false,
+          "long_name": "Gamepad",
+          "prefixItems": [
+            {
+              "type": {
+                "$ref": "#/$defs/bevy_input::gamepad::GamepadAxisType"
+              }
+            }
+          ],
+          "short_name": "Gamepad",
+          "type": "array",
+          "typeInfo": "Tuple"
+        },
+        {
+          "items": false,
+          "long_name": "MouseWheel",
+          "prefixItems": [
+            {
+              "type": {
+                "$ref": "#/$defs/leafwing_input_manager::axislike::MouseWheelAxisType"
+              }
+            }
+          ],
+          "short_name": "MouseWheel",
+          "type": "array",
+          "typeInfo": "Tuple"
+        },
+        {
+          "items": false,
+          "long_name": "MouseMotion",
+          "prefixItems": [
+            {
+              "type": {
+                "$ref": "#/$defs/leafwing_input_manager::axislike::MouseMotionAxisType"
+              }
+            }
+          ],
+          "short_name": "MouseMotion",
+          "type": "array",
+          "typeInfo": "Tuple"
+        }
+      ],
+      "short_name": "AxisType",
+      "type": "object",
+      "typeInfo": "Enum"
+    },
+    "leafwing_input_manager::axislike::DeadZoneShape": {
+      "isComponent": false,
+      "isResource": false,
+      "long_name": "leafwing_input_manager::axislike::DeadZoneShape",
+      "oneOf": [
+        {
+          "additionalProperties": false,
+          "long_name": "Cross",
+          "properties": {
+            "horizontal_width": {
+              "long_name": "horizontal_width",
+              "type": {
+                "$ref": "#/$defs/f32"
+              }
+            },
+            "vertical_width": {
+              "long_name": "vertical_width",
+              "type": {
+                "$ref": "#/$defs/f32"
+              }
+            }
+          },
+          "required": [
+            "horizontal_width",
+            "vertical_width"
+          ],
+          "short_name": "Cross",
+          "type": "object",
+          "typeInfo": "Struct"
+        },
+        {
+          "additionalProperties": false,
+          "long_name": "Ellipse",
+          "properties": {
+            "radius_x": {
+              "long_name": "radius_x",
+              "type": {
+                "$ref": "#/$defs/f32"
+              }
+            },
+            "radius_y": {
+              "long_name": "radius_y",
+              "type": {
+                "$ref": "#/$defs/f32"
+              }
+            }
+          },
+          "required": [
+            "radius_x",
+            "radius_y"
+          ],
+          "short_name": "Ellipse",
+          "type": "object",
+          "typeInfo": "Struct"
+        }
+      ],
+      "short_name": "DeadZoneShape",
+      "type": "object",
+      "typeInfo": "Enum"
+    },
+    "leafwing_input_manager::axislike::DualAxis": {
+      "additionalProperties": false,
+      "isComponent": false,
+      "isResource": false,
+      "long_name": "leafwing_input_manager::axislike::DualAxis",
+      "properties": {
+        "deadzone": {
+          "type": {
+            "$ref": "#/$defs/leafwing_input_manager::axislike::DeadZoneShape"
+          }
+        },
+        "x": {
+          "type": {
+            "$ref": "#/$defs/leafwing_input_manager::axislike::SingleAxis"
+          }
+        },
+        "y": {
+          "type": {
+            "$ref": "#/$defs/leafwing_input_manager::axislike::SingleAxis"
+          }
+        }
+      },
+      "required": [
+        "x",
+        "y",
+        "deadzone"
+      ],
+      "short_name": "DualAxis",
+      "type": "object",
+      "typeInfo": "Struct"
+    },
+    "leafwing_input_manager::axislike::DualAxisData": {
+      "additionalProperties": false,
+      "isComponent": false,
+      "isResource": false,
+      "long_name": "leafwing_input_manager::axislike::DualAxisData",
+      "properties": {
+        "xy": {
+          "type": {
+            "$ref": "#/$defs/glam::Vec2"
+          }
+        }
+      },
+      "required": [
+        "xy"
+      ],
+      "short_name": "DualAxisData",
+      "type": "object",
+      "typeInfo": "Struct"
+    },
+    "leafwing_input_manager::axislike::MouseMotionAxisType": {
+      "isComponent": false,
+      "isResource": false,
+      "long_name": "leafwing_input_manager::axislike::MouseMotionAxisType",
+      "oneOf": [
+        "X",
+        "Y"
+      ],
+      "short_name": "MouseMotionAxisType",
+      "type": "string",
+      "typeInfo": "Enum"
+    },
+    "leafwing_input_manager::axislike::MouseWheelAxisType": {
+      "isComponent": false,
+      "isResource": false,
+      "long_name": "leafwing_input_manager::axislike::MouseWheelAxisType",
+      "oneOf": [
+        "X",
+        "Y"
+      ],
+      "short_name": "MouseWheelAxisType",
+      "type": "string",
+      "typeInfo": "Enum"
+    },
+    "leafwing_input_manager::axislike::SingleAxis": {
+      "additionalProperties": false,
+      "isComponent": false,
+      "isResource": false,
+      "long_name": "leafwing_input_manager::axislike::SingleAxis",
+      "properties": {
+        "axis_type": {
+          "type": {
+            "$ref": "#/$defs/leafwing_input_manager::axislike::AxisType"
+          }
+        },
+        "inverted": {
+          "type": {
+            "$ref": "#/$defs/bool"
+          }
+        },
+        "negative_low": {
+          "type": {
+            "$ref": "#/$defs/f32"
+          }
+        },
+        "positive_low": {
+          "type": {
+            "$ref": "#/$defs/f32"
+          }
+        },
+        "sensitivity": {
+          "type": {
+            "$ref": "#/$defs/f32"
+          }
+        },
+        "value": {
+          "type": {
+            "$ref": "#/$defs/core::option::Option<f32>"
+          }
+        }
+      },
+      "required": [
+        "axis_type",
+        "positive_low",
+        "negative_low",
+        "inverted",
+        "sensitivity"
+      ],
+      "short_name": "SingleAxis",
+      "type": "object",
+      "typeInfo": "Struct"
+    },
+    "leafwing_input_manager::axislike::VirtualAxis": {
+      "additionalProperties": false,
+      "isComponent": false,
+      "isResource": false,
+      "long_name": "leafwing_input_manager::axislike::VirtualAxis",
+      "properties": {
+        "negative": {
+          "type": {
+            "$ref": "#/$defs/leafwing_input_manager::user_input::InputKind"
+          }
+        },
+        "positive": {
+          "type": {
+            "$ref": "#/$defs/leafwing_input_manager::user_input::InputKind"
+          }
+        }
+      },
+      "required": [
+        "negative",
+        "positive"
+      ],
+      "short_name": "VirtualAxis",
+      "type": "object",
+      "typeInfo": "Struct"
+    },
+    "leafwing_input_manager::axislike::VirtualDPad": {
+      "additionalProperties": false,
+      "isComponent": false,
+      "isResource": false,
+      "long_name": "leafwing_input_manager::axislike::VirtualDPad",
+      "properties": {
+        "down": {
+          "type": {
+            "$ref": "#/$defs/leafwing_input_manager::user_input::InputKind"
+          }
+        },
+        "left": {
+          "type": {
+            "$ref": "#/$defs/leafwing_input_manager::user_input::InputKind"
+          }
+        },
+        "right": {
+          "type": {
+            "$ref": "#/$defs/leafwing_input_manager::user_input::InputKind"
+          }
+        },
+        "up": {
+          "type": {
+            "$ref": "#/$defs/leafwing_input_manager::user_input::InputKind"
+          }
+        }
+      },
+      "required": [
+        "up",
+        "down",
+        "left",
+        "right"
+      ],
+      "short_name": "VirtualDPad",
+      "type": "object",
+      "typeInfo": "Struct"
+    },
+    "leafwing_input_manager::buttonlike::ButtonState": {
+      "isComponent": false,
+      "isResource": false,
+      "long_name": "leafwing_input_manager::buttonlike::ButtonState",
+      "oneOf": [
+        "JustPressed",
+        "Pressed",
+        "JustReleased",
+        "Released"
+      ],
+      "short_name": "ButtonState",
+      "type": "string",
+      "typeInfo": "Enum"
+    },
+    "leafwing_input_manager::buttonlike::MouseMotionDirection": {
+      "isComponent": false,
+      "isResource": false,
+      "long_name": "leafwing_input_manager::buttonlike::MouseMotionDirection",
+      "oneOf": [
+        "Up",
+        "Down",
+        "Right",
+        "Left"
+      ],
+      "short_name": "MouseMotionDirection",
+      "type": "string",
+      "typeInfo": "Enum"
+    },
+    "leafwing_input_manager::buttonlike::MouseWheelDirection": {
+      "isComponent": false,
+      "isResource": false,
+      "long_name": "leafwing_input_manager::buttonlike::MouseWheelDirection",
+      "oneOf": [
+        "Up",
+        "Down",
+        "Right",
+        "Left"
+      ],
+      "short_name": "MouseWheelDirection",
+      "type": "string",
+      "typeInfo": "Enum"
+    },
+    "leafwing_input_manager::input_map::InputMap<bike_game::third_party::leafwing_input_manager::CameraAction>": {
+      "additionalProperties": false,
+      "isComponent": false,
+      "isResource": false,
+      "long_name": "leafwing_input_manager::input_map::InputMap<bike_game::third_party::leafwing_input_manager::CameraAction>",
+      "properties": {
+        "associated_gamepad": {
+          "type": {
+            "$ref": "#/$defs/core::option::Option<bevy_input::gamepad::Gamepad>"
+          }
+        },
+        "map": {
+          "type": {
+            "$ref": "#/$defs/bevy_utils::hashbrown::HashMap<bike_game::third_party::leafwing_input_manager::CameraAction, alloc::vec::Vec<leafwing_input_manager::user_input::UserInput>, bevy_utils::hashbrown::hash_map::DefaultHashBuilder>"
+          }
+        }
+      },
+      "required": [
+        "map"
+      ],
+      "short_name": "InputMap<CameraAction>",
+      "type": "object",
+      "typeInfo": "Struct"
+    },
+    "leafwing_input_manager::input_map::InputMap<bike_game::third_party::leafwing_input_manager::PlayerAction>": {
+      "additionalProperties": false,
+      "isComponent": false,
+      "isResource": false,
+      "long_name": "leafwing_input_manager::input_map::InputMap<bike_game::third_party::leafwing_input_manager::PlayerAction>",
+      "properties": {
+        "associated_gamepad": {
+          "type": {
+            "$ref": "#/$defs/core::option::Option<bevy_input::gamepad::Gamepad>"
+          }
+        },
+        "map": {
+          "type": {
+            "$ref": "#/$defs/bevy_utils::hashbrown::HashMap<bike_game::third_party::leafwing_input_manager::PlayerAction, alloc::vec::Vec<leafwing_input_manager::user_input::UserInput>, bevy_utils::hashbrown::hash_map::DefaultHashBuilder>"
+          }
+        }
+      },
+      "required": [
+        "map"
+      ],
+      "short_name": "InputMap<PlayerAction>",
+      "type": "object",
+      "typeInfo": "Struct"
+    },
+    "leafwing_input_manager::timing::Timing": {
+      "additionalProperties": false,
+      "isComponent": false,
+      "isResource": false,
+      "long_name": "leafwing_input_manager::timing::Timing",
+      "properties": {
+        "current_duration": {
+          "type": {
+            "$ref": "#/$defs/bevy_utils::Duration"
+          }
+        },
+        "instant_started": {
+          "type": {
+            "$ref": "#/$defs/core::option::Option<bevy_utils::Instant>"
+          }
+        },
+        "previous_duration": {
+          "type": {
+            "$ref": "#/$defs/bevy_utils::Duration"
+          }
+        }
+      },
+      "required": [
+        "current_duration",
+        "previous_duration"
+      ],
+      "short_name": "Timing",
+      "type": "object",
+      "typeInfo": "Struct"
+    },
+    "leafwing_input_manager::user_input::InputKind": {
+      "isComponent": false,
+      "isResource": false,
+      "long_name": "leafwing_input_manager::user_input::InputKind",
+      "oneOf": [
+        {
+          "items": false,
+          "long_name": "GamepadButton",
+          "prefixItems": [
+            {
+              "type": {
+                "$ref": "#/$defs/bevy_input::gamepad::GamepadButtonType"
+              }
+            }
+          ],
+          "short_name": "GamepadButton",
+          "type": "array",
+          "typeInfo": "Tuple"
+        },
+        {
+          "items": false,
+          "long_name": "SingleAxis",
+          "prefixItems": [
+            {
+              "type": {
+                "$ref": "#/$defs/leafwing_input_manager::axislike::SingleAxis"
+              }
+            }
+          ],
+          "short_name": "SingleAxis",
+          "type": "array",
+          "typeInfo": "Tuple"
+        },
+        {
+          "items": false,
+          "long_name": "DualAxis",
+          "prefixItems": [
+            {
+              "type": {
+                "$ref": "#/$defs/leafwing_input_manager::axislike::DualAxis"
+              }
+            }
+          ],
+          "short_name": "DualAxis",
+          "type": "array",
+          "typeInfo": "Tuple"
+        },
+        {
+          "items": false,
+          "long_name": "PhysicalKey",
+          "prefixItems": [
+            {
+              "type": {
+                "$ref": "#/$defs/bevy_input::keyboard::KeyCode"
+              }
+            }
+          ],
+          "short_name": "PhysicalKey",
+          "type": "array",
+          "typeInfo": "Tuple"
+        },
+        {
+          "items": false,
+          "long_name": "Modifier",
+          "prefixItems": [
+            {
+              "type": {
+                "$ref": "#/$defs/leafwing_input_manager::user_input::Modifier"
+              }
+            }
+          ],
+          "short_name": "Modifier",
+          "type": "array",
+          "typeInfo": "Tuple"
+        },
+        {
+          "items": false,
+          "long_name": "Mouse",
+          "prefixItems": [
+            {
+              "type": {
+                "$ref": "#/$defs/bevy_input::mouse::MouseButton"
+              }
+            }
+          ],
+          "short_name": "Mouse",
+          "type": "array",
+          "typeInfo": "Tuple"
+        },
+        {
+          "items": false,
+          "long_name": "MouseWheel",
+          "prefixItems": [
+            {
+              "type": {
+                "$ref": "#/$defs/leafwing_input_manager::buttonlike::MouseWheelDirection"
+              }
+            }
+          ],
+          "short_name": "MouseWheel",
+          "type": "array",
+          "typeInfo": "Tuple"
+        },
+        {
+          "items": false,
+          "long_name": "MouseMotion",
+          "prefixItems": [
+            {
+              "type": {
+                "$ref": "#/$defs/leafwing_input_manager::buttonlike::MouseMotionDirection"
+              }
+            }
+          ],
+          "short_name": "MouseMotion",
+          "type": "array",
+          "typeInfo": "Tuple"
+        }
+      ],
+      "short_name": "InputKind",
+      "type": "object",
+      "typeInfo": "Enum"
+    },
+    "leafwing_input_manager::user_input::Modifier": {
+      "isComponent": false,
+      "isResource": false,
+      "long_name": "leafwing_input_manager::user_input::Modifier",
+      "oneOf": [
+        "Alt",
+        "Control",
+        "Shift",
+        "Super"
+      ],
+      "short_name": "Modifier",
+      "type": "string",
+      "typeInfo": "Enum"
+    },
+    "leafwing_input_manager::user_input::UserInput": {
+      "isComponent": false,
+      "isResource": false,
+      "long_name": "leafwing_input_manager::user_input::UserInput",
+      "oneOf": [
+        {
+          "items": false,
+          "long_name": "Single",
+          "prefixItems": [
+            {
+              "type": {
+                "$ref": "#/$defs/leafwing_input_manager::user_input::InputKind"
+              }
+            }
+          ],
+          "short_name": "Single",
+          "type": "array",
+          "typeInfo": "Tuple"
+        },
+        {
+          "items": false,
+          "long_name": "Chord",
+          "prefixItems": [
+            {
+              "type": {
+                "$ref": "#/$defs/alloc::vec::Vec<leafwing_input_manager::user_input::InputKind>"
+              }
+            }
+          ],
+          "short_name": "Chord",
+          "type": "array",
+          "typeInfo": "Tuple"
+        },
+        {
+          "items": false,
+          "long_name": "VirtualDPad",
+          "prefixItems": [
+            {
+              "type": {
+                "$ref": "#/$defs/leafwing_input_manager::axislike::VirtualDPad"
+              }
+            }
+          ],
+          "short_name": "VirtualDPad",
+          "type": "array",
+          "typeInfo": "Tuple"
+        },
+        {
+          "items": false,
+          "long_name": "VirtualAxis",
+          "prefixItems": [
+            {
+              "type": {
+                "$ref": "#/$defs/leafwing_input_manager::axislike::VirtualAxis"
+              }
+            }
+          ],
+          "short_name": "VirtualAxis",
+          "type": "array",
+          "typeInfo": "Tuple"
+        }
+      ],
+      "short_name": "UserInput",
+      "type": "object",
+      "typeInfo": "Enum"
     },
     "petgraph::graph::DiGraph<bevy_animation::graph::AnimationGraphNode, (), u32>": {
       "isComponent": false,
