@@ -52,11 +52,11 @@
       "type": "array",
       "typeInfo": "Tuple"
     },
-    "(bike_game::game::movement::LastPedal, bike_game::game::movement::PedalTimer)": {
+    "(bike_game::game::movement::LastPedal, bike_game::game::movement::PedalTimer, bike_game::game::movement::DesiredVelocity)": {
       "isComponent": false,
       "isResource": false,
       "items": false,
-      "long_name": "(bike_game::game::movement::LastPedal, bike_game::game::movement::PedalTimer)",
+      "long_name": "(bike_game::game::movement::LastPedal, bike_game::game::movement::PedalTimer, bike_game::game::movement::DesiredVelocity)",
       "prefixItems": [
         {
           "type": {
@@ -67,9 +67,14 @@
           "type": {
             "$ref": "#/$defs/bike_game::game::movement::PedalTimer"
           }
+        },
+        {
+          "type": {
+            "$ref": "#/$defs/bike_game::game::movement::DesiredVelocity"
+          }
         }
       ],
-      "short_name": "(LastPedal, PedalTimer)",
+      "short_name": "(LastPedal, PedalTimer, DesiredVelocity)",
       "type": "array",
       "typeInfo": "Tuple"
     },
@@ -15407,6 +15412,22 @@
       "short_name": "IsSoundtrack",
       "type": "object",
       "typeInfo": "Struct"
+    },
+    "bike_game::game::movement::DesiredVelocity": {
+      "isComponent": true,
+      "isResource": false,
+      "items": false,
+      "long_name": "bike_game::game::movement::DesiredVelocity",
+      "prefixItems": [
+        {
+          "type": {
+            "$ref": "#/$defs/glam::Vec3"
+          }
+        }
+      ],
+      "short_name": "DesiredVelocity",
+      "type": "array",
+      "typeInfo": "TupleStruct"
     },
     "bike_game::game::movement::LastPedal": {
       "isComponent": true,
