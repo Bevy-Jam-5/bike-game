@@ -1,29 +1,33 @@
-use crate::third_party::leafwing_input_manager::CameraAction;
 use crate::util::{single, single_mut};
+use crate::{third_party::leafwing_input_manager::CameraAction, FixedAppSet};
+use avian3d::prelude::*;
 use bevy::prelude::*;
 use leafwing_input_manager::prelude::*;
 
 use super::spawn::{first_person_camera::FirstPersonCamera, player::Player};
 
 pub(super) fn plugin(app: &mut App) {
-    app.add_systems(FixedUpdate, (follow_player, rotate_camera).chain());
+    app.add_systems(
+        FixedUpdate,
+        (rotate_camera, clamp_rotation)
+            .chain()
+            .in_set(FixedAppSet::CameraMovement),
+    );
+    app.add_systems(
+        PostUpdate,
+        follow_player
+            .after(PhysicsSet::Sync)
+            .before(TransformSystem::TransformPropagate),
+    );
 }
 
 fn follow_player(
-    time: Res<Time>,
     q_player: Query<&Transform, (With<Player>, Without<FirstPersonCamera>)>,
     mut q_camera: Query<&mut Transform, With<FirstPersonCamera>>,
 ) {
     let player_transform = single!(q_player);
     let mut camera_transform = single_mut!(q_camera);
-    let dt = time.delta_seconds();
-
-    let start = camera_transform.translation;
-    let target = player_transform.translation;
-    const DECAY_RATE: f32 = 2.0;
-
-    // Source: <https://github.com/bevyengine/bevy/blob/08d3497d87f02005603116866ec6730fb05a7445/crates/bevy_math/src/common_traits.rs#L259C9-L259C85>
-    camera_transform.translation = start.lerp(target, 1.0 - f32::exp(-DECAY_RATE * dt));
+    camera_transform.translation = player_transform.translation;
 }
 
 fn rotate_camera(mut q_camera: Query<(&mut Transform, &ActionState<CameraAction>)>) {
@@ -33,5 +37,17 @@ fn rotate_camera(mut q_camera: Query<(&mut Transform, &ActionState<CameraAction>
         let pitch = -axis.y() * 0.002;
         transform.rotate_y(yaw);
         transform.rotate_local_x(pitch);
+    }
+}
+
+fn clamp_rotation(mut q_camera: Query<&mut Transform, With<FirstPersonCamera>>) {
+    let mut transform = single_mut!(q_camera);
+    let (yaw, pitch, roll) = transform.rotation.to_euler(EulerRot::YXZ);
+    const MAX_PITCH: f32 = 0.5;
+    const MIN_PITCH: f32 = -0.5;
+    if pitch > MAX_PITCH {
+        transform.rotation = Quat::from_rotation_x(MAX_PITCH);
+    } else if pitch < MIN_PITCH {
+        transform.rotation = Quat::from_rotation_x(MIN_PITCH);
     }
 }

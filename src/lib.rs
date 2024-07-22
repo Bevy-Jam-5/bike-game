@@ -23,6 +23,11 @@ impl Plugin for AppPlugin {
             (AppSet::TickTimers, AppSet::RecordInput, AppSet::Update).chain(),
         );
 
+        app.configure_sets(
+            FixedUpdate,
+            (FixedAppSet::CameraMovement, FixedAppSet::ControllerMovement).chain(),
+        );
+
         // Spawn the main camera.
         app.add_systems(Startup, spawn_camera);
 
@@ -80,6 +85,12 @@ enum AppSet {
     RecordInput,
     /// Do everything else (consider splitting this into further variants).
     Update,
+}
+
+#[derive(SystemSet, Debug, Clone, Copy, Eq, PartialEq, Hash)]
+enum FixedAppSet {
+    CameraMovement,
+    ControllerMovement,
 }
 
 fn spawn_camera(mut commands: Commands) {

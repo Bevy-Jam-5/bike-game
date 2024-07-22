@@ -13,7 +13,6 @@ pub(super) fn plugin(app: &mut App) {
 pub struct SpawnLevel;
 
 fn spawn_level(_trigger: Trigger<SpawnLevel>, mut commands: Commands) {
-    // here we spawn our game world/level, which is also a blueprint !
     commands.spawn((
         Name::new("Level"),
         BlueprintInfo::from_path("levels/World.glb"),
