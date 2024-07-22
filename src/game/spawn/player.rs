@@ -1,7 +1,8 @@
 use bevy::prelude::*;
+use bevy_tnua::controller::TnuaControllerBundle;
 use leafwing_input_manager::prelude::*;
 
-use crate::game::movement::{LastPedal, PedalTimer};
+use crate::game::movement::{LastPedal, PedalTimer, PlayerMovement};
 use crate::third_party::leafwing_input_manager::PlayerAction;
 
 pub(super) fn plugin(app: &mut App) {
@@ -18,5 +19,7 @@ fn on_player_spawn(trigger: Trigger<OnAdd, Player>, mut commands: Commands) {
         InputManagerBundle::with_map(PlayerAction::default_input_map()),
         LastPedal::default(),
         PedalTimer::default(),
+        PlayerMovement::default(),
+        TnuaControllerBundle::default(),
     ));
 }
