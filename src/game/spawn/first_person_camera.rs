@@ -6,7 +6,10 @@ use leafwing_input_manager::prelude::*;
 use crate::screen::Screen;
 use crate::third_party::leafwing_input_manager::CameraAction;
 
-use super::ui_camera::{SpawnUiCamera, UiCamera};
+use super::{
+    player::Player,
+    ui_camera::{SpawnUiCamera, UiCamera},
+};
 
 pub(super) fn plugin(app: &mut App) {
     app.register_type::<FirstPersonCamera>();
@@ -27,11 +30,14 @@ fn spawn_first_person_camera(
     _trigger: Trigger<SpawnFirstPersonCamera>,
     mut commands: Commands,
     ui_camera: Query<Entity, With<UiCamera>>,
+    q_player: Query<&Transform, With<Player>>,
 ) {
+    let transform = q_player.get_single().copied().unwrap_or_default();
     commands
         .spawn((
             Name::new("First Person Camera"),
             InputManagerBundle::with_map(CameraAction::default_input_map()),
+            SpatialBundle::from_transform(transform),
             StateScoped(Screen::Playing),
             FirstPersonCamera,
         ))
