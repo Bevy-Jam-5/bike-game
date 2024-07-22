@@ -14,7 +14,8 @@ use super::{
 pub(super) fn plugin(app: &mut App) {
     app.register_type::<FirstPersonCamera>();
     app.observe(spawn_first_person_camera);
-    app.observe(on_despawn_first_person_camera);
+    app.observe(despawn_ui_camera);
+    app.observe(spawn_ui_camera);
 }
 
 pub const VIEW_MODEL_RENDER_LAYER: usize = 1;
@@ -29,7 +30,6 @@ pub struct SpawnFirstPersonCamera;
 fn spawn_first_person_camera(
     _trigger: Trigger<SpawnFirstPersonCamera>,
     mut commands: Commands,
-    ui_camera: Query<Entity, With<UiCamera>>,
     q_player: Query<&Transform, With<Player>>,
 ) {
     let transform = q_player.get_single().copied().unwrap_or_default();
@@ -72,14 +72,18 @@ fn spawn_first_person_camera(
                 RenderLayers::layer(VIEW_MODEL_RENDER_LAYER),
             ));
         });
+}
+
+fn despawn_ui_camera(
+    _trigger: Trigger<SpawnFirstPersonCamera>,
+    ui_camera: Query<Entity, With<UiCamera>>,
+    mut commands: Commands,
+) {
     for entity in &ui_camera {
         commands.entity(entity).despawn_recursive();
     }
 }
 
-fn on_despawn_first_person_camera(
-    _trigger: Trigger<OnRemove, FirstPersonCamera>,
-    mut commands: Commands,
-) {
+fn spawn_ui_camera(_trigger: Trigger<OnRemove, FirstPersonCamera>, mut commands: Commands) {
     commands.trigger(SpawnUiCamera);
 }
