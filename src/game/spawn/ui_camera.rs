@@ -20,6 +20,6 @@ fn spawn_ui_camera(_trigger: Trigger<SpawnUiCamera>, mut commands: Commands) {
         Camera2dBundle::default(),
         // Render all UI to this camera.
         IsDefaultUiCamera,
-        UiCamera
+        UiCamera,
     ));
 }
