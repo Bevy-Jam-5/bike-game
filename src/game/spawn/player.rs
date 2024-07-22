@@ -2,8 +2,10 @@ use bevy::prelude::*;
 use bevy_tnua::controller::TnuaControllerBundle;
 use leafwing_input_manager::prelude::*;
 
-use crate::game::movement::{LastPedal, PedalTimer, PlayerMovement};
+use crate::game::movement::{DesiredVelocity, LastPedal, PedalTimer, PlayerMovement};
 use crate::third_party::leafwing_input_manager::PlayerAction;
+
+use super::first_person_camera::SpawnFirstPersonCamera;
 
 pub(super) fn plugin(app: &mut App) {
     app.register_type::<Player>();
@@ -21,5 +23,8 @@ fn on_player_spawn(trigger: Trigger<OnAdd, Player>, mut commands: Commands) {
         PedalTimer::default(),
         PlayerMovement::default(),
         TnuaControllerBundle::default(),
+        DesiredVelocity::default(),
     ));
+
+    commands.trigger(SpawnFirstPersonCamera);
 }

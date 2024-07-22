@@ -1,25 +1,28 @@
 use bevy::prelude::*;
 use bevy_tnua::builtins::TnuaBuiltinWalk;
 
-use crate::third_party::leafwing_input_manager::CameraAction;
 use crate::util::single_mut;
+use crate::FixedAppSet;
 use crate::{third_party::leafwing_input_manager::PlayerAction, util::single};
-use avian3d::prelude::*;
 use bevy_tnua::controller::TnuaController;
 use leafwing_input_manager::{plugin::InputManagerSystem, prelude::*};
 
+use super::spawn::{first_person_camera::FirstPersonCamera, player::Player};
+
 pub(super) fn plugin(app: &mut App) {
-    app.register_type::<(LastPedal, PedalTimer)>();
+    app.register_type::<(LastPedal, PedalTimer, DesiredVelocity)>();
     app.add_event::<PedalEvent>();
     app.add_systems(
         PreUpdate,
         update_pedal.after(InputManagerSystem::ManualControl),
     );
-    app.add_systems(FixedPostUpdate, on_pedal);
     app.add_systems(
-        Update,
-        (turn, dampen_movement, apply_movement_basis).chain(),
+        FixedUpdate,
+        (on_pedal, turn, dampen_movement)
+            .chain()
+            .in_set(FixedAppSet::ControllerMovement),
     );
+    app.add_systems(Update, apply_movement_basis);
 }
 
 #[derive(Debug, Component, Clone, Reflect)]
@@ -39,6 +42,10 @@ pub struct PlayerMovement {
     /// How sensitive turning controls are.
     pub turn_sensitivity: f32,
 }
+
+#[derive(Debug, Component, Clone, Copy, PartialEq, Reflect, Default, Deref, DerefMut)]
+#[reflect(Debug, Component, Default, PartialEq)]
+pub struct DesiredVelocity(pub Vec3);
 
 impl Default for PlayerMovement {
     fn default() -> Self {
@@ -106,14 +113,9 @@ fn update_pedal(
 
 fn on_pedal(
     mut pedal_events: EventReader<PedalEvent>,
-    mut q_player: Query<(
-        &GlobalTransform,
-        &LastPedal,
-        &PlayerMovement,
-        &mut LinearVelocity,
-    )>,
+    mut q_player: Query<(&GlobalTransform, &PlayerMovement, &mut DesiredVelocity)>,
 ) {
-    let (transform, _last_pedal, movement, mut lin_vel) = single_mut!(q_player);
+    let (transform, movement, mut lin_vel) = single_mut!(q_player);
     for _ in pedal_events.read() {
         if lin_vel.length_squared() < movement.max_pedal_speed.powi(2) {
             lin_vel.0 += movement.pedal_acceleration * transform.forward();
@@ -122,34 +124,23 @@ fn on_pedal(
 }
 
 fn turn(
-    mut query: Query<(&mut LinearVelocity, &PlayerMovement)>,
-    camera_action: Query<&ActionState<CameraAction>>,
-    time: Res<Time>,
+    mut q_player: Query<&mut DesiredVelocity, With<Player>>,
+    q_camera: Query<&GlobalTransform, With<FirstPersonCamera>>,
 ) {
-    let action_state = single!(camera_action);
-    let delta_seconds = time.delta_seconds();
-
-    for (mut lin_vel, movement) in &mut query {
-        // Get horizontal camera movement for turning
-        let horizontal = movement.turn_sensitivity
-            * action_state
-                .axis_pair(&CameraAction::RotateCamera)
-                .unwrap()
-                .x();
-
-        if horizontal != 0.0 && lin_vel.0 != Vec3::ZERO {
-            // Change the movement direction
-            let rotation_angle = (movement.turn_speed * lin_vel.length() * -horizontal)
-                .clamp(-movement.max_turn_speed, movement.max_turn_speed)
-                * delta_seconds;
-            let rotation = Quat::from_rotation_y(rotation_angle);
-            lin_vel.0 = rotation * lin_vel.0;
-        }
+    let camera_transform = single!(q_camera);
+    let mut lin_vel = single_mut!(q_player);
+    let rcp = lin_vel.0.length_recip();
+    if rcp.is_infinite() || rcp == 0.0 {
+        return;
     }
+
+    let horizontal = camera_transform.forward().with_y(0.0).normalize();
+    let rotation = Quat::from_rotation_arc(lin_vel.0.normalize(), horizontal);
+    lin_vel.0 = rotation * lin_vel.0;
 }
 
 fn dampen_movement(
-    mut query: Query<(&mut LinearVelocity, &PlayerMovement, &TnuaController)>,
+    mut query: Query<(&mut DesiredVelocity, &PlayerMovement, &TnuaController)>,
     time: Res<Time>,
 ) {
     let delta_seconds = time.delta_seconds();
@@ -162,7 +153,7 @@ fn dampen_movement(
     }
 }
 
-fn apply_movement_basis(mut query: Query<(&mut TnuaController, &LinearVelocity)>) {
+fn apply_movement_basis(mut query: Query<(&mut TnuaController, &DesiredVelocity)>) {
     for (mut controller, lin_vel) in &mut query {
         controller.basis(TnuaBuiltinWalk {
             desired_forward: lin_vel.normalize_or_zero(),

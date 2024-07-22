@@ -8,3 +8,4 @@
 
 # Blender backup files
 *.blend1
+*[0-9].blend
