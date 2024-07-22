@@ -15247,6 +15247,17 @@
       "type": "array",
       "typeInfo": "TupleStruct"
     },
+    "bike_game::game::spawn::first_person_camera::FirstPersonCamera": {
+      "additionalProperties": false,
+      "isComponent": true,
+      "isResource": false,
+      "long_name": "bike_game::game::spawn::first_person_camera::FirstPersonCamera",
+      "properties": {},
+      "required": [],
+      "short_name": "FirstPersonCamera",
+      "type": "object",
+      "typeInfo": "Struct"
+    },
     "bike_game::game::spawn::player::Player": {
       "additionalProperties": false,
       "isComponent": true,
@@ -15255,6 +15266,17 @@
       "properties": {},
       "required": [],
       "short_name": "Player",
+      "type": "object",
+      "typeInfo": "Struct"
+    },
+    "bike_game::game::spawn::ui_camera::UiCamera": {
+      "additionalProperties": false,
+      "isComponent": true,
+      "isResource": false,
+      "long_name": "bike_game::game::spawn::ui_camera::UiCamera",
+      "properties": {},
+      "required": [],
+      "short_name": "UiCamera",
       "type": "object",
       "typeInfo": "Struct"
     },

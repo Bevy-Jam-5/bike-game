@@ -4,6 +4,8 @@ use leafwing_input_manager::prelude::*;
 use crate::game::movement::{LastPedal, PedalTimer};
 use crate::third_party::leafwing_input_manager::PlayerAction;
 
+use super::first_person_camera::SpawnFirstPersonCamera;
+
 pub(super) fn plugin(app: &mut App) {
     app.register_type::<Player>();
     app.observe(on_player_spawn);
@@ -19,4 +21,6 @@ fn on_player_spawn(trigger: Trigger<OnAdd, Player>, mut commands: Commands) {
         LastPedal::default(),
         PedalTimer::default(),
     ));
+
+    commands.trigger(SpawnFirstPersonCamera);
 }

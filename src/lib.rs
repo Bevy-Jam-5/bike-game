@@ -6,13 +6,12 @@ mod third_party;
 mod ui;
 mod util;
 
-use crate::third_party::leafwing_input_manager::CameraAction;
 use bevy::{
     asset::AssetMetaCheck,
     audio::{AudioPlugin, Volume},
     prelude::*,
 };
-use leafwing_input_manager::prelude::*;
+use game::spawn::ui_camera::SpawnUiCamera;
 
 pub struct AppPlugin;
 
@@ -84,19 +83,5 @@ enum AppSet {
 }
 
 fn spawn_camera(mut commands: Commands) {
-    commands.spawn((
-        Name::new("Camera"),
-        Camera3dBundle {
-            transform: Transform::from_xyz(10.0, 5.0, -8.0).looking_at(Vec3::ZERO, Vec3::Y),
-            ..default()
-        },
-        InputManagerBundle::with_map(CameraAction::default_input_map()),
-        // Render all UI to this camera.
-        // Not strictly necessary since we only use one camera,
-        // but if we don't use this component, our UI will disappear as soon
-        // as we add another camera. This includes indirect ways of adding cameras like using
-        // [ui node outlines](https://bevyengine.org/news/bevy-0-14/#ui-node-outline-gizmos)
-        // for debugging. So it's good to have this here for future-proofing.
-        IsDefaultUiCamera,
-    ));
+    commands.trigger(SpawnUiCamera);
 }

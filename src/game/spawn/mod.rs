@@ -4,9 +4,16 @@
 
 use bevy::prelude::*;
 
+pub mod first_person_camera;
 pub mod level;
-mod player;
+pub mod player;
+pub mod ui_camera;
 
 pub(super) fn plugin(app: &mut App) {
-    app.add_plugins((level::plugin, player::plugin));
+    app.add_plugins((
+        level::plugin,
+        player::plugin,
+        ui_camera::plugin,
+        first_person_camera::plugin,
+    ));
 }
