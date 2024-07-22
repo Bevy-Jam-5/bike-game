@@ -4,11 +4,10 @@ use bevy_tnua::builtins::TnuaBuiltinWalk;
 use crate::util::single_mut;
 use crate::FixedAppSet;
 use crate::{third_party::leafwing_input_manager::PlayerAction, util::single};
-use avian3d::prelude::*;
 use bevy_tnua::controller::TnuaController;
 use leafwing_input_manager::{plugin::InputManagerSystem, prelude::*};
 
-use super::spawn::first_person_camera::FirstPersonCamera;
+use super::spawn::{first_person_camera::FirstPersonCamera, player::Player};
 
 pub(super) fn plugin(app: &mut App) {
     app.register_type::<(LastPedal, PedalTimer, DesiredVelocity)>();
@@ -125,13 +124,11 @@ fn on_pedal(
 }
 
 fn turn(
-    mut q_player: Query<(&mut DesiredVelocity, &PlayerMovement)>,
+    mut q_player: Query<&mut DesiredVelocity, With<Player>>,
     q_camera: Query<&GlobalTransform, With<FirstPersonCamera>>,
-    time: Res<Time>,
 ) {
     let camera_transform = single!(q_camera);
-    let delta_seconds = time.delta_seconds();
-    let (mut lin_vel, movement) = single_mut!(q_player);
+    let mut lin_vel = single_mut!(q_player);
     let rcp = lin_vel.0.length_recip();
     if rcp.is_infinite() || rcp == 0.0 {
         return;
