@@ -52,6 +52,7 @@ fn spawn_first_person_camera(
                     .into(),
                     ..default()
                 },
+                IsDefaultUiCamera,
             ));
             parent.spawn((
                 Name::new("View Model Camera"),
