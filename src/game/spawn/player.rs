@@ -1,5 +1,7 @@
+use avian3d::prelude::Collider;
 use bevy::prelude::*;
 use bevy_tnua::controller::TnuaControllerBundle;
+use bevy_tnua_avian3d::TnuaAvian3dSensorShape;
 use leafwing_input_manager::prelude::*;
 
 use crate::game::movement::{DesiredVelocity, LastPedal, PedalTimer, PlayerMovement};
@@ -23,6 +25,7 @@ fn on_player_spawn(trigger: Trigger<OnAdd, Player>, mut commands: Commands) {
         PedalTimer::default(),
         PlayerMovement::default(),
         TnuaControllerBundle::default(),
+        TnuaAvian3dSensorShape(Collider::round_cuboid(0.3, 0.8, 1.55, 0.1)),
         DesiredVelocity::default(),
     ));
 
