@@ -1418,7 +1418,7 @@ dependencies = [
 [[package]]
 name = "blenvy"
 version = "0.1.0-alpha.1"
-source = "git+https://github.com/janhohenheim/Blenvy?branch=fix-wasm#321c6fe8497ecd6199aa426d7c7085be5d32de7c"
+source = "git+https://github.com/janhohenheim/Blenvy?branch=fix-wasm#cb40340867a175c2a8fe23a431edc6dbdd8dca2c"
 dependencies = [
  "bevy",
  "gltf",

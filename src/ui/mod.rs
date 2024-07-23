@@ -6,6 +6,7 @@
 pub mod interaction;
 pub mod palette;
 mod widgets;
+mod cursor;
 
 pub mod prelude {
     pub use super::{
@@ -18,5 +19,5 @@ pub mod prelude {
 use bevy::prelude::*;
 
 pub(super) fn plugin(app: &mut App) {
-    app.add_plugins(interaction::plugin);
+    app.add_plugins((interaction::plugin, cursor::plugin));
 }
