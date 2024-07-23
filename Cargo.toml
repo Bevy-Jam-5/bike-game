@@ -9,7 +9,8 @@ edition = "2021"
 
 [dependencies]
 bevy = { version = "0.14", features = ["wayland"] }
-blenvy = { version = "0.1.0-alpha.1", git = "https://github.com/kaosat-dev/Blenvy", branch = "blenvy" }
+#blenvy = { version = "0.1.0-alpha.1", git = "https://github.com/kaosat-dev/Blenvy", branch = "blenvy" }
+blenvy = { version = "0.1.0-alpha.1", git = "https://github.com/janhohenheim/Blenvy", branch = "fix-wasm" }
 rand = "0.8"
 bevy-inspector-egui = { version = "0.25.1", optional = true }
 bevy_asset_loader = { version = "0.21.0", features = [
