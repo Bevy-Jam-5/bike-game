@@ -31,7 +31,7 @@ fn on_player_spawn(trigger: Trigger<OnAdd, Player>, mut commands: Commands) {
         CollisionLayerPreset::Player,
         collider,
         RigidBody::Dynamic,
-        ColliderDensity(15.0),
+        ColliderDensity(300.0),
     ));
 
     commands.trigger(SpawnFirstPersonCamera);
