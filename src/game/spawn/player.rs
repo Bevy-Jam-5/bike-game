@@ -25,7 +25,7 @@ fn on_player_spawn(trigger: Trigger<OnAdd, Player>, mut commands: Commands) {
         PedalTimer::default(),
         PlayerMovement::default(),
         TnuaControllerBundle::default(),
-        TnuaAvian3dSensorShape(Collider::round_cuboid(0.3, 0.8, 1.55, 0.1)),
+        TnuaAvian3dSensorShape(Collider::capsule(0.25, 1.0)),
         DesiredVelocity::default(),
     ));
 

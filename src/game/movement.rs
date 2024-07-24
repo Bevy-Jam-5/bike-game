@@ -158,8 +158,9 @@ fn apply_movement_basis(mut query: Query<(&mut TnuaController, &DesiredVelocity)
         controller.basis(TnuaBuiltinWalk {
             desired_forward: lin_vel.normalize_or_zero(),
             desired_velocity: lin_vel.0,
-            float_height: 1.25,
-            cling_distance: 0.0,
+            float_height: 1.0,
+            cling_distance: 0.02,
+            max_slope: std::f32::consts::FRAC_PI_8,
             free_fall_extra_gravity: 0.0,
             ..default()
         });
