@@ -1,4 +1,4 @@
-use avian3d::prelude::Collider;
+use avian3d::prelude::{Collider, ColliderDensity, RigidBody};
 use bevy::prelude::*;
 use bevy_tnua::controller::TnuaControllerBundle;
 use bevy_tnua_avian3d::TnuaAvian3dSensorShape;
@@ -19,14 +19,18 @@ pub(super) fn plugin(app: &mut App) {
 pub struct Player;
 
 fn on_player_spawn(trigger: Trigger<OnAdd, Player>, mut commands: Commands) {
+    let collider = Collider::capsule(0.25, 1.0);
     commands.entity(trigger.entity()).insert((
         InputManagerBundle::with_map(PlayerAction::default_input_map()),
         LastPedal::default(),
         PedalTimer::default(),
         PlayerMovement::default(),
         TnuaControllerBundle::default(),
-        TnuaAvian3dSensorShape(Collider::capsule(0.25, 1.0)),
+        TnuaAvian3dSensorShape(collider.clone()),
         DesiredVelocity::default(),
+        collider,
+        RigidBody::Dynamic,
+        ColliderDensity(15.0),
     ));
 
     commands.trigger(SpawnFirstPersonCamera);
