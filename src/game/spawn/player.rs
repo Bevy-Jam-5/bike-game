@@ -1,11 +1,11 @@
-use avian3d::prelude::Collider;
+use avian3d::prelude::*;
 use bevy::prelude::*;
 use bevy_tnua::controller::TnuaControllerBundle;
 use bevy_tnua_avian3d::TnuaAvian3dSensorShape;
 use leafwing_input_manager::prelude::*;
 
 use crate::game::movement::{DesiredVelocity, LastPedal, PedalTimer, PlayerMovement};
-use crate::third_party::leafwing_input_manager::PlayerAction;
+use crate::third_party::{avian::CollisionLayerPreset, leafwing_input_manager::PlayerAction};
 
 use super::first_person_camera::SpawnFirstPersonCamera;
 
@@ -27,6 +27,7 @@ fn on_player_spawn(trigger: Trigger<OnAdd, Player>, mut commands: Commands) {
         TnuaControllerBundle::default(),
         TnuaAvian3dSensorShape(Collider::capsule(0.25, 1.0)),
         DesiredVelocity::default(),
+        CollisionLayerPreset::Player,
     ));
 
     commands.trigger(SpawnFirstPersonCamera);

@@ -7,6 +7,7 @@ pub mod audio;
 pub mod camera;
 pub mod movement;
 pub mod spawn;
+pub mod delivery_zone;
 
 pub(super) fn plugin(app: &mut App) {
     app.add_plugins((
@@ -15,5 +16,6 @@ pub(super) fn plugin(app: &mut App) {
         spawn::plugin,
         movement::plugin,
         camera::plugin,
+        delivery_zone::plugin,
     ));
 }

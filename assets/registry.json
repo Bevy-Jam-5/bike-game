@@ -15497,6 +15497,17 @@
       "type": "object",
       "typeInfo": "Struct"
     },
+    "bike_game::game::delivery_zone::DeliveryZone": {
+      "additionalProperties": false,
+      "isComponent": true,
+      "isResource": false,
+      "long_name": "bike_game::game::delivery_zone::DeliveryZone",
+      "properties": {},
+      "required": [],
+      "short_name": "DeliveryZone",
+      "type": "object",
+      "typeInfo": "Struct"
+    },
     "bike_game::game::movement::DesiredVelocity": {
       "isComponent": true,
       "isResource": false,
@@ -15612,6 +15623,19 @@
         "Exit"
       ],
       "short_name": "TitleAction",
+      "type": "string",
+      "typeInfo": "Enum"
+    },
+    "bike_game::third_party::avian::CollisionLayerPreset": {
+      "isComponent": true,
+      "isResource": false,
+      "long_name": "bike_game::third_party::avian::CollisionLayerPreset",
+      "oneOf": [
+        "Default",
+        "Player",
+        "DeliveryZone"
+      ],
+      "short_name": "CollisionLayerPreset",
       "type": "string",
       "typeInfo": "Enum"
     },
