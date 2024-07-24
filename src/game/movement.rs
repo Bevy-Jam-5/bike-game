@@ -159,6 +159,8 @@ fn apply_movement_basis(mut query: Query<(&mut TnuaController, &DesiredVelocity)
             desired_forward: lin_vel.normalize_or_zero(),
             desired_velocity: lin_vel.0,
             float_height: 1.25,
+            cling_distance: 0.0,
+            free_fall_extra_gravity: 0.0,
             ..default()
         });
     }
