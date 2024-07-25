@@ -56,7 +56,7 @@ impl<'w, 's> DisableColliderCommandsExt for Commands<'w, 's> {
     fn activate_collider(&mut self, entity: Entity) {
         self.add(move |world: &mut World| {
             debug_assert!(
-                world.get::<DisableCollider>(entity).is_some(),
+                world.get::<Collider>(entity).is_some(),
                 "Cannot activate collider of entity without DisableCollider component."
             );
             world.entity_mut(entity).remove::<DisableCollider>();

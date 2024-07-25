@@ -1,6 +1,6 @@
 use bevy::prelude::*;
 
-use crate::game::quest::commands_ext::QuestCommandsExt as _;
+use crate::game::quest::{commands_ext::QuestCommandsExt as _, finish_quest::FinishQuest};
 
 use super::quest_place::QuestPlace;
 
@@ -23,8 +23,8 @@ pub struct ActiveQuest {
 #[derive(Debug, Clone, Eq, PartialEq, Reflect)]
 #[reflect(Debug, PartialEq)]
 pub struct FinishedStage {
-    entity: Entity,
-    place: QuestPlace,
+    pub entity: Entity,
+    pub place: QuestPlace,
 }
 
 #[derive(Debug, Clone, Eq, PartialEq, Reflect, Event)]
@@ -74,6 +74,7 @@ fn on_advance_pizza_npc(
             place: QuestPlace::PizzaNpc,
         });
         // Quest done
+        commands.trigger(FinishQuest);
         commands.activate_all_npcs();
     } else {
         commands.insert_resource(ActiveQuest {
@@ -153,6 +154,6 @@ fn on_advance_post_office(
         entity,
         place: QuestPlace::PostOffice,
     });
-    // Quest done
+    commands.trigger(FinishQuest);
     commands.activate_all_npcs();
 }
