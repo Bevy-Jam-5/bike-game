@@ -1,7 +1,7 @@
 use std::iter;
 
-use crate::AppSet;
 use crate::{game::spawn::player::Player, third_party::avian::DisableCollider};
+use crate::{AppSet};
 use avian3d::prelude::*;
 use bevy::prelude::*;
 
