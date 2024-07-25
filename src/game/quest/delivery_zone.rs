@@ -1,7 +1,7 @@
 use std::iter;
 
-use crate::third_party::avian::DisableCollider;
 use crate::AppSet;
+use crate::{game::spawn::player::Player, third_party::avian::DisableCollider};
 use avian3d::prelude::*;
 use bevy::prelude::*;
 
@@ -56,11 +56,18 @@ fn on_delivery_player_collision(
     >,
     q_parent: Query<&Parent>,
     q_place: Query<Entity, With<QuestPlace>>,
+    q_player: Query<Entity, With<Player>>,
 ) {
     for (entity, collisions) in q_delivery_zone.iter() {
-        for _ in collisions.iter() {
-            // Only the player can collide with delivery zones,
-            // so no need to check the actual colliding entity.
+        for &collision_entity in collisions.iter() {
+            if !q_player.contains(collision_entity) {
+                // In theory, only players can collide with delivery zones
+                // because of the way collision layers are set up, so this should never happen.
+                // But let's be safe to not break the game in the worst case.
+                error!("Non-player entity collided with delivery zone.");
+                continue;
+            }
+
             let Some(place_entity) = q_parent
                 .iter_ancestors(entity)
                 .find_map(|e| q_place.get(e).ok())
