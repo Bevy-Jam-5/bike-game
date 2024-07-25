@@ -15553,15 +15553,17 @@
       "type": "object",
       "typeInfo": "Struct"
     },
-    "bike_game::game::quest::npc::QuestNpc": {
+    "bike_game::game::quest::quest_marker::QuestPlace": {
       "isComponent": true,
       "isResource": false,
-      "long_name": "bike_game::game::quest::npc::QuestNpc",
+      "long_name": "bike_game::game::quest::quest_marker::QuestPlace",
       "oneOf": [
-        "Pizza",
-        "Mail"
+        "PizzaNpc",
+        "MailNpc",
+        "Pizzeria",
+        "PostOffice"
       ],
-      "short_name": "QuestNpc",
+      "short_name": "QuestPlace",
       "type": "string",
       "typeInfo": "Enum"
     },

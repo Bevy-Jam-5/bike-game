@@ -38,12 +38,20 @@ impl Component for DisableCollider {
 
 pub trait DisableColliderCommandsExt {
     fn disable_collider(&mut self, entity: Entity);
+
+    fn activate_collider(&mut self, entity: Entity);
 }
 
 impl<'w, 's> DisableColliderCommandsExt for Commands<'w, 's> {
     fn disable_collider(&mut self, entity: Entity) {
         self.add(move |world: &mut World| {
             world.entity_mut(entity).insert(DisableCollider::default());
+        });
+    }
+
+    fn activate_collider(&mut self, entity: Entity) {
+        self.add(move |world: &mut World| {
+            world.entity_mut(entity).remove::<DisableCollider>();
         });
     }
 }

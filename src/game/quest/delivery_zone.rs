@@ -13,10 +13,11 @@ pub(super) fn plugin(app: &mut App) {
 
 #[derive(Debug, Component, Clone, Copy, Reflect, PartialEq, Eq)]
 #[reflect(Debug, Component, PartialEq)]
-struct DeliveryZone;
+pub struct DeliveryZone;
+
 
 #[derive(Debug, Event, Clone, Copy, PartialEq, Eq)]
-struct DeliveryZoneEnteredEvent;
+pub struct DeliveryZoneEntered;
 
 fn on_delivery_player_collision(
     q_delivery_zone: Query<
@@ -28,9 +29,8 @@ fn on_delivery_player_collision(
     for (entity, collisions) in q_delivery_zone.iter() {
         for _ in collisions.iter() {
             // Only player can collide with delivery zones.
-            commands.trigger_targets(DeliveryZoneEnteredEvent, entity);
+            commands.trigger_targets(DeliveryZoneEntered, entity);
             commands.disable_collider(entity);
-            info!("Player entered delivery zone.");
         }
     }
 }
