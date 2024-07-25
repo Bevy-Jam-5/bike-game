@@ -17,7 +17,7 @@ impl Component for DisableCollider {
     const STORAGE_TYPE: StorageType = StorageType::SparseSet;
 
     fn register_component_hooks(hooks: &mut ComponentHooks) {
-        hooks.on_add(|mut world, entity, _component_id| {
+        hooks.on_insert(|mut world, entity, _component_id| {
             {
                 let previous_collision_layers = *world.get::<CollisionLayers>(entity).unwrap();
                 let mut disable_collider = world.get_mut::<DisableCollider>(entity).unwrap();
