@@ -43,11 +43,14 @@ fn rotate_camera(mut q_camera: Query<(&mut Transform, &ActionState<CameraAction>
 fn clamp_rotation(mut q_camera: Query<&mut Transform, With<FirstPersonCamera>>) {
     let mut transform = single_mut!(q_camera);
     let (yaw, pitch, _roll) = transform.rotation.to_euler(EulerRot::YXZ);
+
     let max_pitch = 60.0_f32.to_radians();
     let min_pitch = -40.0_f32.to_radians();
-    if pitch > max_pitch {
-        transform.rotation = Quat::from_euler(EulerRot::YXZ, yaw, max_pitch, 0.0);
-    } else if pitch < min_pitch {
-        transform.rotation = Quat::from_euler(EulerRot::YXZ, yaw, min_pitch, 0.0);
-    }
+    let clamped_pitch = pitch.clamp(min_pitch, max_pitch);
+
+    let clamped_yaw = yaw;
+
+    let clamped_roll = 0.0;
+
+    transform.rotation = Quat::from_euler(EulerRot::YXZ, clamped_yaw, clamped_pitch, clamped_roll);
 }
