@@ -2,7 +2,8 @@ use avian3d::prelude::*;
 use bevy::prelude::*;
 
 pub use self::{
-    collision_layer::CollisionLayerPreset, disable_collider::{DisableCollider, DisableColliderCommandsExt},
+    collision_layer::CollisionLayerPreset,
+    disable_collider::{DisableCollider, DisableColliderCommandsExt},
 };
 
 mod collision_layer;
