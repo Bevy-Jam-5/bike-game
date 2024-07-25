@@ -5,7 +5,6 @@ use bevy::{
 };
 
 pub(super) fn plugin(app: &mut App) {
-    app.add_plugins(PhysicsPlugins::default());
     app.register_type::<CollisionLayerPreset>();
 }
 
@@ -21,7 +20,7 @@ pub enum CollisionLayer {
 pub enum CollisionLayerPreset {
     Default,
     Player,
-    DeliveryZone,
+    Sensor,
 }
 
 impl From<CollisionLayerPreset> for CollisionLayers {
@@ -35,7 +34,7 @@ impl From<CollisionLayerPreset> for CollisionLayers {
                 CollisionLayer::Player,
                 [CollisionLayer::Default, CollisionLayer::DeliveryZone],
             ),
-            CollisionLayerPreset::DeliveryZone => {
+            CollisionLayerPreset::Sensor => {
                 CollisionLayers::new(CollisionLayer::DeliveryZone, CollisionLayer::Player)
             }
         }
@@ -46,11 +45,11 @@ impl Component for CollisionLayerPreset {
     const STORAGE_TYPE: StorageType = StorageType::Table;
 
     fn register_component_hooks(hooks: &mut ComponentHooks) {
-        hooks.on_add(|mut world, targeted_entity, _component_id| {
-            let preset = *world.get::<CollisionLayerPreset>(targeted_entity).unwrap();
+        hooks.on_add(|mut world, entity, _component_id| {
+            let preset = *world.get::<CollisionLayerPreset>(entity).unwrap();
             let mut commands = world.commands();
             commands
-                .entity(targeted_entity)
+                .entity(entity)
                 .insert(CollisionLayers::from(preset));
         });
     }

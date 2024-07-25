@@ -15497,17 +15497,6 @@
       "type": "object",
       "typeInfo": "Struct"
     },
-    "bike_game::game::delivery_zone::DeliveryZone": {
-      "additionalProperties": false,
-      "isComponent": true,
-      "isResource": false,
-      "long_name": "bike_game::game::delivery_zone::DeliveryZone",
-      "properties": {},
-      "required": [],
-      "short_name": "DeliveryZone",
-      "type": "object",
-      "typeInfo": "Struct"
-    },
     "bike_game::game::movement::DesiredVelocity": {
       "isComponent": true,
       "isResource": false,
@@ -15552,6 +15541,29 @@
       "short_name": "PedalTimer",
       "type": "array",
       "typeInfo": "TupleStruct"
+    },
+    "bike_game::game::quest::delivery_zone::DeliveryZone": {
+      "additionalProperties": false,
+      "isComponent": true,
+      "isResource": false,
+      "long_name": "bike_game::game::quest::delivery_zone::DeliveryZone",
+      "properties": {},
+      "required": [],
+      "short_name": "DeliveryZone",
+      "type": "object",
+      "typeInfo": "Struct"
+    },
+    "bike_game::game::quest::npc::QuestNpc": {
+      "isComponent": true,
+      "isResource": false,
+      "long_name": "bike_game::game::quest::npc::QuestNpc",
+      "oneOf": [
+        "Pizza",
+        "Mail"
+      ],
+      "short_name": "QuestNpc",
+      "type": "string",
+      "typeInfo": "Enum"
     },
     "bike_game::game::spawn::first_person_camera::FirstPersonCamera": {
       "additionalProperties": false,
@@ -15626,18 +15638,35 @@
       "type": "string",
       "typeInfo": "Enum"
     },
-    "bike_game::third_party::avian::CollisionLayerPreset": {
+    "bike_game::third_party::avian::collision_layer::CollisionLayerPreset": {
       "isComponent": true,
       "isResource": false,
-      "long_name": "bike_game::third_party::avian::CollisionLayerPreset",
+      "long_name": "bike_game::third_party::avian::collision_layer::CollisionLayerPreset",
       "oneOf": [
         "Default",
         "Player",
-        "DeliveryZone"
+        "Sensor"
       ],
       "short_name": "CollisionLayerPreset",
       "type": "string",
       "typeInfo": "Enum"
+    },
+    "bike_game::third_party::avian::disable_collider::DisableCollider": {
+      "additionalProperties": false,
+      "isComponent": true,
+      "isResource": false,
+      "long_name": "bike_game::third_party::avian::disable_collider::DisableCollider",
+      "properties": {
+        "previous_collision_layers": {
+          "type": {
+            "$ref": "#/$defs/core::option::Option<avian3d::collision::layers::CollisionLayers>"
+          }
+        }
+      },
+      "required": [],
+      "short_name": "DisableCollider",
+      "type": "object",
+      "typeInfo": "Struct"
     },
     "bike_game::third_party::leafwing_input_manager::CameraAction": {
       "isComponent": false,
