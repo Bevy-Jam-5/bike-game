@@ -77,6 +77,7 @@ fn on_advance_pizza_npc(
         commands.trigger(FinishQuest);
         commands.activate_all_npcs();
     } else {
+        info!("Starting pizza quest. Go to the Pizzeria.");
         commands.insert_resource(ActiveQuest {
             history: vec![FinishedStage {
                 entity,
@@ -96,6 +97,7 @@ fn on_advance_mail_npc(
     mut commands: Commands,
     active_quest: Option<Res<ActiveQuest>>,
 ) {
+    info!("Starting mail quest. Go to the Post Office.");
     let entity = trigger.entity();
     // We never return to the mail NPC, so we should never have an active quest.
     debug_assert!(active_quest.is_none(), "Unexpected advance mail NPC event.");
@@ -117,6 +119,7 @@ fn on_advance_pizzeria(
     mut commands: Commands,
     mut active_quest: Option<ResMut<ActiveQuest>>,
 ) {
+    info!("Fetching pizza. Return to the Pizza NPC.");
     let entity = trigger.entity();
     debug_assert!(active_quest.is_some(), "Unexpected advance pizzeria event.");
     let Some(active_quest) = active_quest.as_mut() else {

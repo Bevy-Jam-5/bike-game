@@ -21,8 +21,12 @@ fn on_finish_quest(
         error!("Cannot finish quest without active quest.");
         return;
     };
+
     let quest_giver = active_quest.history.first().unwrap();
     commands.entity(quest_giver.entity).remove::<QuestPlace>();
+
     let last_stage = active_quest.history.last().unwrap();
     info!("Finished quest at {:?}.", last_stage.place);
+
+    commands.remove_resource::<ActiveQuest>();
 }
