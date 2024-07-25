@@ -2,7 +2,7 @@ use bevy::prelude::*;
 
 use crate::game::quest::commands_ext::QuestCommandsExt as _;
 
-use super::quest_marker::QuestPlace;
+use super::quest_place::QuestPlace;
 
 pub(super) fn plugin(app: &mut App) {
     app.observe(on_advance_quest);

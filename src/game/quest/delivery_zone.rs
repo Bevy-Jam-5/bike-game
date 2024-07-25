@@ -3,7 +3,7 @@ use crate::AppSet;
 use avian3d::prelude::*;
 use bevy::prelude::*;
 
-use super::{active_quest::AdvanceQuest, quest_marker::QuestPlace};
+use super::{advance_quest::AdvanceQuest, quest_place::QuestPlace};
 
 pub(super) fn plugin(app: &mut App) {
     app.register_type::<DeliveryZone>();

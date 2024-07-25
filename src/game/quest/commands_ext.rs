@@ -2,7 +2,7 @@ use bevy::prelude::*;
 
 use crate::third_party::avian::DisableColliderCommandsExt;
 
-use super::quest_marker::QuestPlace;
+use super::quest_place::QuestPlace;
 
 pub(super) fn plugin(_app: &mut App) {}
 
