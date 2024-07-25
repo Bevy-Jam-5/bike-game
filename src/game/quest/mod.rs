@@ -4,8 +4,8 @@ pub mod advance_quest;
 pub mod commands_ext;
 pub mod delivery_zone;
 pub mod finish_quest;
-pub mod quest_place;
 pub mod init_quests;
+pub mod quest_place;
 
 pub(super) fn plugin(app: &mut App) {
     app.add_plugins((
