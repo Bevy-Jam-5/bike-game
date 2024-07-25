@@ -78,6 +78,27 @@
       "type": "array",
       "typeInfo": "Tuple"
     },
+    "(bike_game::game::quest::delivery_zone::DeliveryZone, bike_game::game::quest::delivery_zone::DeliveryZoneLink)": {
+      "isComponent": false,
+      "isResource": false,
+      "items": false,
+      "long_name": "(bike_game::game::quest::delivery_zone::DeliveryZone, bike_game::game::quest::delivery_zone::DeliveryZoneLink)",
+      "prefixItems": [
+        {
+          "type": {
+            "$ref": "#/$defs/bike_game::game::quest::delivery_zone::DeliveryZone"
+          }
+        },
+        {
+          "type": {
+            "$ref": "#/$defs/bike_game::game::quest::delivery_zone::DeliveryZoneLink"
+          }
+        }
+      ],
+      "short_name": "(DeliveryZone, DeliveryZoneLink)",
+      "type": "array",
+      "typeInfo": "Tuple"
+    },
     "(u8, u8)": {
       "isComponent": false,
       "isResource": false,
@@ -333,6 +354,19 @@
       },
       "long_name": "alloc::vec::Vec<bevy_ui::ui_node::RepeatedGridTrack>",
       "short_name": "Vec<RepeatedGridTrack>",
+      "type": "array",
+      "typeInfo": "List"
+    },
+    "alloc::vec::Vec<bike_game::game::quest::advance_quest::FinishedStage>": {
+      "isComponent": false,
+      "isResource": false,
+      "items": {
+        "type": {
+          "$ref": "#/$defs/bike_game::game::quest::advance_quest::FinishedStage"
+        }
+      },
+      "long_name": "alloc::vec::Vec<bike_game::game::quest::advance_quest::FinishedStage>",
+      "short_name": "Vec<FinishedStage>",
       "type": "array",
       "typeInfo": "List"
     },
@@ -15542,6 +15576,91 @@
       "type": "array",
       "typeInfo": "TupleStruct"
     },
+    "bike_game::game::quest::advance_quest::ActiveQuest": {
+      "additionalProperties": false,
+      "isComponent": false,
+      "isResource": true,
+      "long_name": "bike_game::game::quest::advance_quest::ActiveQuest",
+      "properties": {
+        "history": {
+          "type": {
+            "$ref": "#/$defs/alloc::vec::Vec<bike_game::game::quest::advance_quest::FinishedStage>"
+          }
+        }
+      },
+      "required": [
+        "history"
+      ],
+      "short_name": "ActiveQuest",
+      "type": "object",
+      "typeInfo": "Struct"
+    },
+    "bike_game::game::quest::advance_quest::FinishedStage": {
+      "additionalProperties": false,
+      "isComponent": false,
+      "isResource": false,
+      "long_name": "bike_game::game::quest::advance_quest::FinishedStage",
+      "properties": {
+        "entity": {
+          "type": {
+            "$ref": "#/$defs/bevy_ecs::entity::Entity"
+          }
+        },
+        "place": {
+          "type": {
+            "$ref": "#/$defs/bike_game::game::quest::quest_place::QuestPlace"
+          }
+        }
+      },
+      "required": [
+        "entity",
+        "place"
+      ],
+      "short_name": "FinishedStage",
+      "type": "object",
+      "typeInfo": "Struct"
+    },
+    "bike_game::game::quest::delivery_zone::DeliveryZone": {
+      "additionalProperties": false,
+      "isComponent": true,
+      "isResource": false,
+      "long_name": "bike_game::game::quest::delivery_zone::DeliveryZone",
+      "properties": {},
+      "required": [],
+      "short_name": "DeliveryZone",
+      "type": "object",
+      "typeInfo": "Struct"
+    },
+    "bike_game::game::quest::delivery_zone::DeliveryZoneLink": {
+      "isComponent": true,
+      "isResource": false,
+      "items": false,
+      "long_name": "bike_game::game::quest::delivery_zone::DeliveryZoneLink",
+      "prefixItems": [
+        {
+          "type": {
+            "$ref": "#/$defs/bevy_ecs::entity::Entity"
+          }
+        }
+      ],
+      "short_name": "DeliveryZoneLink",
+      "type": "array",
+      "typeInfo": "TupleStruct"
+    },
+    "bike_game::game::quest::quest_place::QuestPlace": {
+      "isComponent": true,
+      "isResource": false,
+      "long_name": "bike_game::game::quest::quest_place::QuestPlace",
+      "oneOf": [
+        "PizzaNpc",
+        "MailNpc",
+        "Pizzeria",
+        "PostOffice"
+      ],
+      "short_name": "QuestPlace",
+      "type": "string",
+      "typeInfo": "Enum"
+    },
     "bike_game::game::spawn::first_person_camera::FirstPersonCamera": {
       "additionalProperties": false,
       "isComponent": true,
@@ -15614,6 +15733,36 @@
       "short_name": "TitleAction",
       "type": "string",
       "typeInfo": "Enum"
+    },
+    "bike_game::third_party::avian::collision_layer::CollisionLayerPreset": {
+      "isComponent": true,
+      "isResource": false,
+      "long_name": "bike_game::third_party::avian::collision_layer::CollisionLayerPreset",
+      "oneOf": [
+        "Default",
+        "Player",
+        "Sensor"
+      ],
+      "short_name": "CollisionLayerPreset",
+      "type": "string",
+      "typeInfo": "Enum"
+    },
+    "bike_game::third_party::avian::disable_collider::DisableCollider": {
+      "additionalProperties": false,
+      "isComponent": true,
+      "isResource": false,
+      "long_name": "bike_game::third_party::avian::disable_collider::DisableCollider",
+      "properties": {
+        "previous_collision_layers": {
+          "type": {
+            "$ref": "#/$defs/core::option::Option<avian3d::collision::layers::CollisionLayers>"
+          }
+        }
+      },
+      "required": [],
+      "short_name": "DisableCollider",
+      "type": "object",
+      "typeInfo": "Struct"
     },
     "bike_game::third_party::leafwing_input_manager::CameraAction": {
       "isComponent": false,

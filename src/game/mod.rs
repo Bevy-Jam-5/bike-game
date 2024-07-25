@@ -6,6 +6,7 @@ pub mod assets;
 pub mod audio;
 pub mod camera;
 pub mod movement;
+pub mod quest;
 pub mod spawn;
 
 pub(super) fn plugin(app: &mut App) {
@@ -15,5 +16,6 @@ pub(super) fn plugin(app: &mut App) {
         spawn::plugin,
         movement::plugin,
         camera::plugin,
+        quest::plugin,
     ));
 }
