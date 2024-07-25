@@ -8,6 +8,9 @@ pub(super) fn plugin(app: &mut App) {
     app.register_type::<QuestPlace>();
 }
 
+/// The different places where a quest can take place.
+/// Automatically spawns a [`DeliveryZone`](super::delivery_zone::DeliveryZone) when added to an entity,
+/// which is easily accessed through the [`DeliveryZoneLink`](super::delivery_zone::DeliveryZoneLink) component.
 #[derive(Debug, Clone, Copy, Reflect, PartialEq, Eq)]
 #[reflect(Debug, Component, PartialEq)]
 pub enum QuestPlace {

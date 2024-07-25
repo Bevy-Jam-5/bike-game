@@ -2,7 +2,7 @@ use bevy::prelude::*;
 
 use crate::third_party::avian::DisableColliderCommandsExt;
 
-use super::quest_place::QuestPlace;
+use super::{delivery_zone::DeliveryZoneLink, quest_place::QuestPlace};
 
 pub(super) fn plugin(_app: &mut App) {}
 
@@ -39,10 +39,11 @@ impl<'w, 's> QuestCommandsExt for Commands<'w, 's> {
                 .map(|(e, &place)| (e, place))
                 .collect::<Vec<_>>();
             for (entity, place) in places {
+                let delivery_zone = world.get::<DeliveryZoneLink>(entity).unwrap().0;
                 if predicate((entity, place)) {
-                    world.commands().activate_collider(entity);
+                    world.commands().activate_collider(delivery_zone);
                 } else {
-                    world.commands().disable_collider(entity);
+                    world.commands().disable_collider(delivery_zone);
                 }
             }
         });

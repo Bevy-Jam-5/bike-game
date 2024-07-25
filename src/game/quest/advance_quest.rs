@@ -13,6 +13,7 @@ pub(super) fn plugin(app: &mut App) {
     app.register_type::<ActiveQuest>();
 }
 
+/// Only exists when an active quest is in progress.
 #[derive(Debug, Resource, Clone, Eq, PartialEq, Reflect)]
 #[reflect(Debug, Resource, PartialEq)]
 pub struct ActiveQuest {

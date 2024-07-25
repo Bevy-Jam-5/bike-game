@@ -45,12 +45,20 @@ pub trait DisableColliderCommandsExt {
 impl<'w, 's> DisableColliderCommandsExt for Commands<'w, 's> {
     fn disable_collider(&mut self, entity: Entity) {
         self.add(move |world: &mut World| {
+            debug_assert!(
+                world.get::<Collider>(entity).is_some(),
+                "Cannot disable collider of entity without collider component."
+            );
             world.entity_mut(entity).insert(DisableCollider::default());
         });
     }
 
     fn activate_collider(&mut self, entity: Entity) {
         self.add(move |world: &mut World| {
+            debug_assert!(
+                world.get::<DisableCollider>(entity).is_some(),
+                "Cannot activate collider of entity without DisableCollider component."
+            );
             world.entity_mut(entity).remove::<DisableCollider>();
         });
     }
