@@ -17,9 +17,9 @@ fn on_delivery_zone_entered(
 ) {
     let entity = trigger.entity();
 
-    let Some(place) = q_parent
+    let Some((place_entity, place)) = q_parent
         .iter_ancestors(entity)
-        .find(|&e| q_place.contains(e))
+        .find_map(|e| q_place.get(e).ok())
     else {
         error!("Failed to get place of delivery zone entity.");
         return;
