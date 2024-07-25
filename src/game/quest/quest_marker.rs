@@ -17,6 +17,19 @@ pub enum QuestPlace {
     PostOffice,
 }
 
+impl QuestPlace {
+    pub fn is_npc(&self) -> bool {
+        matches!(self, Self::PizzaNpc | Self::MailNpc)
+    }
+
+    pub fn is_pizzeria(&self) -> bool {
+        matches!(self, Self::Pizzeria)
+    }
+
+    pub fn is_post_office(&self) -> bool {
+        matches!(self, Self::PostOffice)
+    }
+}
 
 impl Component for QuestPlace {
     const STORAGE_TYPE: StorageType = StorageType::Table;
@@ -26,12 +39,27 @@ impl Component for QuestPlace {
             let mut commands = world.commands();
             commands.entity(entity).with_children(|parent| {
                 parent.spawn((
+                    DeliveryZoneBlueprint,
                     BlueprintInfo::from_path("blueprints/DeliveryZone.glb"),
                     SpawnBlueprint,
                     TransformBundle::default(),
                 ));
             });
         });
+
+        hooks.on_remove(|mut world, entity, _component_id| {
+            let children = world.get::<Children>(entity).unwrap();
+            let to_remove = children
+                .iter()
+                .filter(|child| world.get::<DeliveryZoneBlueprint>(**child).is_some())
+                .copied()
+                .collect::<Vec<_>>();
+            for entity in to_remove {
+                world.commands().entity(entity).despawn_recursive();
+            }
+        });
     }
 }
 
+#[derive(Debug, Component)]
+struct DeliveryZoneBlueprint;
