@@ -1,7 +1,9 @@
-use crate::third_party::avian::{DisableCollider, DisableColliderCommandsExt as _};
+use crate::third_party::avian::DisableCollider;
 use crate::AppSet;
 use avian3d::prelude::*;
 use bevy::prelude::*;
+
+use super::{active_quest::AdvanceQuest, quest_marker::QuestPlace};
 
 pub(super) fn plugin(app: &mut App) {
     app.register_type::<DeliveryZone>();
@@ -15,22 +17,27 @@ pub(super) fn plugin(app: &mut App) {
 #[reflect(Debug, Component, PartialEq)]
 pub struct DeliveryZone;
 
-
-#[derive(Debug, Event, Clone, Copy, PartialEq, Eq)]
-pub struct DeliveryZoneEntered;
-
 fn on_delivery_player_collision(
+    mut commands: Commands,
     q_delivery_zone: Query<
         (Entity, &CollidingEntities),
         (With<DeliveryZone>, Without<DisableCollider>),
     >,
-    mut commands: Commands,
+    q_parent: Query<&Parent>,
+    q_place: Query<Entity, With<QuestPlace>>,
 ) {
     for (entity, collisions) in q_delivery_zone.iter() {
         for _ in collisions.iter() {
-            // Only player can collide with delivery zones.
-            commands.trigger_targets(DeliveryZoneEntered, entity);
-            commands.disable_collider(entity);
+            // Only the player can collide with delivery zones.
+
+            let Some(place_entity) = q_parent
+                .iter_ancestors(entity)
+                .find_map(|e| q_place.get(e).ok())
+            else {
+                error!("Failed to get place of delivery zone entity.");
+                return;
+            };
+            commands.trigger_targets(AdvanceQuest, place_entity);
         }
     }
 }

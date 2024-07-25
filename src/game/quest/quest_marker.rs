@@ -18,15 +18,15 @@ pub enum QuestPlace {
 }
 
 impl QuestPlace {
-    pub fn is_npc(&self) -> bool {
+    pub fn is_npc(self) -> bool {
         matches!(self, Self::PizzaNpc | Self::MailNpc)
     }
 
-    pub fn is_pizzeria(&self) -> bool {
+    pub fn is_pizzeria(self) -> bool {
         matches!(self, Self::Pizzeria)
     }
 
-    pub fn is_post_office(&self) -> bool {
+    pub fn is_post_office(self) -> bool {
         matches!(self, Self::PostOffice)
     }
 }
