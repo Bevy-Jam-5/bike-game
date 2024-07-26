@@ -8,9 +8,9 @@ pub(super) fn plugin(app: &mut App) {
     app.observe(on_finish_quest);
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Reflect, Default, Event)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Reflect, Event)]
 #[reflect(Debug, PartialEq)]
-pub struct FinishQuest;
+pub struct FinishQuest(pub QuestPlace);
 
 fn on_finish_quest(
     _trigger: Trigger<FinishQuest>,

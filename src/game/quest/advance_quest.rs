@@ -74,7 +74,7 @@ fn on_advance_pizza_npc(
             place: QuestPlace::PizzaNpc,
         });
         // Quest done
-        commands.trigger(FinishQuest);
+        commands.trigger(FinishQuest(QuestPlace::PizzaNpc));
         commands.activate_all_npcs();
     } else {
         info!("Starting pizza quest. Go to the Pizzeria.");
@@ -157,6 +157,6 @@ fn on_advance_post_office(
         entity,
         place: QuestPlace::PostOffice,
     });
-    commands.trigger(FinishQuest);
+    commands.trigger(FinishQuest(QuestPlace::PostOffice));
     commands.activate_all_npcs();
 }
