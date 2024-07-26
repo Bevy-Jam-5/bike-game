@@ -20,7 +20,13 @@ pub struct ActiveQuest {
     pub history: Vec<FinishedStage>,
 }
 
-#[derive(Debug, Clone, Eq, PartialEq, Reflect)]
+impl ActiveQuest {
+    pub fn quest_giver(&self) -> Option<FinishedStage> {
+        self.history.first().copied()
+    }
+}
+
+#[derive(Debug, Clone, Copy, Eq, PartialEq, Reflect)]
 #[reflect(Debug, PartialEq)]
 pub struct FinishedStage {
     pub entity: Entity,
@@ -61,8 +67,8 @@ fn on_advance_pizza_npc(
         // Assert this is the same NPC that gave the quest in the first place.
         debug_assert!(
             matches!(
-                active_quest.history.first(),
-                Some(&FinishedStage {
+                active_quest.quest_giver(),
+                Some(FinishedStage {
                     place: QuestPlace::PizzaNpc,
                     ..
                 })
@@ -74,7 +80,7 @@ fn on_advance_pizza_npc(
             place: QuestPlace::PizzaNpc,
         });
         // Quest done
-        commands.trigger(FinishQuest(QuestPlace::PizzaNpc));
+        commands.trigger(FinishQuest);
         commands.activate_all_npcs();
     } else {
         info!("Starting pizza quest. Go to the Pizzeria.");
@@ -130,7 +136,7 @@ fn on_advance_pizzeria(
         entity,
         place: QuestPlace::Pizzeria,
     });
-    let quest_giver = active_quest.history.first().unwrap();
+    let quest_giver = active_quest.quest_giver().unwrap();
     debug_assert_eq!(quest_giver.place, QuestPlace::PizzaNpc);
     commands.activate_entity(quest_giver.entity);
 }
@@ -157,6 +163,6 @@ fn on_advance_post_office(
         entity,
         place: QuestPlace::PostOffice,
     });
-    commands.trigger(FinishQuest(QuestPlace::PostOffice));
+    commands.trigger(FinishQuest);
     commands.activate_all_npcs();
 }

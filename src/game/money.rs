@@ -1,5 +1,6 @@
 use bevy::prelude::*;
 
+use crate::game::quest::advance_quest::ActiveQuest;
 use crate::{screen::Screen, util::single_mut};
 
 use super::{
@@ -30,10 +31,20 @@ fn update_money_text(money: Res<Money>, mut money_text: Query<&mut Text, With<Mo
     text.sections[1].value = format!("${}", money.0);
 }
 
-fn on_finish_quest(trigger: Trigger<FinishQuest>, mut money: ResMut<Money>) {
-    let pay = match trigger.event().0 {
+fn on_finish_quest(
+    _trigger: Trigger<FinishQuest>,
+    mut money: ResMut<Money>,
+    mut active_quest: Option<ResMut<ActiveQuest>>,
+) {
+    let Some(active_quest) = active_quest.as_mut() else {
+        error!("Cannot finish quest without active quest.");
+        return;
+    };
+
+    let quest_giver = active_quest.quest_giver().unwrap();
+    let pay = match quest_giver.place {
         QuestPlace::PizzaNpc => 5.0,
-        QuestPlace::PostOffice => 3.0,
+        QuestPlace::MailNpc => 3.0,
         _ => 0.0,
     };
     money.0 += pay;
