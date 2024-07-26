@@ -1,5 +1,8 @@
+use std::iter;
+
 use avian3d::prelude::*;
-use bevy::prelude::*;
+use bevy::{pbr::NotShadowCaster, prelude::*, render::view::RenderLayers};
+use blenvy::BlueprintInstanceReady;
 
 use crate::util::{single, single_mut};
 
@@ -7,6 +10,7 @@ use super::spawn::player::Player;
 
 pub(super) fn plugin(app: &mut App) {
     app.register_type::<PlayerViewModel>();
+    app.observe(on_add_view_model);
 
     app.add_systems(
         PostUpdate,
@@ -16,9 +20,40 @@ pub(super) fn plugin(app: &mut App) {
     );
 }
 
-#[derive(Debug, Component, Clone, Copy, Reflect, PartialEq, Eq)]
+pub const VIEW_MODEL_RENDER_LAYER: usize = 1;
+
+#[derive(Debug, Clone, Copy, Component, Reflect, PartialEq, Eq)]
 #[reflect(Debug, PartialEq, Component)]
 pub struct PlayerViewModel;
+
+fn on_add_view_model(
+    trigger: Trigger<OnAdd, BlueprintInstanceReady>,
+    q_view_model: Query<Entity, With<PlayerViewModel>>,
+    q_parent: Query<&Parent>,
+    q_children: Query<&Children>,
+    q_mesh: Query<Entity, With<Handle<Mesh>>>,
+    mut commands: Commands,
+) {
+    let entity = trigger.entity();
+    if !q_parent
+        .get(entity)
+        .is_ok_and(|e| q_view_model.contains(e.get()))
+    {
+        return;
+    }
+    let mesh_entity = iter::once(entity)
+        .chain(q_children.iter_descendants(entity))
+        .find_map(|e| q_mesh.get(e).ok());
+    let Some(mesh_entity) = mesh_entity else {
+        error!("Failed to find mesh for view model entity.");
+        return;
+    };
+
+    commands.entity(mesh_entity).insert((
+        RenderLayers::layer(VIEW_MODEL_RENDER_LAYER),
+        NotShadowCaster,
+    ));
+}
 
 fn follow_player(
     time: Res<Time>,

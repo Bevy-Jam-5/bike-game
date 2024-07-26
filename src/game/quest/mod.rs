@@ -6,6 +6,7 @@ pub mod delivery_zone;
 pub mod finish_quest;
 pub mod init_quests;
 pub mod quest_place;
+pub mod lights;
 
 pub(super) fn plugin(app: &mut App) {
     app.add_plugins((
@@ -15,5 +16,6 @@ pub(super) fn plugin(app: &mut App) {
         commands_ext::plugin,
         finish_quest::plugin,
         init_quests::plugin,
+        lights::plugin,
     ));
 }

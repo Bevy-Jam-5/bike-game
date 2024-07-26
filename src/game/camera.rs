@@ -4,10 +4,7 @@ use avian3d::prelude::*;
 use bevy::prelude::*;
 use leafwing_input_manager::prelude::*;
 
-use super::spawn::{
-    first_person_camera::FirstPersonCamera,
-    player::{self, Player},
-};
+use super::spawn::{first_person_camera::FirstPersonCamera, player::Player};
 
 pub(super) fn plugin(app: &mut App) {
     app.add_systems(
