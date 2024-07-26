@@ -9,8 +9,8 @@ pub mod money;
 pub mod movement;
 pub mod quest;
 pub mod spawn;
-pub mod view_model;
 pub mod time;
+pub mod view_model;
 
 pub(super) fn plugin(app: &mut App) {
     app.add_plugins((
