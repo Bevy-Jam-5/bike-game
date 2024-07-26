@@ -55,7 +55,6 @@ fn clamp_rotation(
     let min_pitch = -40.0_f32.to_radians();
     let clamped_pitch = pitch.clamp(min_pitch, max_pitch);
 
-    // clamp so that the yaw relative to the player is within 90 degrees
     let (player_yaw, _, _) = player_transform.rotation.to_euler(EulerRot::YXZ);
     // using this instead of `yaw - player_yaw` because it is guaranteed to be within `[-π, π]`
     let relative_yaw = -player_transform
@@ -63,6 +62,7 @@ fn clamp_rotation(
         .xz()
         .angle_between(transform.forward().xz());
     let max_yaw = std::f32::consts::FRAC_PI_2;
+    // clamp so that the yaw relative to the player is within 90 degrees
     let clamped_relative_yaw = relative_yaw.clamp(-max_yaw, max_yaw);
     let clamped_yaw = player_yaw + clamped_relative_yaw;
 
