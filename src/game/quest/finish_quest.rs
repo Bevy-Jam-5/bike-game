@@ -8,7 +8,7 @@ pub(super) fn plugin(app: &mut App) {
     app.observe(on_finish_quest);
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Reflect, Default, Event)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Reflect, Event)]
 #[reflect(Debug, PartialEq)]
 pub struct FinishQuest;
 
@@ -22,7 +22,7 @@ fn on_finish_quest(
         return;
     };
 
-    let quest_giver = active_quest.history.first().unwrap();
+    let quest_giver = active_quest.quest_giver().unwrap();
     commands.entity(quest_giver.entity).remove::<QuestPlace>();
 
     let last_stage = active_quest.history.last().unwrap();
