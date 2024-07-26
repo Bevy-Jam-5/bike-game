@@ -49,7 +49,7 @@ fn clamp_rotation(
 ) {
     let mut transform = single_mut!(q_camera);
     let player_transform = single!(q_player);
-    let (yaw, pitch, _roll) = transform.rotation.to_euler(EulerRot::YXZ);
+    let (_yaw, pitch, _roll) = transform.rotation.to_euler(EulerRot::YXZ);
 
     let max_pitch = 60.0_f32.to_radians();
     let min_pitch = -40.0_f32.to_radians();
@@ -57,6 +57,7 @@ fn clamp_rotation(
 
     // clamp so that the yaw relative to the player is within 90 degrees
     let (player_yaw, _, _) = player_transform.rotation.to_euler(EulerRot::YXZ);
+    // using this instead of `yaw - player_yaw` because it is guaranteed to be within `[-π, π]`
     let relative_yaw = -player_transform
         .forward()
         .xz()
