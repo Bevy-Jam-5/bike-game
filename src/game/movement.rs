@@ -142,7 +142,6 @@ fn turn(
     let angle = origin.angle_between(target);
     // Looking sideways corresponds to an angle of π/2, so we divide by that to normalize.
     let horizontal = angle * std::f32::consts::FRAC_2_PI;
-    info!("Angle: {}, Horizontal: {}", angle, horizontal);
 
     let rotation = (movement.turn_speed * lin_vel.length() * -horizontal)
         .clamp(-movement.max_turn_speed, movement.max_turn_speed)

@@ -4,7 +4,10 @@ use avian3d::prelude::*;
 use bevy::prelude::*;
 use leafwing_input_manager::prelude::*;
 
-use super::spawn::{first_person_camera::FirstPersonCamera, player::Player};
+use super::spawn::{
+    first_person_camera::FirstPersonCamera,
+    player::{self, Player},
+};
 
 pub(super) fn plugin(app: &mut App) {
     app.add_systems(
@@ -40,15 +43,27 @@ fn rotate_camera(mut q_camera: Query<(&mut Transform, &ActionState<CameraAction>
     }
 }
 
-fn clamp_rotation(mut q_camera: Query<&mut Transform, With<FirstPersonCamera>>) {
+fn clamp_rotation(
+    mut q_camera: Query<&mut Transform, With<FirstPersonCamera>>,
+    q_player: Query<&Transform, (With<Player>, Without<FirstPersonCamera>)>,
+) {
     let mut transform = single_mut!(q_camera);
+    let player_transform = single!(q_player);
     let (yaw, pitch, _roll) = transform.rotation.to_euler(EulerRot::YXZ);
 
     let max_pitch = 60.0_f32.to_radians();
     let min_pitch = -40.0_f32.to_radians();
     let clamped_pitch = pitch.clamp(min_pitch, max_pitch);
 
-    let clamped_yaw = yaw;
+    // clamp so that the yaw relative to the player is within 90 degrees
+    let (player_yaw, _, _) = player_transform.rotation.to_euler(EulerRot::YXZ);
+    let relative_yaw = -player_transform
+        .forward()
+        .xz()
+        .angle_between(transform.forward().xz());
+    let max_yaw = std::f32::consts::FRAC_PI_2;
+    let clamped_relative_yaw = relative_yaw.clamp(-max_yaw, max_yaw);
+    let clamped_yaw = player_yaw + clamped_relative_yaw;
 
     let clamped_roll = 0.0;
 
