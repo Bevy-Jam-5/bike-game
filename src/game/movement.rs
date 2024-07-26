@@ -34,13 +34,11 @@ pub struct PlayerMovement {
     pub pedal_acceleration: f32,
     /// The maximum speed that can be reached by pedalling in meters per second.
     pub max_pedal_speed: f32,
-    /// How quickly the bike turns in radians per second when moving at 1 m/s.
+    /// How quickly the bike turns in radians per second when moving at 1 m/s and looking fully sideways.
     /// Scales based on linear velocity.
     pub turn_speed: f32,
     /// The maximum turning speed that the bike can reach in radians per second.
     pub max_turn_speed: f32,
-    /// How sensitive turning controls are.
-    pub turn_sensitivity: f32,
 }
 
 #[derive(Debug, Component, Clone, Copy, PartialEq, Reflect, Default, Deref, DerefMut)]
@@ -51,11 +49,10 @@ impl Default for PlayerMovement {
     fn default() -> Self {
         Self {
             ground_damping: 0.3,
-            pedal_acceleration: 2.0,
-            max_pedal_speed: 10.0,
+            pedal_acceleration: 3.0,
+            max_pedal_speed: 13.0,
             turn_speed: 0.8,
             max_turn_speed: 3.0,
-            turn_sensitivity: 0.01,
         }
     }
 }
@@ -124,18 +121,33 @@ fn on_pedal(
 }
 
 fn turn(
-    mut q_player: Query<&mut DesiredVelocity, With<Player>>,
+    time: Res<Time>,
+    mut q_player: Query<(&mut DesiredVelocity, &PlayerMovement), With<Player>>,
     q_camera: Query<&GlobalTransform, With<FirstPersonCamera>>,
 ) {
+    let dt = time.delta_seconds();
     let camera_transform = single!(q_camera);
-    let mut lin_vel = single_mut!(q_player);
-    let rcp = lin_vel.0.length_recip();
-    if rcp.is_infinite() || rcp == 0.0 {
+    let (mut lin_vel, movement) = single_mut!(q_player);
+
+    let origin = lin_vel.xz();
+    if origin.is_zero() {
+        return;
+    }
+    let target = camera_transform.forward().xz();
+    if target.is_zero() {
         return;
     }
 
-    let horizontal = camera_transform.forward().with_y(0.0).normalize();
-    let rotation = Quat::from_rotation_arc(lin_vel.0.normalize(), horizontal);
+    // In range `[-π, +π]`. Note that doing this for Vec3 would only return positive values.
+    let angle = origin.angle_between(target);
+    // Looking sideways corresponds to an angle of π/2, so we divide by that to normalize.
+    let horizontal = angle * std::f32::consts::FRAC_2_PI;
+
+    let rotation = (movement.turn_speed * lin_vel.length() * -horizontal)
+        .clamp(-movement.max_turn_speed, movement.max_turn_speed)
+        * dt;
+    let rotation = Quat::from_rotation_y(rotation);
+
     lin_vel.0 = rotation * lin_vel.0;
 }
 
@@ -148,6 +160,7 @@ fn dampen_movement(
         if !controller.is_airborne().unwrap_or(false) {
             let damping = 1.0 / (1.0 + delta_seconds * movement.ground_damping);
             lin_vel.x *= damping;
+            lin_vel.y = 0.0;
             lin_vel.z *= damping;
         }
     }
@@ -162,7 +175,19 @@ fn apply_movement_basis(mut query: Query<(&mut TnuaController, &DesiredVelocity)
             cling_distance: 0.02,
             max_slope: std::f32::consts::FRAC_PI_8,
             free_fall_extra_gravity: 0.0,
+            turning_angvel: 3.0,
             ..default()
         });
+    }
+}
+
+trait Vec3Ext: Copy {
+    fn is_zero(self) -> bool;
+}
+
+impl Vec3Ext for Vec2 {
+    fn is_zero(self) -> bool {
+        let len_sq = self.length_squared();
+        len_sq == 0.0 || !len_sq.is_finite()
     }
 }

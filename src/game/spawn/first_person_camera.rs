@@ -3,6 +3,7 @@
 use bevy::{prelude::*, render::view::RenderLayers};
 use leafwing_input_manager::prelude::*;
 
+use crate::game::view_model::VIEW_MODEL_RENDER_LAYER;
 use crate::screen::Screen;
 use crate::third_party::leafwing_input_manager::CameraAction;
 
@@ -17,8 +18,6 @@ pub(super) fn plugin(app: &mut App) {
     app.observe(despawn_ui_camera);
     app.observe(spawn_ui_camera);
 }
-
-pub const VIEW_MODEL_RENDER_LAYER: usize = 1;
 
 #[derive(Debug, Component, Clone, Copy, Reflect)]
 #[reflect(Debug, Component)]

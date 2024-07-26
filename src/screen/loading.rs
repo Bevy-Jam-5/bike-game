@@ -15,7 +15,8 @@ pub(super) fn plugin(app: &mut App) {
             .load_collection::<LevelHandles>()
             .load_collection::<BlueprintHandles>()
             .load_collection::<AudioSfxHandles>()
-            .load_collection::<AudioSoundtrackHandles>(),
+            .load_collection::<AudioSoundtrackHandles>()
+            .load_collection::<MaterialHandles>(),
     );
     app.add_systems(OnEnter(Screen::Loading), enter_loading);
 }

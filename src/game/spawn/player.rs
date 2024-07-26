@@ -26,7 +26,7 @@ impl Component for Player {
     fn register_component_hooks(hooks: &mut ComponentHooks) {
         hooks.on_add(|mut world, entity, _component_id| {
             let mut commands = world.commands();
-            let collider = Collider::capsule(0.25, 1.0);
+            let collider = Collider::capsule(0.4, 0.7);
             commands.entity(entity).insert((
                 InputManagerBundle::with_map(PlayerAction::default_input_map()),
                 LastPedal::default(),

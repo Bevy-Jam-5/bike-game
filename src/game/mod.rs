@@ -10,6 +10,7 @@ pub mod movement;
 pub mod quest;
 pub mod spawn;
 pub mod time;
+pub mod view_model;
 
 pub(super) fn plugin(app: &mut App) {
     app.add_plugins((
@@ -19,6 +20,7 @@ pub(super) fn plugin(app: &mut App) {
         movement::plugin,
         camera::plugin,
         quest::plugin,
+        view_model::plugin,
         money::plugin,
         time::plugin,
     ));

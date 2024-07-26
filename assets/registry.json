@@ -15726,6 +15726,17 @@
       "type": "array",
       "typeInfo": "TupleStruct"
     },
+    "bike_game::game::view_model::PlayerViewModel": {
+      "additionalProperties": false,
+      "isComponent": true,
+      "isResource": false,
+      "long_name": "bike_game::game::view_model::PlayerViewModel",
+      "properties": {},
+      "required": [],
+      "short_name": "PlayerViewModel",
+      "type": "object",
+      "typeInfo": "Struct"
+    },
     "bike_game::screen::credits::CreditsAction": {
       "isComponent": true,
       "isResource": false,

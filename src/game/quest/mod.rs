@@ -5,6 +5,7 @@ pub mod commands_ext;
 pub mod delivery_zone;
 pub mod finish_quest;
 pub mod init_quests;
+pub mod lights;
 pub mod quest_place;
 
 pub(super) fn plugin(app: &mut App) {
@@ -15,5 +16,6 @@ pub(super) fn plugin(app: &mut App) {
         commands_ext::plugin,
         finish_quest::plugin,
         init_quests::plugin,
+        lights::plugin,
     ));
 }

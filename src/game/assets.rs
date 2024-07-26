@@ -15,12 +15,18 @@ pub struct LevelHandles {
 pub struct BlueprintHandles {
     #[asset(path = "blueprints/ColliderCube.glb")]
     _collider_cube: Handle<Gltf>,
-    #[asset(path = "blueprints/Crate.glb")]
-    _crate: Handle<Gltf>,
+    #[asset(path = "blueprints/Box.glb")]
+    _box: Handle<Gltf>,
     #[asset(path = "blueprints/Ramp.glb")]
     _ramp: Handle<Gltf>,
     #[asset(path = "blueprints/Wall.glb")]
     _wall: Handle<Gltf>,
+}
+
+#[derive(AssetCollection, Resource)]
+pub struct MaterialHandles {
+    #[asset(path = "materials/bike_game_materials.glb")]
+    _bike_game_materials: Handle<Gltf>,
 }
 
 #[derive(AssetCollection, Resource)]
