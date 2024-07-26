@@ -23,6 +23,13 @@ pub struct BlueprintHandles {
     _wall: Handle<Gltf>,
 }
 
+
+#[derive(AssetCollection, Resource)]
+pub struct MaterialHandles {
+    #[asset(path = "materials/bike_game_materials.glb")]
+    _bike_game_materials: Handle<Gltf>,
+}
+
 #[derive(AssetCollection, Resource)]
 pub struct AudioSfxHandles {
     #[asset(path = "audio/sfx/button_hover.ogg")]
