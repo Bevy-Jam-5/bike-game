@@ -5,10 +5,12 @@ use bevy::prelude::*;
 pub mod assets;
 pub mod audio;
 pub mod camera;
+pub mod money;
 pub mod movement;
 pub mod quest;
 pub mod spawn;
 pub mod view_model;
+pub mod time;
 
 pub(super) fn plugin(app: &mut App) {
     app.add_plugins((
@@ -19,5 +21,7 @@ pub(super) fn plugin(app: &mut App) {
         camera::plugin,
         quest::plugin,
         view_model::plugin,
+        money::plugin,
+        time::plugin,
     ));
 }

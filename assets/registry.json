@@ -15531,6 +15531,22 @@
       "type": "object",
       "typeInfo": "Struct"
     },
+    "bike_game::game::money::Money": {
+      "isComponent": false,
+      "isResource": true,
+      "items": false,
+      "long_name": "bike_game::game::money::Money",
+      "prefixItems": [
+        {
+          "type": {
+            "$ref": "#/$defs/f32"
+          }
+        }
+      ],
+      "short_name": "Money",
+      "type": "array",
+      "typeInfo": "TupleStruct"
+    },
     "bike_game::game::movement::DesiredVelocity": {
       "isComponent": true,
       "isResource": false,
@@ -15693,6 +15709,22 @@
       "short_name": "UiCamera",
       "type": "object",
       "typeInfo": "Struct"
+    },
+    "bike_game::game::time::InGameTime": {
+      "isComponent": false,
+      "isResource": true,
+      "items": false,
+      "long_name": "bike_game::game::time::InGameTime",
+      "prefixItems": [
+        {
+          "type": {
+            "$ref": "#/$defs/bevy_time::stopwatch::Stopwatch"
+          }
+        }
+      ],
+      "short_name": "InGameTime",
+      "type": "array",
+      "typeInfo": "TupleStruct"
     },
     "bike_game::game::view_model::PlayerViewModel": {
       "additionalProperties": false,
