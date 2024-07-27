@@ -5,6 +5,7 @@ use bevy::prelude::*;
 pub mod assets;
 pub mod audio;
 pub mod camera;
+pub mod game_end;
 pub mod money;
 pub mod movement;
 pub mod quest;
@@ -23,5 +24,6 @@ pub(super) fn plugin(app: &mut App) {
         view_model::plugin,
         money::plugin,
         time::plugin,
+        game_end::plugin,
     ));
 }
