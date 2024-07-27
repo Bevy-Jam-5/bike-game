@@ -9,3 +9,7 @@
 # Blender backup files
 *.blend1
 *[0-9].blend
+
+# Used for debugging
+*.gltf
+*.bin
