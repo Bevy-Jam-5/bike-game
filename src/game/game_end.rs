@@ -8,7 +8,7 @@ use crate::{
 };
 
 // FIXME: Change this to a larger value once we have more quests.
-pub const GAME_END_MONEY: f32 = 4.0;
+pub const GAME_END_MONEY: f32 = 5.0;
 
 pub(super) fn plugin(app: &mut App) {
     app.register_type::<GameEndAction>();
@@ -35,7 +35,7 @@ fn end_game(money: Res<Money>, mut next_state: ResMut<NextState<PlayState>>) {
         return;
     }
 
-    if money.0 > GAME_END_MONEY {
+    if money.0 >= GAME_END_MONEY {
         next_state.set(PlayState::GameEnded);
     }
 }
