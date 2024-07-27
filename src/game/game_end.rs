@@ -16,9 +16,9 @@ pub(super) fn plugin(app: &mut App) {
     app.add_systems(
         Update,
         (
-            end_game,
+            end_game.run_if(resource_changed::<Money>),
             handle_game_end_action.run_if(in_state(PlayState::GameEnded)),
-        ),
+        ).chain(),
     );
     app.add_systems(OnEnter(PlayState::GameEnded), on_game_end);
 }
@@ -31,10 +31,6 @@ enum GameEndAction {
 }
 
 fn end_game(money: Res<Money>, mut next_state: ResMut<NextState<PlayState>>) {
-    if !money.is_changed() {
-        return;
-    }
-
     if money.0 >= GAME_END_MONEY {
         next_state.set(PlayState::GameEnded);
     }
