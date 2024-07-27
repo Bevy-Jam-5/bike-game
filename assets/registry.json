@@ -15531,6 +15531,18 @@
       "type": "object",
       "typeInfo": "Struct"
     },
+    "bike_game::game::game_end::GameEndAction": {
+      "isComponent": true,
+      "isResource": false,
+      "long_name": "bike_game::game::game_end::GameEndAction",
+      "oneOf": [
+        "PlayAgain",
+        "TitleScreen"
+      ],
+      "short_name": "GameEndAction",
+      "type": "string",
+      "typeInfo": "Enum"
+    },
     "bike_game::game::money::Money": {
       "isComponent": false,
       "isResource": true,
