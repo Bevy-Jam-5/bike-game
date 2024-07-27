@@ -68,7 +68,7 @@ pub struct BlueprintHandles {
     #[asset(path = "blueprints/Mailbox.glb")]
     _mailbox: Handle<Gltf>,
     // npc
-    #[asset(path = "blueprints/NPC.glb")]
+    #[asset(path = "blueprints/Npc.glb")]
     _npc: Handle<Gltf>,
     // ramp
     #[asset(path = "blueprints/Ramp.glb")]
