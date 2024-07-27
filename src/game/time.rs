@@ -15,7 +15,10 @@ pub fn plugin(app: &mut App) {
 
     app.add_systems(
         Update,
-        (tick_in_game_time, update_time_text)
+        (
+            tick_in_game_time,
+            update_time_text.run_if(resource_changed::<InGameTime>),
+        )
             .chain()
             .run_if(in_state(PlayState::Active)),
     );
@@ -29,10 +32,6 @@ pub fn plugin(app: &mut App) {
 pub struct InGameTime(pub Stopwatch);
 
 fn update_time_text(time: Res<InGameTime>, mut time_text: Query<&mut Text, With<TimeText>>) {
-    if !time.is_changed() {
-        return;
-    }
-
     let mut text = single_mut!(time_text);
     text.sections[1].value = format_duration_to_mm_ss(time.elapsed());
 }

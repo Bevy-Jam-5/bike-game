@@ -11,7 +11,12 @@ use super::{
 pub fn plugin(app: &mut App) {
     app.init_resource::<Money>().register_type::<Money>();
 
-    app.add_systems(Update, update_money_text.run_if(in_state(Screen::Playing)));
+    app.add_systems(
+        Update,
+        update_money_text
+            .run_if(resource_changed::<Money>)
+            .run_if(in_state(Screen::Playing)),
+    );
     app.observe(on_finish_quest);
 
     // Leaving the gameplay screen currently resets the world, so reset the money.
@@ -23,10 +28,6 @@ pub fn plugin(app: &mut App) {
 pub struct Money(pub f32);
 
 fn update_money_text(money: Res<Money>, mut money_text: Query<&mut Text, With<MoneyText>>) {
-    if !money.is_changed() {
-        return;
-    }
-
     let mut text = single_mut!(money_text);
     text.sections[1].value = format!("${}", money.0);
 }
