@@ -31,7 +31,7 @@ fn spawn_level(_trigger: Trigger<SpawnLevel>, mut commands: Commands) {
 fn on_level_loaded(
     trigger: Trigger<OnAdd, BlueprintInstanceReady>,
     q_world: Query<&GameWorldTag>,
-    mut next_state: ResMut<NextState<PlayState>>
+    mut next_state: ResMut<NextState<PlayState>>,
 ) {
     let entity = trigger.entity();
     if !q_world.contains(entity) {
