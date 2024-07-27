@@ -25,19 +25,12 @@ pub struct BlueprintHandles {
     _building_beige: Handle<Gltf>,
     #[asset(path = "blueprints/Building Black.glb")]
     _building_black: Handle<Gltf>,
-
-    #[asset(path = "blueprints/ColliderCube.glb")]
-    _collider_cube: Handle<Gltf>,
     #[asset(path = "blueprints/Ramp.glb")]
     _ramp: Handle<Gltf>,
-    #[asset(path = "blueprints/Wall.glb")]
-    _wall: Handle<Gltf>,
 }
 
 #[derive(AssetCollection, Resource)]
 pub struct MaterialHandles {
-    #[asset(path = "materials/bike_game_materials.glb")]
-    _bike_game_materials: Handle<Gltf>,
     #[asset(path = "materials/Bike.glb")]
     _bike: Handle<Gltf>,
     #[asset(path = "materials/Black.glb")]
@@ -66,8 +59,6 @@ pub struct MaterialHandles {
     _grey: Handle<Gltf>,
     #[asset(path = "materials/Headlights.glb")]
     _headlights: Handle<Gltf>,
-    #[asset(path = "materials/Material.glb")]
-    _material: Handle<Gltf>,
     #[asset(path = "materials/metal_shade1.glb")]
     _metal_shade1: Handle<Gltf>,
     #[asset(path = "materials/OrangeWallMaterial.glb")]
