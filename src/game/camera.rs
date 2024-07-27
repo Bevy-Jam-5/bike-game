@@ -1,3 +1,4 @@
+use crate::screen::PlayState;
 use crate::util::{single, single_mut};
 use crate::{third_party::leafwing_input_manager::CameraAction, FixedAppSet};
 use avian3d::prelude::*;
@@ -9,7 +10,10 @@ use super::spawn::{first_person_camera::FirstPersonCamera, player::Player};
 pub(super) fn plugin(app: &mut App) {
     app.add_systems(
         FixedUpdate,
-        (rotate_camera, clamp_rotation)
+        (
+            rotate_camera.run_if(in_state(PlayState::Active)),
+            clamp_rotation,
+        )
             .chain()
             .in_set(FixedAppSet::CameraMovement),
     );

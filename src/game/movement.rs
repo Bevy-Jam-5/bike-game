@@ -1,6 +1,7 @@
 use bevy::prelude::*;
 use bevy_tnua::builtins::TnuaBuiltinWalk;
 
+use crate::screen::PlayState;
 use crate::util::single_mut;
 use crate::FixedAppSet;
 use crate::{third_party::leafwing_input_manager::PlayerAction, util::single};
@@ -18,7 +19,11 @@ pub(super) fn plugin(app: &mut App) {
     );
     app.add_systems(
         FixedUpdate,
-        (on_pedal, turn, dampen_movement)
+        (
+            on_pedal.run_if(in_state(PlayState::Active)),
+            turn,
+            dampen_movement,
+        )
             .chain()
             .in_set(FixedAppSet::ControllerMovement),
     );

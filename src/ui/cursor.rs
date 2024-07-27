@@ -1,20 +1,20 @@
 use bevy::{prelude::*, window::CursorGrabMode};
 
-use crate::{screen::Screen, util::single_mut};
+use crate::{screen::PlayState, util::single_mut};
 
 pub(super) fn plugin(app: &mut App) {
     #[cfg(not(feature = "dev"))]
-    app.add_systems(OnEnter(Screen::Playing), capture_cursor);
-    app.add_systems(OnExit(Screen::Playing), release_cursor);
+    app.add_systems(OnEnter(PlayState::Active), capture_cursor);
+    app.add_systems(OnExit(PlayState::Active), release_cursor);
 }
 
-fn capture_cursor(mut q_window: Query<&mut Window>) {
+pub fn capture_cursor(mut q_window: Query<&mut Window>) {
     let mut window = single_mut!(q_window);
     window.cursor.visible = false;
     window.cursor.grab_mode = CursorGrabMode::Locked;
 }
 
-fn release_cursor(mut q_window: Query<&mut Window>) {
+pub fn release_cursor(mut q_window: Query<&mut Window>) {
     let mut window = single_mut!(q_window);
     window.cursor.visible = true;
     window.cursor.grab_mode = CursorGrabMode::None;

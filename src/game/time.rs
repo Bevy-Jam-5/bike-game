@@ -1,6 +1,11 @@
+use std::time::Duration;
+
 use bevy::{prelude::*, time::Stopwatch};
 
-use crate::{screen::Screen, util::single_mut};
+use crate::{
+    screen::{PlayState, Screen},
+    util::single_mut,
+};
 
 use super::spawn::hud::TimeText;
 
@@ -12,7 +17,7 @@ pub fn plugin(app: &mut App) {
         Update,
         (tick_in_game_time, update_time_text)
             .chain()
-            .run_if(in_state(Screen::Playing)),
+            .run_if(in_state(PlayState::Active)),
     );
 
     // Leaving the gameplay screen currently resets the world, so reset the timer.
@@ -28,12 +33,8 @@ fn update_time_text(time: Res<InGameTime>, mut time_text: Query<&mut Text, With<
         return;
     }
 
-    let elapsed = time.elapsed().as_secs();
-    let seconds = elapsed % 60;
-    let minutes = (elapsed / 60) % 60;
-
     let mut text = single_mut!(time_text);
-    text.sections[1].value = format!("{:0>2}:{:0>2}", minutes, seconds);
+    text.sections[1].value = format_duration_to_mm_ss(time.elapsed());
 }
 
 fn tick_in_game_time(mut in_game_time: ResMut<InGameTime>, time: Res<Time>) {
@@ -42,4 +43,12 @@ fn tick_in_game_time(mut in_game_time: ResMut<InGameTime>, time: Res<Time>) {
 
 fn reset_in_game_time(mut in_game_time: ResMut<InGameTime>) {
     in_game_time.reset();
+}
+
+/// Returns a time string in the MM:SS format for the given duration.
+pub fn format_duration_to_mm_ss(duration: Duration) -> String {
+    let elapsed = duration.as_secs();
+    let seconds = elapsed % 60;
+    let minutes = (elapsed / 60) % 60;
+    format!("{:0>2}:{:0>2}", minutes, seconds)
 }
