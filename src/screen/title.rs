@@ -43,7 +43,7 @@ fn handle_title_action(
     for (interaction, action) in &mut button_query {
         if matches!(interaction, Interaction::Pressed) {
             match action {
-                TitleAction::Play => next_screen.set(Screen::Playing),
+                TitleAction::Play => next_screen.set(Screen::EnterPlaying),
                 TitleAction::Credits => next_screen.set(Screen::Credits),
 
                 #[cfg(not(target_family = "wasm"))]
