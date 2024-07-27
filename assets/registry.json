@@ -396,6 +396,19 @@
       "type": "array",
       "typeInfo": "List"
     },
+    "alloc::vec::Vec<blenvy::blueprints::materials::MaterialInfo>": {
+      "isComponent": false,
+      "isResource": false,
+      "items": {
+        "type": {
+          "$ref": "#/$defs/blenvy::blueprints::materials::MaterialInfo"
+        }
+      },
+      "long_name": "alloc::vec::Vec<blenvy::blueprints::materials::MaterialInfo>",
+      "short_name": "Vec<MaterialInfo>",
+      "type": "array",
+      "typeInfo": "List"
+    },
     "alloc::vec::Vec<f32>": {
       "isComponent": false,
       "isResource": false,
@@ -15531,6 +15544,18 @@
       "type": "object",
       "typeInfo": "Struct"
     },
+    "bike_game::game::game_end::GameEndAction": {
+      "isComponent": true,
+      "isResource": false,
+      "long_name": "bike_game::game::game_end::GameEndAction",
+      "oneOf": [
+        "PlayAgain",
+        "TitleScreen"
+      ],
+      "short_name": "GameEndAction",
+      "type": "string",
+      "typeInfo": "Enum"
+    },
     "bike_game::game::money::Money": {
       "isComponent": false,
       "isResource": true,
@@ -16065,7 +16090,7 @@
     },
     "blenvy::blueprints::materials::MaterialInfo": {
       "additionalProperties": false,
-      "isComponent": true,
+      "isComponent": false,
       "isResource": false,
       "long_name": "blenvy::blueprints::materials::MaterialInfo",
       "properties": {
@@ -16087,6 +16112,22 @@
       "short_name": "MaterialInfo",
       "type": "object",
       "typeInfo": "Struct"
+    },
+    "blenvy::blueprints::materials::MaterialInfos": {
+      "isComponent": true,
+      "isResource": false,
+      "items": false,
+      "long_name": "blenvy::blueprints::materials::MaterialInfos",
+      "prefixItems": [
+        {
+          "type": {
+            "$ref": "#/$defs/alloc::vec::Vec<blenvy::blueprints::materials::MaterialInfo>"
+          }
+        }
+      ],
+      "short_name": "MaterialInfos",
+      "type": "array",
+      "typeInfo": "TupleStruct"
     },
     "blenvy::blueprints::spawn_from_blueprints::BlueprintInfo": {
       "additionalProperties": false,

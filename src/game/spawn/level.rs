@@ -1,6 +1,6 @@
 //! Spawn the main level by triggering other observers.
 
-use bevy::prelude::*;
+use bevy::{color::palettes::tailwind, prelude::*};
 use blenvy::*;
 
 use crate::screen::Screen;
@@ -21,4 +21,8 @@ fn spawn_level(_trigger: Trigger<SpawnLevel>, mut commands: Commands) {
         GameWorldTag,
         StateScoped(Screen::Playing),
     ));
+    commands.insert_resource(AmbientLight {
+        color: tailwind::ORANGE_100.into(),
+        brightness: 70.0,
+    });
 }

@@ -13,20 +13,74 @@ pub struct LevelHandles {
 
 #[derive(AssetCollection, Resource)]
 pub struct BlueprintHandles {
-    #[asset(path = "blueprints/ColliderCube.glb")]
-    _collider_cube: Handle<Gltf>,
+    #[asset(path = "blueprints/Air Conditioner.glb")]
+    _air_conditioner: Handle<Gltf>,
+    #[asset(path = "blueprints/Bike.glb")]
+    _bike: Handle<Gltf>,
     #[asset(path = "blueprints/Box.glb")]
     _box: Handle<Gltf>,
+    #[asset(path = "blueprints/Building Beige Corner Pizza.glb")]
+    _building_beige_corner_pizza: Handle<Gltf>,
+    #[asset(path = "blueprints/Building Beige.glb")]
+    _building_beige: Handle<Gltf>,
+    #[asset(path = "blueprints/Building Black.glb")]
+    _building_black: Handle<Gltf>,
     #[asset(path = "blueprints/Ramp.glb")]
     _ramp: Handle<Gltf>,
-    #[asset(path = "blueprints/Wall.glb")]
-    _wall: Handle<Gltf>,
 }
 
 #[derive(AssetCollection, Resource)]
 pub struct MaterialHandles {
-    #[asset(path = "materials/bike_game_materials.glb")]
-    _bike_game_materials: Handle<Gltf>,
+    #[asset(path = "materials/Bike.glb")]
+    _bike: Handle<Gltf>,
+    #[asset(path = "materials/Black.glb")]
+    _black: Handle<Gltf>,
+    #[asset(path = "materials/Blue.glb")]
+    _blue: Handle<Gltf>,
+    #[asset(path = "materials/brick_shade1.glb")]
+    _brick_shade1: Handle<Gltf>,
+    #[asset(path = "materials/brick_shade2.glb")]
+    _brick_shade2: Handle<Gltf>,
+    #[asset(path = "materials/brick_shade3.glb")]
+    _brick_shade3: Handle<Gltf>,
+    #[asset(path = "materials/brick_shadeGreen.glb")]
+    _brick_shade_green: Handle<Gltf>,
+    #[asset(path = "materials/brick_shadeGreen2.glb")]
+    _brick_shade_green2: Handle<Gltf>,
+    #[asset(path = "materials/citybits_texture.glb")]
+    _citybits_texture: Handle<Gltf>,
+    #[asset(path = "materials/concrete.glb")]
+    _concrete: Handle<Gltf>,
+    #[asset(path = "materials/door_white.glb")]
+    _door_white: Handle<Gltf>,
+    #[asset(path = "materials/Dots Stroke.glb")]
+    _dots_stroke: Handle<Gltf>,
+    #[asset(path = "materials/Grey.glb")]
+    _grey: Handle<Gltf>,
+    #[asset(path = "materials/Headlights.glb")]
+    _headlights: Handle<Gltf>,
+    #[asset(path = "materials/metal_shade1.glb")]
+    _metal_shade1: Handle<Gltf>,
+    #[asset(path = "materials/OrangeWallMaterial.glb")]
+    _orange_wall_material: Handle<Gltf>,
+    #[asset(path = "materials/RampMaterial.glb")]
+    _ramp_material: Handle<Gltf>,
+    #[asset(path = "materials/red.glb")]
+    _red: Handle<Gltf>,
+    #[asset(path = "materials/sandstone.glb")]
+    _sandstone: Handle<Gltf>,
+    #[asset(path = "materials/TailLights.glb")]
+    _tail_lights: Handle<Gltf>,
+    #[asset(path = "materials/white.glb")]
+    _white: Handle<Gltf>,
+    #[asset(path = "materials/window_frame.glb")]
+    _window_frame: Handle<Gltf>,
+    #[asset(path = "materials/window_glass.glb")]
+    _window_glass: Handle<Gltf>,
+    #[asset(path = "materials/Windows.glb")]
+    _windows: Handle<Gltf>,
+    #[asset(path = "materials/wood.glb")]
+    _wood: Handle<Gltf>,
 }
 
 #[derive(AssetCollection, Resource)]
