@@ -18,7 +18,8 @@ pub(super) fn plugin(app: &mut App) {
         (
             end_game.run_if(resource_changed::<Money>),
             handle_game_end_action.run_if(in_state(PlayState::GameEnded)),
-        ).chain(),
+        )
+            .chain(),
     );
     app.add_systems(OnEnter(PlayState::GameEnded), on_game_end);
 }
