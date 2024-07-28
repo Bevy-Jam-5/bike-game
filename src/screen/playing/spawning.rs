@@ -59,7 +59,13 @@ fn update_spawning_text(
     q_blueprints: Query<Has<BlueprintInstanceReady>, With<BlueprintInfo>>,
 ) {
     let mut text = single_mut!(q_text);
-    let total = q_blueprints.iter().count();
+    // Doing a +1 here because sometimes, we need to activate a hack
+    // for Blenvy when it doesn't insert `BlueprintInstanceReady` on `World`
+    // In the worst case, this can take 10 seconds to kick in,
+    // during which the game has already spawned everything.
+    // This would make the player very confused as to why nothing is happening even though the game is ready.
+    // So let's pretend that there is one more blueprint than there actually is ;)
+    let total = q_blueprints.iter().count() + 1;
     let ready = q_blueprints.iter().filter(|&ready| ready).count();
     let label = format!("{ready}/{total}");
     text.sections[0].value = label;
