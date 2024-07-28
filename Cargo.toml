@@ -20,9 +20,13 @@ bevy-tnua = "0.19"
 bevy-tnua-avian3d = "0.1"
 leafwing-input-manager = "0.14.0"
 
+# Disable low-severity logs at compile time for performance.
 [dependencies.log]
 version = "*"
-# Disable low-severity logs at compile time for performance.
+features = ["max_level_debug", "release_max_level_warn"]
+
+[build-dependencies.log]
+version = "*"
 features = ["max_level_debug", "release_max_level_warn"]
 
 [features]
