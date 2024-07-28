@@ -4,11 +4,14 @@ use avian3d::prelude::*;
 use bevy::{dev_tools::states::log_transitions, prelude::*};
 use bevy_inspector_egui::quick::WorldInspectorPlugin;
 
-use crate::screen::Screen;
+use crate::screen::{PlayState, Screen};
 
 pub(super) fn plugin(app: &mut App) {
     // Print state transitions in dev builds
-    app.add_systems(Update, log_transitions::<Screen>);
+    app.add_systems(
+        Update,
+        (log_transitions::<Screen>, log_transitions::<PlayState>),
+    );
 
     app.add_plugins((WorldInspectorPlugin::new(), PhysicsDebugPlugin::default()));
 }

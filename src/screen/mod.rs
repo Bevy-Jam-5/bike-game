@@ -11,6 +11,7 @@ use bevy::prelude::*;
 pub(super) fn plugin(app: &mut App) {
     app.init_state::<Screen>().add_sub_state::<PlayState>();
     app.enable_state_scoped_entities::<Screen>();
+    app.enable_state_scoped_entities::<PlayState>();
 
     app.add_plugins((
         splash::plugin,
