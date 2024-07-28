@@ -53,9 +53,9 @@ pub struct DesiredVelocity(pub Vec3);
 impl Default for PlayerMovement {
     fn default() -> Self {
         Self {
-            ground_damping: 0.3,
-            pedal_acceleration: 3.0,
-            max_pedal_speed: 13.0,
+            ground_damping: 0.6,
+            pedal_acceleration: 2.0,
+            max_pedal_speed: 16.0,
             turn_speed: 0.8,
             max_turn_speed: 3.0,
         }

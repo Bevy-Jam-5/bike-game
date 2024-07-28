@@ -96,3 +96,6 @@ inherits = "release"
 opt-level = 3
 # Keep debug information in the binary.
 strip = "none"
+
+[patch.crates-io]
+avian3d = { git = "https://github.com/Jondolf/avian" }

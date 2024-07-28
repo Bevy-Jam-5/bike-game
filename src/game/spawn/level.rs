@@ -33,7 +33,7 @@ fn spawn_level(_trigger: Trigger<SpawnLevel>, mut commands: Commands) {
         StateScoped(Screen::Playing),
     ));
     commands.insert_resource(AmbientLight {
-        color: tailwind::SKY_200.into(),
+        color: tailwind::SKY_100.into(),
         brightness: 400.0,
     });
 }

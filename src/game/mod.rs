@@ -5,9 +5,11 @@ use bevy::prelude::*;
 pub mod assets;
 pub mod audio;
 pub mod camera;
+pub mod fov_speed;
 pub mod game_end;
 pub mod money;
 pub mod movement;
+pub mod prop_yeet;
 pub mod quest;
 pub mod spawn;
 pub mod time;
@@ -25,5 +27,7 @@ pub(super) fn plugin(app: &mut App) {
         money::plugin,
         time::plugin,
         game_end::plugin,
+        prop_yeet::plugin,
+        fov_speed::plugin,
     ));
 }
