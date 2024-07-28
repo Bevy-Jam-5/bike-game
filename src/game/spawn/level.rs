@@ -45,7 +45,7 @@ fn on_level_loaded(
     if q_world.is_empty() {
         return;
     }
-    next_state.set(PlayState::Active);
+    next_state.set(PlayState::LoadingPipelines);
 }
 
 #[derive(Debug, Resource, Deref, DerefMut)]

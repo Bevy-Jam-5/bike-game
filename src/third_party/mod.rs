@@ -5,7 +5,7 @@ use blenvy::*;
 
 pub mod avian;
 pub mod leafwing_input_manager;
-
+pub mod pipelines_ready;
 pub(super) fn plugin(app: &mut App) {
     app.add_plugins((
         TnuaControllerPlugin::default(),
@@ -16,5 +16,6 @@ pub(super) fn plugin(app: &mut App) {
         },
         leafwing_input_manager::plugin,
         avian::plugin,
+        pipelines_ready::plugin,
     ));
 }
