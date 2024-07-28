@@ -39,6 +39,9 @@ fn rotate_camera(mut q_camera: Query<(&mut Transform, &ActionState<CameraAction>
     if let Some(axis) = action.axis_pair(&CameraAction::RotateCamera) {
         let yaw = -axis.x() * 0.003;
         let pitch = -axis.y() * 0.002;
+        if pitch != 0.0 {
+            error!("Pitch: {}; Axis data: {:?}", pitch, axis);
+        }
         transform.rotate_y(yaw);
         transform.rotate_local_x(pitch);
     }
