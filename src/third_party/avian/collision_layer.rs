@@ -13,6 +13,8 @@ pub enum CollisionLayer {
     Default,
     Player,
     DeliveryZone,
+    YeetCollider,
+    Prop,
 }
 
 #[derive(Debug, Clone, Copy, Reflect, PartialEq, Eq)]
@@ -21,6 +23,8 @@ pub enum CollisionLayerPreset {
     Default,
     Player,
     Sensor,
+    YeetCollider,
+    Prop,
 }
 
 impl From<CollisionLayerPreset> for CollisionLayers {
@@ -28,15 +32,31 @@ impl From<CollisionLayerPreset> for CollisionLayers {
         match preset {
             CollisionLayerPreset::Default => CollisionLayers::new(
                 CollisionLayer::Default,
-                [CollisionLayer::Default, CollisionLayer::Player],
+                [CollisionLayer::Player, CollisionLayer::Prop],
             ),
             CollisionLayerPreset::Player => CollisionLayers::new(
                 CollisionLayer::Player,
-                [CollisionLayer::Default, CollisionLayer::DeliveryZone],
+                [
+                    CollisionLayer::Default,
+                    CollisionLayer::DeliveryZone,
+                    CollisionLayer::Prop,
+                ],
             ),
             CollisionLayerPreset::Sensor => {
                 CollisionLayers::new(CollisionLayer::DeliveryZone, CollisionLayer::Player)
             }
+            CollisionLayerPreset::YeetCollider => {
+                CollisionLayers::new(CollisionLayer::YeetCollider, CollisionLayer::Prop)
+            }
+            CollisionLayerPreset::Prop => CollisionLayers::new(
+                CollisionLayer::Prop,
+                [
+                    CollisionLayer::Default,
+                    CollisionLayer::Prop,
+                    CollisionLayer::Player,
+                    CollisionLayer::YeetCollider,
+                ],
+            ),
         }
     }
 }

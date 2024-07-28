@@ -21,7 +21,7 @@ use super::{
 };
 
 pub(super) fn plugin(app: &mut App) {
-    app.register_type::<FirstPersonCamera>();
+    app.register_type::<(FirstPersonCamera, WorldModelCamera)>();
     app.observe(spawn_first_person_camera);
     app.observe(despawn_ui_camera);
     app.observe(spawn_ui_camera);
@@ -31,6 +31,14 @@ pub(super) fn plugin(app: &mut App) {
 #[derive(Debug, Component, Clone, Copy, Reflect)]
 #[reflect(Debug, Component)]
 pub struct FirstPersonCamera;
+
+#[derive(Debug, Component, Clone, Copy, Reflect)]
+#[reflect(Debug, Component)]
+pub struct WorldModelCamera;
+
+pub fn base_fov() -> f32 {
+    65.0_f32.to_radians()
+}
 
 #[derive(Event, Debug)]
 pub struct SpawnFirstPersonCamera;
@@ -59,7 +67,7 @@ fn spawn_first_person_camera(
                 Name::new("World Model Camera"),
                 Camera3dBundle {
                     projection: PerspectiveProjection {
-                        fov: 70.0_f32.to_radians(),
+                        fov: base_fov(),
                         ..default()
                     }
                     .into(),
@@ -69,6 +77,7 @@ fn spawn_first_person_camera(
                     image: skybox_handle.clone(),
                     brightness: 1200.0,
                 },
+                WorldModelCamera,
                 IsDefaultUiCamera,
             ));
             parent.spawn((

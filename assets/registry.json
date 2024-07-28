@@ -99,6 +99,27 @@
       "type": "array",
       "typeInfo": "Tuple"
     },
+    "(bike_game::game::spawn::first_person_camera::FirstPersonCamera, bike_game::game::spawn::first_person_camera::WorldModelCamera)": {
+      "isComponent": false,
+      "isResource": false,
+      "items": false,
+      "long_name": "(bike_game::game::spawn::first_person_camera::FirstPersonCamera, bike_game::game::spawn::first_person_camera::WorldModelCamera)",
+      "prefixItems": [
+        {
+          "type": {
+            "$ref": "#/$defs/bike_game::game::spawn::first_person_camera::FirstPersonCamera"
+          }
+        },
+        {
+          "type": {
+            "$ref": "#/$defs/bike_game::game::spawn::first_person_camera::WorldModelCamera"
+          }
+        }
+      ],
+      "short_name": "(FirstPersonCamera, WorldModelCamera)",
+      "type": "array",
+      "typeInfo": "Tuple"
+    },
     "(u8, u8)": {
       "isComponent": false,
       "isResource": false,
@@ -3241,6 +3262,28 @@
         "transform_to_position"
       ],
       "short_name": "SyncConfig",
+      "type": "object",
+      "typeInfo": "Struct"
+    },
+    "avian3d::sync::ancestor_marker::AncestorMarker<avian3d::collision::collider::backend::ColliderMarker>": {
+      "additionalProperties": false,
+      "isComponent": true,
+      "isResource": false,
+      "long_name": "avian3d::sync::ancestor_marker::AncestorMarker<avian3d::collision::collider::backend::ColliderMarker>",
+      "properties": {},
+      "required": [],
+      "short_name": "AncestorMarker<ColliderMarker>",
+      "type": "object",
+      "typeInfo": "Struct"
+    },
+    "avian3d::sync::ancestor_marker::AncestorMarker<avian3d::dynamics::rigid_body::RigidBody>": {
+      "additionalProperties": false,
+      "isComponent": true,
+      "isResource": false,
+      "long_name": "avian3d::sync::ancestor_marker::AncestorMarker<avian3d::dynamics::rigid_body::RigidBody>",
+      "properties": {},
+      "required": [],
+      "short_name": "AncestorMarker<RigidBody>",
       "type": "object",
       "typeInfo": "Struct"
     },
@@ -15617,6 +15660,17 @@
       "type": "array",
       "typeInfo": "TupleStruct"
     },
+    "bike_game::game::prop_yeet::YeetCollider": {
+      "additionalProperties": false,
+      "isComponent": true,
+      "isResource": false,
+      "long_name": "bike_game::game::prop_yeet::YeetCollider",
+      "properties": {},
+      "required": [],
+      "short_name": "YeetCollider",
+      "type": "object",
+      "typeInfo": "Struct"
+    },
     "bike_game::game::quest::advance_quest::ActiveQuest": {
       "additionalProperties": false,
       "isComponent": false,
@@ -15710,6 +15764,17 @@
       "properties": {},
       "required": [],
       "short_name": "FirstPersonCamera",
+      "type": "object",
+      "typeInfo": "Struct"
+    },
+    "bike_game::game::spawn::first_person_camera::WorldModelCamera": {
+      "additionalProperties": false,
+      "isComponent": true,
+      "isResource": false,
+      "long_name": "bike_game::game::spawn::first_person_camera::WorldModelCamera",
+      "properties": {},
+      "required": [],
+      "short_name": "WorldModelCamera",
       "type": "object",
       "typeInfo": "Struct"
     },
@@ -15809,7 +15874,9 @@
       "oneOf": [
         "Default",
         "Player",
-        "Sensor"
+        "Sensor",
+        "YeetCollider",
+        "Prop"
       ],
       "short_name": "CollisionLayerPreset",
       "type": "string",
