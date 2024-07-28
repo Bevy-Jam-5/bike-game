@@ -21,17 +21,7 @@ pub(super) fn plugin(app: &mut App) {
 pub fn capture_cursor(mut q_window: Query<&mut Window>) {
     let mut window = single_mut!(q_window);
     window.cursor.visible = false;
-    #[cfg(not(target_arch = "wasm32"))]
-    {
-        window.cursor.grab_mode = CursorGrabMode::Locked;
-    }
-    #[cfg(target_arch = "wasm32")]
-    {
-        // Confined actually resets the mouse position,
-        // but only works when paired with a click.
-        // So we run this every frame.
-        window.cursor.grab_mode = CursorGrabMode::Confined;
-    }
+    window.cursor.grab_mode = CursorGrabMode::Locked;
 }
 
 pub fn release_cursor(mut q_window: Query<&mut Window>) {
