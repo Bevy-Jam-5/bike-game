@@ -535,7 +535,6 @@ dependencies = [
  "anyhow",
  "bevy",
  "bevy_asset_loader_derive",
- "iyes_progress",
  "path-slash",
 ]
 
@@ -1346,7 +1345,6 @@ dependencies = [
  "bevy-tnua-avian3d",
  "bevy_asset_loader",
  "blenvy",
- "iyes_progress",
  "leafwing-input-manager",
  "log",
  "rand",
@@ -2617,18 +2615,6 @@ name = "itoa"
 version = "1.0.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "49f1f14873335454500d59611f1cf4a4b0f786f9ac11f4312a78e4cf2566695b"
-
-[[package]]
-name = "iyes_progress"
-version = "0.12.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "189dfbfb74fd3307536274b549c79cc7a3b076b8da067aa9fc2d6130eaca09ba"
-dependencies = [
- "bevy_app",
- "bevy_ecs",
- "bevy_state",
- "bevy_utils",
-]
 
 [[package]]
 name = "jni"

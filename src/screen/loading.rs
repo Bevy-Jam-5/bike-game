@@ -2,16 +2,15 @@
 //! This reduces stuttering, especially for audio on WASM.
 
 use bevy::prelude::*;
-use iyes_progress::ProgressPlugin;
 
 use super::Screen;
 use crate::{game::assets::*, ui::prelude::*};
 use bevy_asset_loader::prelude::*;
 
 pub(super) fn plugin(app: &mut App) {
-    app.add_plugins(ProgressPlugin::new(Screen::Loading).continue_to(Screen::Title));
     app.add_loading_state(
         LoadingState::new(Screen::Loading)
+            .continue_to_state(Screen::Title)
             .load_collection::<LevelHandles>()
             .load_collection::<BlueprintHandles>()
             .load_collection::<AudioSfxHandles>()
