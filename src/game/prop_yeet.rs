@@ -42,9 +42,9 @@ fn yeet_props(
         if !matches!(rigid_body, RigidBody::Dynamic) {
             continue;
         }
-        // Unit is Nsm⁻¹s⁻¹
-        const IMPULSE_FACTOR: f32 = 1.5;
-        let impulse = velocity.0 * IMPULSE_FACTOR;
+        // Unit is kg. Not using the player's mass as that would be wayyyy too much.
+        const YEETING_MASS: f32 = 1.5;
+        let impulse = velocity.0 * YEETING_MASS;
         external_impulse.apply_impulse(impulse);
     }
 }
