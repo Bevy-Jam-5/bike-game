@@ -40,6 +40,9 @@ pub struct BlueprintHandles {
     // building red
     #[asset(path = "blueprints/Building Red.glb")]
     _building_red: Handle<Gltf>,
+    // building red barren
+    #[asset(path = "blueprints/Building Red Barren.glb")]
+    _building_red_barren: Handle<Gltf>,
     // building big (yes, there is a typo)
     #[asset(path = "blueprints/Buliding Big.glb")]
     _building_big: Handle<Gltf>,

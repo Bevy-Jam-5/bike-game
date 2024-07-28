@@ -10,6 +10,7 @@ use blenvy::*;
 use crate::screen::{PlayState, Screen};
 
 pub(super) fn plugin(app: &mut App) {
+    app.init_resource::<LoadTimer>();
     app.observe(spawn_level);
     app.add_systems(
         Update,
@@ -47,9 +48,19 @@ fn on_level_loaded(
     next_state.set(PlayState::Active);
 }
 
+#[derive(Debug, Resource, Deref, DerefMut)]
+struct LoadTimer(Timer);
+
+impl Default for LoadTimer {
+    fn default() -> Self {
+        Self(Timer::from_seconds(10.0, TimerMode::Once))
+    }
+}
+
 /// Needed because `BlueprintReadyForFinalizing` is not inserted on `World` in about 25% of runs on Wasm
 /// due to a bug that is probably coming from Blenvy
 fn hack_loading(
+    time: Res<Time>,
     mut commands: Commands,
     q_loading: Query<
         Entity,
@@ -61,7 +72,12 @@ fn hack_loading(
     >,
     q_children: Query<&Children>,
     q_blueprints: Query<Has<BlueprintInstanceReady>, With<BlueprintInfo>>,
+    mut load_timer: ResMut<LoadTimer>,
 ) {
+    if !load_timer.finished() {
+        load_timer.tick(time.delta());
+        return;
+    }
     if q_loading.is_empty() {
         return;
     }
