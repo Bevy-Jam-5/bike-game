@@ -1348,6 +1348,7 @@ dependencies = [
  "leafwing-input-manager",
  "log",
  "rand",
+ "tracing",
 ]
 
 [[package]]

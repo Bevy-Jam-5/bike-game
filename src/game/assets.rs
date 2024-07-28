@@ -70,6 +70,9 @@ pub struct BlueprintHandles {
     // mailbox
     #[asset(path = "blueprints/Mailbox.glb")]
     _mailbox: Handle<Gltf>,
+    // metal fence
+    #[asset(path = "blueprints/Metal Fence.glb")]
+    _metal_fence: Handle<Gltf>,
     // npc
     #[asset(path = "blueprints/Npc.glb")]
     _npc: Handle<Gltf>,
@@ -209,6 +212,9 @@ pub struct MaterialHandles {
     // sign
     #[asset(path = "materials/sign.glb")]
     _sign: Handle<Gltf>,
+    // Silver
+    #[asset(path = "materials/Silver.glb")]
+    _silver: Handle<Gltf>,
     // TailLights
     #[asset(path = "materials/TailLights.glb")]
     _tail_lights: Handle<Gltf>,
