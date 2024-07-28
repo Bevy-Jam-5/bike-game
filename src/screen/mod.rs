@@ -44,6 +44,7 @@ pub enum Screen {
 pub enum PlayState {
     #[default]
     Spawning,
+    LoadingPipelines,
     Active,
     GameEnded,
 }

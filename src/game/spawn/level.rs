@@ -28,7 +28,8 @@ fn spawn_level(_trigger: Trigger<SpawnLevel>, mut commands: Commands) {
         Name::new("Level"),
         BlueprintInfo::from_path("levels/World.glb"),
         SpawnBlueprint,
-        HideUntilReady,
+        // Not using `HideUntilReady` because we hide it a bit longer
+        Visibility::Hidden,
         GameWorldTag,
         StateScoped(Screen::Playing),
     ));
@@ -45,7 +46,7 @@ fn on_level_loaded(
     if q_world.is_empty() {
         return;
     }
-    next_state.set(PlayState::Active);
+    next_state.set(PlayState::LoadingPipelines);
 }
 
 #[derive(Debug, Resource, Deref, DerefMut)]
