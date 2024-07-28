@@ -239,6 +239,12 @@ pub struct MaterialHandles {
 }
 
 #[derive(AssetCollection, Resource)]
+pub struct ImageHandles {
+    #[asset(path = "images/skybox.png")]
+    pub skybox: Handle<Image>,
+}
+
+#[derive(AssetCollection, Resource)]
 pub struct AudioSfxHandles {
     #[asset(path = "audio/sfx/button_hover.ogg")]
     pub button_hover: Handle<AudioSource>,
