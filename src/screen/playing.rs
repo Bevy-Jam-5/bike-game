@@ -29,7 +29,9 @@ fn enter_playing(mut commands: Commands) {
         .insert(StateScoped(PlayState::Spawning))
         .with_children(|children| {
             children.label("Spawning Level...");
-            children.label("This takes a while. No worries, nothing crashed :)");
+            children.label("");
+            children.label("This takes a while.");
+            children.label("No worries, nothing crashed :)");
         });
 }
 

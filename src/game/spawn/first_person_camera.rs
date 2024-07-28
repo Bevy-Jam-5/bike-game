@@ -1,7 +1,6 @@
 //! Spawn the main level by triggering other observers.
 
 use bevy::{
-    asset::LoadState,
     core_pipeline::Skybox,
     prelude::*,
     render::{
@@ -11,7 +10,7 @@ use bevy::{
 };
 use leafwing_input_manager::prelude::*;
 
-use crate::game::view_model::VIEW_MODEL_RENDER_LAYER;
+use crate::game::{assets::ImageHandles, view_model::VIEW_MODEL_RENDER_LAYER};
 use crate::screen::Screen;
 use crate::third_party::leafwing_input_manager::CameraAction;
 
@@ -25,7 +24,12 @@ pub(super) fn plugin(app: &mut App) {
     app.observe(spawn_first_person_camera);
     app.observe(despawn_ui_camera);
     app.observe(spawn_ui_camera);
-    app.add_systems(Update, configure_skybox_texture);
+    app.add_systems(
+        Update,
+        configure_skybox_texture
+            .run_if(resource_exists::<ImageHandles>)
+            .run_if(on_event::<AssetEvent<Image>>()),
+    );
 }
 
 #[derive(Debug, Component, Clone, Copy, Reflect)]
@@ -47,13 +51,9 @@ fn spawn_first_person_camera(
     _trigger: Trigger<SpawnFirstPersonCamera>,
     mut commands: Commands,
     q_player: Query<&Transform, With<Player>>,
-    asset_server: Res<AssetServer>,
+    image_handles: Res<ImageHandles>,
 ) {
     let transform = q_player.get_single().copied().unwrap_or_default();
-
-    // Note: We could use ktx2, but generating it with gltf-ibl-sampler-egui made the sky too oversaturated.
-    let skybox_handle = asset_server.load("images/skybox.png");
-
     commands
         .spawn((
             Name::new("First Person Camera"),
@@ -74,7 +74,7 @@ fn spawn_first_person_camera(
                     ..default()
                 },
                 Skybox {
-                    image: skybox_handle.clone(),
+                    image: image_handles.skybox.clone(),
                     brightness: 1200.0,
                 },
                 WorldModelCamera,
@@ -98,11 +98,6 @@ fn spawn_first_person_camera(
                 RenderLayers::layer(VIEW_MODEL_RENDER_LAYER),
             ));
         });
-
-    commands.insert_resource(Cubemap {
-        is_loaded: false,
-        image_handle: skybox_handle,
-    });
 }
 
 fn despawn_ui_camera(
@@ -119,26 +114,24 @@ fn spawn_ui_camera(_trigger: Trigger<OnRemove, FirstPersonCamera>, mut commands:
     commands.trigger(SpawnUiCamera);
 }
 
-#[derive(Resource)]
-struct Cubemap {
-    is_loaded: bool,
-    image_handle: Handle<Image>,
-}
-
 fn configure_skybox_texture(
-    asset_server: Res<AssetServer>,
+    mut asset_events: EventReader<AssetEvent<Image>>,
+    image_handles: Res<ImageHandles>,
     mut images: ResMut<Assets<Image>>,
-    cubemap: Option<ResMut<Cubemap>>,
-    mut skyboxes: Query<&mut Skybox>,
+    mut done: Local<bool>,
 ) {
-    let Some(mut cubemap) = cubemap else {
+    if *done {
         return;
-    };
-
-    if !cubemap.is_loaded && asset_server.load_state(&cubemap.image_handle) == LoadState::Loaded {
-        let image = images.get_mut(&cubemap.image_handle).unwrap();
-        // NOTE: PNGs do not have any metadata that could indicate they contain a cubemap texture,
+    }
+    for event in asset_events.read() {
+        let skybox = &image_handles.skybox;
+        if !event.is_loaded_with_dependencies(skybox) {
+            return;
+        }
+        let image = images.get_mut(skybox).unwrap();
+        // Note: PNGs do not have any metadata that could indicate they contain a cubemap texture,
         // so they appear as one texture. The following code reconfigures the texture as necessary.
+        // We could use ktx2, but generating it with gltf-ibl-sampler-egui made the sky too oversaturated.
         if image.texture_descriptor.array_layer_count() == 1 {
             image.reinterpret_stacked_2d_as_array(image.height() / image.width());
             image.texture_view_descriptor = Some(TextureViewDescriptor {
@@ -146,11 +139,6 @@ fn configure_skybox_texture(
                 ..default()
             });
         }
-
-        for mut skybox in &mut skyboxes {
-            skybox.image = cubemap.image_handle.clone();
-        }
-
-        cubemap.is_loaded = true;
+        *done = true;
     }
 }
