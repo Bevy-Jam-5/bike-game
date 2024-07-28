@@ -14,15 +14,16 @@ pub(super) fn plugin(app: &mut App) {
 // This value should be found experimentally by logging `PipelinesReady` in your app
 // during normal use and noting the maximum value.
 #[cfg(not(target_arch = "wasm32"))]
-const EXPECTED_PIPELINES: usize = 28;
+pub const EXPECTED_PIPELINES: usize = 28;
 // The value will likely differ on the web due to different implementations of some
 // render features.
 #[cfg(target_arch = "wasm32")]
-const EXPECTED_PIPELINES: usize = 8;
+pub const EXPECTED_PIPELINES: usize = 8;
 
 fn print(ready: Res<PipelinesReady>) {
     info!("Pipelines Ready: {}/{}", ready.get(), EXPECTED_PIPELINES);
 }
+
 fn transition(ready: Res<PipelinesReady>, mut next_state: ResMut<NextState<PlayState>>) {
     if ready.get() >= EXPECTED_PIPELINES {
         next_state.set(PlayState::Active);
