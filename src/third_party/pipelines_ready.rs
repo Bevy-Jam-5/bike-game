@@ -19,7 +19,8 @@ pub const EXPECTED_PIPELINES: usize = 25;
 // The value will likely differ on the web due to different implementations of some
 // render features.
 #[cfg(target_arch = "wasm32")]
-pub const EXPECTED_PIPELINES: usize = 21;
+// Sometimes 21, idk.
+pub const EXPECTED_PIPELINES: usize = 18;
 
 fn print(ready: Res<PipelinesReady>) {
     info!("Pipelines Ready: {}/{}", ready.get(), EXPECTED_PIPELINES);
