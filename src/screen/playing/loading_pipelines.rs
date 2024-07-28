@@ -1,6 +1,5 @@
 use bevy::{prelude::*, ui::Val::*};
 use bevy_pipelines_ready::PipelinesReady;
-use blenvy::GameWorldTag;
 use ui_palette::LABEL_TEXT;
 
 use super::{LoadingText, PlayState};
