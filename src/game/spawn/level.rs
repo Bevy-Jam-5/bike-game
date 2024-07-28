@@ -28,7 +28,7 @@ fn spawn_level(_trigger: Trigger<SpawnLevel>, mut commands: Commands) {
         Name::new("Level"),
         BlueprintInfo::from_path("levels/World.glb"),
         SpawnBlueprint,
-        // Not using `HideUntilReady` because we hide it a bit longer
+        HideUntilReady,
         Visibility::Hidden,
         GameWorldTag,
         StateScoped(Screen::Playing),

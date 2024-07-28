@@ -3,6 +3,7 @@
 mod credits;
 mod loading;
 mod playing;
+mod preprocessing;
 mod splash;
 mod title;
 
@@ -19,6 +20,7 @@ pub(super) fn plugin(app: &mut App) {
         title::plugin,
         credits::plugin,
         playing::plugin,
+        preprocessing::plugin,
     ));
 
     app.add_systems(OnEnter(Screen::EnterPlaying), enter_playing);
@@ -30,6 +32,7 @@ pub enum Screen {
     #[default]
     Splash,
     Loading,
+    Preprocessing,
     Title,
     Credits,
     // This is needed as an intermediary state to allow resetting the game world.

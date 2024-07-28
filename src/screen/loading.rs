@@ -10,7 +10,7 @@ use bevy_asset_loader::prelude::*;
 pub(super) fn plugin(app: &mut App) {
     app.add_loading_state(
         LoadingState::new(Screen::Loading)
-            .continue_to_state(Screen::Title)
+            .continue_to_state(Screen::Preprocessing)
             .load_collection::<LevelHandles>()
             .load_collection::<BlueprintHandles>()
             .load_collection::<AudioSfxHandles>()

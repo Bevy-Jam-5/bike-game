@@ -1,13 +1,6 @@
 //! Spawn the main level by triggering other observers.
 
-use bevy::{
-    core_pipeline::Skybox,
-    prelude::*,
-    render::{
-        render_resource::{TextureViewDescriptor, TextureViewDimension},
-        view::RenderLayers,
-    },
-};
+use bevy::{core_pipeline::Skybox, prelude::*, render::view::RenderLayers};
 use leafwing_input_manager::prelude::*;
 
 use crate::game::{assets::ImageHandles, view_model::VIEW_MODEL_RENDER_LAYER};
@@ -24,12 +17,6 @@ pub(super) fn plugin(app: &mut App) {
     app.observe(spawn_first_person_camera);
     app.observe(despawn_ui_camera);
     app.observe(spawn_ui_camera);
-    app.add_systems(
-        Update,
-        configure_skybox_texture
-            .run_if(resource_exists::<ImageHandles>)
-            .run_if(on_event::<AssetEvent<Image>>()),
-    );
 }
 
 #[derive(Debug, Component, Clone, Copy, Reflect)]
@@ -112,33 +99,4 @@ fn despawn_ui_camera(
 
 fn spawn_ui_camera(_trigger: Trigger<OnRemove, FirstPersonCamera>, mut commands: Commands) {
     commands.trigger(SpawnUiCamera);
-}
-
-fn configure_skybox_texture(
-    mut asset_events: EventReader<AssetEvent<Image>>,
-    image_handles: Res<ImageHandles>,
-    mut images: ResMut<Assets<Image>>,
-    mut done: Local<bool>,
-) {
-    if *done {
-        return;
-    }
-    for event in asset_events.read() {
-        let skybox = &image_handles.skybox;
-        if !event.is_loaded_with_dependencies(skybox) {
-            return;
-        }
-        let image = images.get_mut(skybox).unwrap();
-        // Note: PNGs do not have any metadata that could indicate they contain a cubemap texture,
-        // so they appear as one texture. The following code reconfigures the texture as necessary.
-        // We could use ktx2, but generating it with gltf-ibl-sampler-egui made the sky too oversaturated.
-        if image.texture_descriptor.array_layer_count() == 1 {
-            image.reinterpret_stacked_2d_as_array(image.height() / image.width());
-            image.texture_view_descriptor = Some(TextureViewDescriptor {
-                dimension: Some(TextureViewDimension::Cube),
-                ..default()
-            });
-        }
-        *done = true;
-    }
 }
