@@ -1,5 +1,6 @@
 use bevy::{prelude::*, ui::Val::*};
 use bevy_pipelines_ready::PipelinesReady;
+use blenvy::GameWorldTag;
 use ui_palette::LABEL_TEXT;
 
 use super::{LoadingText, PlayState};
@@ -11,6 +12,7 @@ pub(super) fn plugin(app: &mut App) {
         OnEnter(PlayState::LoadingPipelines),
         enter_loading_pipelines,
     );
+
     app.add_systems(
         Update,
         update_loading_pipelines_text.run_if(in_state(PlayState::LoadingPipelines)),

@@ -21,7 +21,7 @@ pub(super) fn plugin(app: &mut App) {
 fn enter_preprocessing(mut commands: Commands) {
     commands
         .ui_root()
-        .insert(StateScoped(Screen::Loading))
+        .insert(StateScoped(Screen::Preprocessing))
         .with_children(|children| {
             children.label("Preprocessing Assets...");
         });

@@ -4,10 +4,7 @@ use ui_palette::LABEL_TEXT;
 
 use super::{LoadingText, PlayState};
 use crate::ui::prelude::*;
-use crate::{
-    game::spawn::{level::SpawnLevel},
-    util::single_mut,
-};
+use crate::{game::spawn::level::SpawnLevel, util::single_mut};
 
 pub(super) fn plugin(app: &mut App) {
     app.add_systems(OnEnter(PlayState::Spawning), enter_spawning);

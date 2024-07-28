@@ -14,9 +14,9 @@ pub(super) fn plugin(app: &mut App) {
 // This value should be found experimentally by logging `PipelinesReady` in your app
 // during normal use and noting the maximum value.
 #[cfg(not(target_arch = "wasm32"))]
-pub const EXPECTED_PIPELINES: usize = 28;
-// The value will likely differ on the web due to different implementations of some
-// render features.
+pub const EXPECTED_PIPELINES: usize = 25; // Sometimes 28, idk.
+                                          // The value will likely differ on the web due to different implementations of some
+                                          // render features.
 #[cfg(target_arch = "wasm32")]
 pub const EXPECTED_PIPELINES: usize = 21;
 
