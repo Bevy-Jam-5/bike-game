@@ -1,18 +1,27 @@
+use std::f32::consts::PI;
 use std::iter;
 
+use crate::game::materials::SingleColorMaterial;
 use crate::AppSet;
 use crate::{game::spawn::player::Player, third_party::avian::DisableCollider};
 use avian3d::prelude::*;
 use bevy::prelude::*;
 
 use super::{advance_quest::AdvanceQuest, quest_place::QuestPlace};
+use crate::game::particle_emitter::{
+    ParticleEmitter, ParticleEmitterBundle, ParticleLifetime, ParticleVisuals, SamplingMode,
+};
 
 pub(super) fn plugin(app: &mut App) {
     app.observe(on_create_delivery_zone);
-    app.register_type::<(DeliveryZone, DeliveryZoneLink)>();
+    app.register_type::<(DeliveryZone, DeliveryZoneLink, DeliveryZoneParticleVisuals)>();
+    app.add_systems(Startup, init_particle_visuals);
     app.add_systems(
         Update,
-        on_delivery_player_collision.in_set(AppSet::ReadCollisions),
+        (
+            on_delivery_player_collision.in_set(AppSet::ReadCollisions),
+            control_emitters,
+        ),
     );
 }
 
@@ -27,6 +36,21 @@ pub struct DeliveryZone;
 #[reflect(Debug, Component, PartialEq)]
 pub struct DeliveryZoneLink(pub Entity);
 
+#[derive(Resource, Reflect, Clone)]
+#[reflect(Resource)]
+pub struct DeliveryZoneParticleVisuals(pub ParticleVisuals<SingleColorMaterial>);
+
+fn init_particle_visuals(
+    mut commands: Commands,
+    mut meshes: ResMut<Assets<Mesh>>,
+    mut materials: ResMut<Assets<SingleColorMaterial>>,
+) {
+    commands.insert_resource(DeliveryZoneParticleVisuals(ParticleVisuals {
+        mesh: meshes.add(Sphere::new(0.03).mesh().ico(2).unwrap()),
+        material: materials.add(Color::hsl(30.0, 1.0, 0.6)),
+    }));
+}
+
 /// Add [`DeliveryZoneLink`] to the [`QuestPlace`] entity.
 /// Not a hook because `iter_ancestors` does not work there :(
 fn on_create_delivery_zone(
@@ -34,6 +58,7 @@ fn on_create_delivery_zone(
     mut commands: Commands,
     q_parent: Query<&Parent>,
     q_place: Query<Entity, With<QuestPlace>>,
+    particle_visuals: Res<DeliveryZoneParticleVisuals>,
 ) {
     let entity = trigger.entity();
     let place_entity = iter::once(entity)
@@ -45,7 +70,40 @@ fn on_create_delivery_zone(
     };
     commands
         .entity(place_entity)
-        .insert(DeliveryZoneLink(entity));
+        .insert(DeliveryZoneLink(entity))
+        .with_children(|children| {
+            children.spawn((
+                ParticleEmitterBundle {
+                    emitter: ParticleEmitter {
+                        enabled: false,
+                        shape: Extrusion::new(Annulus::new(2.75, 3.0), 0.5),
+                        spawn_rate: 2000,
+                        sampling_mode: SamplingMode::Interior,
+                    },
+                    particle_lifetime: ParticleLifetime {
+                        lifetime_secs: 0.5,
+                        despawn_animation_secs: 0.5,
+                    },
+                    particle_visuals: particle_visuals.0.clone(),
+                },
+                SpatialBundle::from_transform(
+                    Transform::from_xyz(0.0, 0.25, 0.0)
+                        .with_rotation(Quat::from_rotation_x(PI / 2.0)),
+                ),
+            ));
+            children.spawn(PointLightBundle {
+                point_light: PointLight {
+                    color: Color::srgb(1.0, 0.8, 0.6),
+                    intensity: 100000.0,
+                    range: 10.0,
+                    radius: 0.0,
+                    shadows_enabled: true,
+                    ..default()
+                },
+                transform: Transform::from_xyz(0.0, 2.0, 0.0),
+                ..default()
+            });
+        });
 }
 
 fn on_delivery_player_collision(
@@ -76,6 +134,21 @@ fn on_delivery_player_collision(
                 return;
             };
             commands.trigger_targets(AdvanceQuest, place_entity);
+        }
+    }
+}
+
+fn control_emitters(
+    q_delivery_zone: Query<(Entity, &DeliveryZoneLink)>,
+    q_disabled_collider: Query<(), With<DisableCollider>>,
+    children: Query<&Children>,
+    mut emitters: Query<&mut ParticleEmitter<Extrusion<Annulus>>>,
+) {
+    for (entity, link) in &q_delivery_zone {
+        let is_disabled = q_disabled_collider.contains(link.0);
+        let mut iter = emitters.iter_many_mut(children.iter_descendants(entity));
+        while let Some(mut emitter) = iter.fetch_next() {
+            emitter.enabled = !is_disabled;
         }
     }
 }
