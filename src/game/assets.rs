@@ -283,3 +283,11 @@ pub enum SoundtrackKey {
     Credits,
     Gameplay,
 }
+
+#[derive(AssetCollection, Resource)]
+pub struct FontHandles {
+    #[asset(path = "fonts/Rubik-Regular.ttf")]
+    pub rubik_regular: Handle<Font>,
+    #[asset(path = "fonts/Rubik-Bold.ttf")]
+    pub rubik_bold: Handle<Font>,
+}

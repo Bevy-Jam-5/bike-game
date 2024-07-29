@@ -65,7 +65,6 @@ fn spawn_first_person_camera(
                     brightness: 1200.0,
                 },
                 WorldModelCamera,
-                IsDefaultUiCamera,
             ));
             parent.spawn((
                 Name::new("View Model Camera"),
@@ -82,6 +81,7 @@ fn spawn_first_person_camera(
                     .into(),
                     ..default()
                 },
+                IsDefaultUiCamera,
                 RenderLayers::layer(VIEW_MODEL_RENDER_LAYER),
             ));
         });

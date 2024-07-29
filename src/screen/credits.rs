@@ -4,7 +4,10 @@ use bevy::prelude::*;
 
 use super::Screen;
 use crate::{
-    game::{assets::SoundtrackKey, audio::soundtrack::PlaySoundtrack},
+    game::{
+        assets::{FontHandles, SoundtrackKey},
+        audio::soundtrack::PlaySoundtrack,
+    },
     ui::prelude::*,
 };
 
@@ -25,21 +28,35 @@ enum CreditsAction {
     Back,
 }
 
-fn enter_credits(mut commands: Commands) {
+fn enter_credits(mut commands: Commands, fonts: Res<FontHandles>) {
     commands
         .ui_root()
         .insert(StateScoped(Screen::Credits))
         .with_children(|children| {
-            children.header("Made by");
-            children.label("Jan Hohenheim - Something");
-            children.label("Joona Aalto - Something");
+            children.header("Made by", fonts.rubik_bold.clone_weak());
+            children.label(
+                "Jan Hohenheim - Something",
+                fonts.rubik_regular.clone_weak(),
+            );
+            children.label("Joona Aalto - Something", fonts.rubik_regular.clone_weak());
 
-            children.header("Assets");
-            children.label("Bevy logo - All rights reserved by the Bevy Foundation. Permission granted for splash screen use when unmodified.");
-            children.label("Ducky sprite - CC0 by Caz Creates Games");
-            children.label("Music - CC BY 3.0 by Kevin MacLeod");
+            children.header("Assets", fonts.rubik_bold.clone_weak());
+            children.label(
+                "Bevy logo - All rights reserved by the Bevy Foundation. Permission granted for splash screen use when unmodified.",
+                fonts.rubik_regular.clone_weak(),
+            );
+            children.label(
+                "Ducky sprite - CC0 by Caz Creates Games",
+                fonts.rubik_regular.clone_weak(),
+            );
+            children.label(
+                "Music - CC BY 3.0 by Kevin MacLeod",
+                fonts.rubik_regular.clone_weak(),
+            );
 
-            children.button("Back").insert(CreditsAction::Back);
+            children
+                .button("Back", fonts.rubik_regular.clone_weak())
+                .insert(CreditsAction::Back);
         });
 
     commands.trigger(PlaySoundtrack::Key(SoundtrackKey::Credits));

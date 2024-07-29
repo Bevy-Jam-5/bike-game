@@ -3,6 +3,7 @@ use blenvy::{BlueprintInfo, BlueprintInstanceReady};
 use ui_palette::LABEL_TEXT;
 
 use super::{LoadingText, PlayState};
+use crate::game::assets::FontHandles;
 use crate::ui::prelude::*;
 use crate::{game::spawn::level::SpawnLevel, util::single_mut};
 
@@ -14,16 +15,20 @@ pub(super) fn plugin(app: &mut App) {
     );
 }
 
-fn enter_spawning(mut commands: Commands) {
+fn enter_spawning(mut commands: Commands, fonts: Res<FontHandles>) {
     commands.trigger(SpawnLevel);
+
     commands
         .ui_root()
         .insert(StateScoped(PlayState::Spawning))
         .with_children(|children| {
-            children.label("Spawning Level...");
-            children.label("");
-            children.label("This takes a while.");
-            children.label("No worries, nothing crashed :)");
+            children.label("Spawning Level...", fonts.rubik_regular.clone_weak());
+            children.label("", fonts.rubik_regular.clone_weak());
+            children.label("This takes a while.", fonts.rubik_regular.clone_weak());
+            children.label(
+                "No worries, nothing crashed :)",
+                fonts.rubik_regular.clone_weak(),
+            );
             children
                 .spawn((
                     Name::new("Loading Indicator"),
@@ -44,9 +49,9 @@ fn enter_spawning(mut commands: Commands) {
                         TextBundle::from_section(
                             "",
                             TextStyle {
+                                font: fonts.rubik_regular.clone_weak(),
                                 font_size: 24.0,
                                 color: LABEL_TEXT,
-                                ..default()
                             },
                         ),
                     ));
