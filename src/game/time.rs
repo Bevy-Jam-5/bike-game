@@ -29,7 +29,7 @@ pub fn plugin(app: &mut App) {
 }
 
 /// How much time the player has at the start of the game.
-pub const INITIAL_TIME: Duration = Duration::from_secs(60);
+pub const INITIAL_TIME: Duration = Duration::from_secs(90);
 
 #[derive(Debug, Resource, Clone, Default, Deref, DerefMut, PartialEq, Reflect)]
 #[reflect(Debug, Resource, Default, PartialEq)]

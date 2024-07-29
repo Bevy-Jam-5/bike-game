@@ -17,7 +17,7 @@ pub(super) fn plugin(app: &mut App) {
 }
 
 /// How much time is regained from an awesome yeet :D
-pub const AWESOME_YEET_TIME_GAIN: Duration = Duration::from_secs(2);
+pub const AWESOME_YEET_TIME_GAIN: Duration = Duration::from_secs(3);
 
 #[derive(Debug, Clone, Copy, Reflect, Component)]
 #[reflect(Debug, Component)]
