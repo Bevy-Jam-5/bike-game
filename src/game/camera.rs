@@ -39,7 +39,7 @@ fn rotate_camera(mut q_camera: Query<(&mut Transform, &ActionState<CameraAction>
     if let Some(axis) = action.axis_pair(&CameraAction::RotateCamera) {
         // Some machines are experiencing a continuous
         // mouse input of exactly 1.5 specifically on itch.io,
-        // but not on local Wasm or native builds ¯\_ (ツ)_/¯
+        // but not on local Wasm or native builds ¯\_(ツ)_/¯
         const EVIL_DRIFT_VALUE: f32 = 1.5;
         const EPSILON: f32 = 0.01;
         let x = axis.x();
