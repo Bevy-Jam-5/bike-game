@@ -50,6 +50,11 @@ pub struct ParticleEmitter<S: ShapeSample> {
     pub spawn_rate: u32,
     pub sampling_mode: SamplingMode,
 }
+impl<S: ShapeSample + Send + Sync + 'static> ParticleEmitter<S> {
+    pub fn disable(&mut self) {
+        self.enabled = false;
+    }
+}
 
 impl<S: ShapeSample + Send + Sync + 'static> Component for ParticleEmitter<S> {
     const STORAGE_TYPE: StorageType = StorageType::Table;

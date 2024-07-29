@@ -46,12 +46,20 @@ pub struct BlueprintHandles {
     // building big (yes, there is a typo)
     #[asset(path = "blueprints/Buliding Big.glb")]
     _building_big: Handle<Gltf>,
+    // bus stop sign
+    #[asset(path = "blueprints/Bus Stop Sign.glb")]
+    _bus_stop_sign: Handle<Gltf>,
+    // bus stop
+    #[asset(path = "blueprints/Bus Stop.glb")]
     // bush
     #[asset(path = "blueprints/Bush.glb")]
     _bush: Handle<Gltf>,
     // car blue
     #[asset(path = "blueprints/Car Blue.glb")]
     _car_blue: Handle<Gltf>,
+    // cone
+    #[asset(path = "blueprints/Cone.glb")]
+    _cone: Handle<Gltf>,
     // DeliveryZone
     #[asset(path = "blueprints/DeliveryZone.glb")]
     _delivery_zone: Handle<Gltf>,
@@ -73,12 +81,21 @@ pub struct BlueprintHandles {
     // metal fence
     #[asset(path = "blueprints/Metal Fence.glb")]
     _metal_fence: Handle<Gltf>,
-    // npc
-    #[asset(path = "blueprints/Npc.glb")]
-    _npc: Handle<Gltf>,
-    // ramp
-    #[asset(path = "blueprints/Ramp.glb")]
-    _ramp: Handle<Gltf>,
+    // Npc Mail
+    #[asset(path = "blueprints/Npc Mail.glb")]
+    _npc_mail: Handle<Gltf>,
+    // Npc Pizza
+    #[asset(path = "blueprints/Npc Pizza.glb")]
+    _npc_pizza: Handle<Gltf>,
+    // overpass block
+    #[asset(path = "blueprints/Overpass Block.glb")]
+    _overpass_block: Handle<Gltf>,
+    // overpass tunnel
+    #[asset(path = "blueprints/Overpass Tunnel.glb")]
+    _overpass_tunnel: Handle<Gltf>,
+    // poster
+    #[asset(path = "blueprints/Poster.glb")]
+    _poster: Handle<Gltf>,
     // road corner curved
     #[asset(path = "blueprints/Road Corner Curved.glb")]
     _road_corner_curved: Handle<Gltf>,
@@ -91,6 +108,9 @@ pub struct BlueprintHandles {
     // road t-split
     #[asset(path = "blueprints/Road T-Split.glb")]
     _road_t_split: Handle<Gltf>,
+    // roof
+    #[asset(path = "blueprints/Roof.glb")]
+    _roof: Handle<Gltf>,
     // sidewalk center
     #[asset(path = "blueprints/Sidewalk Center.glb")]
     _sidewalk_center: Handle<Gltf>,
@@ -103,6 +123,12 @@ pub struct BlueprintHandles {
     // traffic light
     #[asset(path = "blueprints/Traffic Light.glb")]
     _traffic_light: Handle<Gltf>,
+    // trash bag
+    #[asset(path = "blueprints/Trash Bag.glb")]
+    _trash_bag: Handle<Gltf>,
+    // trash container
+    #[asset(path = "blueprints/Trash Container.glb")]
+    _trash_container: Handle<Gltf>,
     // tree
     #[asset(path = "blueprints/Tree.glb")]
     _tree: Handle<Gltf>,
@@ -152,6 +178,9 @@ pub struct MaterialHandles {
     // concrete
     #[asset(path = "materials/concrete.glb")]
     _concrete: Handle<Gltf>,
+    // Dark_gray
+    #[asset(path = "materials/Dark_gray.glb")]
+    _dark_gray: Handle<Gltf>,
     // DarkGrey
     #[asset(path = "materials/DarkGrey.glb")]
     _dark_grey: Handle<Gltf>,
@@ -161,15 +190,27 @@ pub struct MaterialHandles {
     // Dots Stroke
     #[asset(path = "materials/Dots Stroke.glb")]
     _dots_stroke: Handle<Gltf>,
+    // Eyes
+    #[asset(path = "materials/Eyes.glb")]
+    _eyes: Handle<Gltf>,
     // Grass
     #[asset(path = "materials/Grass.glb")]
     _grass: Handle<Gltf>,
+    // Green
+    #[asset(path = "materials/Green.glb")]
+    _green: Handle<Gltf>,
     // Grey
     #[asset(path = "materials/Grey.glb")]
     _grey: Handle<Gltf>,
+    // Hair
+    #[asset(path = "materials/Hair.glb")]
+    _hair: Handle<Gltf>,
     // Headlights
     #[asset(path = "materials/Headlights.glb")]
     _headlights: Handle<Gltf>,
+    // LightBlue_BusStop
+    #[asset(path = "materials/LightBlue_BusStop.glb")]
+    _light_blue_bus_stop: Handle<Gltf>,
     // LightYellow
     #[asset(path = "materials/LightYellow.glb")]
     _light_yellow: Handle<Gltf>,
@@ -179,6 +220,9 @@ pub struct MaterialHandles {
     // Mat
     #[asset(path = "materials/Mat.glb")]
     _mat: Handle<Gltf>,
+    // mat17
+    #[asset(path = "materials/mat17.glb")]
+    _mat17: Handle<Gltf>,
     // mat19
     #[asset(path = "materials/mat19.glb")]
     _mat19: Handle<Gltf>,
@@ -191,12 +235,18 @@ pub struct MaterialHandles {
     // metal_shade1
     #[asset(path = "materials/metal_shade1.glb")]
     _metal_shade1: Handle<Gltf>,
-    // OrangeWallMaterial
-    #[asset(path = "materials/OrangeWallMaterial.glb")]
-    _orange_wall_material: Handle<Gltf>,
-    // RampMaterial
-    #[asset(path = "materials/RampMaterial.glb")]
-    _ramp_material: Handle<Gltf>,
+    // Orang
+    #[asset(path = "materials/Orang.glb")]
+    _orang: Handle<Gltf>,
+    // Orange
+    #[asset(path = "materials/Orange.glb")]
+    _orange: Handle<Gltf>,
+    // Pants
+    #[asset(path = "materials/Pants.glb")]
+    _pants: Handle<Gltf>,
+    // poster
+    #[asset(path = "materials/poster.glb")]
+    _poster: Handle<Gltf>,
     // red
     #[asset(path = "materials/red.glb")]
     _red: Handle<Gltf>,
@@ -206,6 +256,15 @@ pub struct MaterialHandles {
     // sandstone
     #[asset(path = "materials/sandstone.glb")]
     _sandstone: Handle<Gltf>,
+    // Shirt
+    #[asset(path = "materials/Shirt.glb")]
+    _shirt: Handle<Gltf>,
+    // Shoes
+    #[asset(path = "materials/Shoes.glb")]
+    _shoes: Handle<Gltf>,
+    // Sidewalk
+    #[asset(path = "materials/Sidewalk.glb")]
+    _sidewalk: Handle<Gltf>,
     // sign_shade2
     #[asset(path = "materials/sign_shade2.glb")]
     _sign_shade2: Handle<Gltf>,
@@ -215,6 +274,12 @@ pub struct MaterialHandles {
     // Silver
     #[asset(path = "materials/Silver.glb")]
     _silver: Handle<Gltf>,
+    // Skin
+    #[asset(path = "materials/Skin.glb")]
+    _skin: Handle<Gltf>,
+    // Socks
+    #[asset(path = "materials/Socks.glb")]
+    _socks: Handle<Gltf>,
     // TailLights
     #[asset(path = "materials/TailLights.glb")]
     _tail_lights: Handle<Gltf>,
@@ -233,6 +298,9 @@ pub struct MaterialHandles {
     // Windows
     #[asset(path = "materials/Windows.glb")]
     _windows: Handle<Gltf>,
+    // Woman
+    #[asset(path = "materials/Woman.glb")]
+    _woman: Handle<Gltf>,
     // wood
     #[asset(path = "materials/wood.glb")]
     _wood: Handle<Gltf>,

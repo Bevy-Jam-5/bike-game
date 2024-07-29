@@ -1,6 +1,6 @@
 use bevy::prelude::*;
 
-use crate::third_party::avian::DisableColliderCommandsExt;
+use crate::third_party::avian::DisableSensorCommandsExt;
 
 use super::{delivery_zone::DeliveryZoneLink, quest_place::QuestPlace};
 
@@ -41,8 +41,10 @@ impl<'w, 's> QuestCommandsExt for Commands<'w, 's> {
             for (entity, place) in places {
                 let delivery_zone = world.get::<DeliveryZoneLink>(entity).unwrap().0;
                 if predicate((entity, place)) {
+                    info!("Activating {:?}", place);
                     world.commands().activate_collider(delivery_zone);
                 } else {
+                    info!("Deactivating {:?}", place);
                     world.commands().disable_collider(delivery_zone);
                 }
             }
