@@ -61,7 +61,7 @@ fn spawn_ui(
                     style: Style {
                         padding: UiRect::all(Px(10.0)),
                         top: Px(40.0),
-                        justify_items: JustifyItems::Center,
+                        justify_self: JustifySelf::Center,
                         ..default()
                     },
                     border_radius: BorderRadius::bottom_right(Px(10.0)),
