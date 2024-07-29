@@ -151,6 +151,9 @@ pub struct MaterialHandles {
     // Blue
     #[asset(path = "materials/Blue.glb")]
     _blue: Handle<Gltf>,
+    // BlueBusStop
+    #[asset(path = "materials/BlueBusStop.glb")]
+    _blue_bus_stop: Handle<Gltf>,
     // brick_shade1
     #[asset(path = "materials/brick_shade1.glb")]
     _brick_shade1: Handle<Gltf>,
@@ -286,8 +289,8 @@ pub struct MaterialHandles {
     // Tree
     #[asset(path = "materials/Tree.glb")]
     _tree: Handle<Gltf>,
-    // white
-    #[asset(path = "materials/white.glb")]
+    // White
+    #[asset(path = "materials/White.glb")]
     _white: Handle<Gltf>,
     // window_frame
     #[asset(path = "materials/window_frame.glb")]

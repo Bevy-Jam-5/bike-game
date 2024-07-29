@@ -8,7 +8,7 @@ use crate::{
 };
 
 // FIXME: Change this to a larger value once we have more quests.
-pub const GAME_END_MONEY: f32 = 5.0;
+pub const GAME_END_MONEY: f32 = 25.0;
 
 pub(super) fn plugin(app: &mut App) {
     app.register_type::<GameEndAction>();
