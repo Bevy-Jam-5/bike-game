@@ -95,6 +95,7 @@ fn spawn_hud(_trigger: Trigger<SpawnHud>, mut commands: Commands, fonts: Res<Fon
                     align_items: AlignItems::End,
                     ..default()
                 },
+                background_color: Color::srgba(0.0, 0.0, 0.1, 0.7).into(),
                 visibility: Visibility::Hidden,
                 border_radius: BorderRadius::bottom_left(Px(10.0)),
                 ..default()
