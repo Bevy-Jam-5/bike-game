@@ -37,11 +37,25 @@ fn follow_player(
 fn rotate_camera(mut q_camera: Query<(&mut Transform, &ActionState<CameraAction>)>) {
     let (mut transform, action) = single_mut!(q_camera);
     if let Some(axis) = action.axis_pair(&CameraAction::RotateCamera) {
-        let yaw = -axis.x() * 0.003;
-        let pitch = -axis.y() * 0.002;
-        if pitch != 0.0 {
-            error!("Pitch: {}; Axis data: {:?}", pitch, axis);
-        }
+        // Some machines are experiencing a continuous
+        // mouse input of exactly 1.5 specifically on itch.io,
+        // but not on local Wasm or native builds ¯\_ (ツ)_/¯
+        const EVIL_DRIFT_VALUE: f32 = 1.5;
+        const EPSILON: f32 = 0.01;
+        let x = axis.x();
+        let x = if (x - EVIL_DRIFT_VALUE).abs() > EPSILON {
+            x
+        } else {
+            0.0
+        };
+        let y = axis.y();
+        let y = if (y - EVIL_DRIFT_VALUE).abs() > EPSILON {
+            y
+        } else {
+            0.0
+        };
+        let yaw = -x * 0.003;
+        let pitch = -y * 0.002;
         transform.rotate_y(yaw);
         transform.rotate_local_x(pitch);
     }
