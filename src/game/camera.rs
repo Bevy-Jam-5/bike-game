@@ -42,23 +42,28 @@ fn rotate_camera(mut q_camera: Query<(&mut Transform, &ActionState<CameraAction>
         // but not on local Wasm or native builds ¯\_(ツ)_/¯
         const EVIL_DRIFT_VALUE: f32 = 1.5;
         const EPSILON: f32 = 0.01;
-        let x = axis.x();
-        let x = if (x - EVIL_DRIFT_VALUE).abs() > EPSILON {
-            x
-        } else {
+        let raw_x = axis.x();
+        let x = if nearly_eq(raw_x, EVIL_DRIFT_VALUE, EPSILON) {
             0.0
-        };
-        let y = axis.y();
-        let y = if (y - EVIL_DRIFT_VALUE).abs() > EPSILON {
-            y
         } else {
-            0.0
+            raw_x
         };
+        let raw_y = axis.y();
+        let y = if nearly_eq(raw_y, EVIL_DRIFT_VALUE, EPSILON) {
+            0.0
+        } else {
+            raw_y
+        };
+
         let yaw = -x * 0.003;
         let pitch = -y * 0.002;
         transform.rotate_y(yaw);
         transform.rotate_local_x(pitch);
     }
+}
+
+fn nearly_eq(a: f32, b: f32, epsilon: f32) -> bool {
+    (a - b).abs() < epsilon
 }
 
 fn clamp_rotation(
