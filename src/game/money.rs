@@ -1,9 +1,10 @@
 use bevy::prelude::*;
 
-use crate::game::quest::advance_quest::ActiveQuest;
+use crate::game::{assets::SfxKey, audio::sfx::PlaySfx, quest::advance_quest::ActiveQuest};
 use crate::{screen::Screen, util::single_mut};
 
 use super::{
+    game_end::GAME_END_MONEY,
     quest::{finish_quest::FinishQuest, quest_place::QuestPlace},
     spawn::hud::MoneyText,
 };
@@ -18,6 +19,7 @@ pub fn plugin(app: &mut App) {
             .run_if(in_state(Screen::Playing)),
     );
     app.observe(on_finish_quest);
+    app.observe(on_gain_money);
 
     // Leaving the gameplay screen currently resets the world, so reset the money.
     app.add_systems(OnExit(Screen::Playing), reset_money);
@@ -29,12 +31,13 @@ pub struct Money(pub f32);
 
 fn update_money_text(money: Res<Money>, mut money_text: Query<&mut Text, With<MoneyText>>) {
     let mut text = single_mut!(money_text);
-    text.sections[1].value = format!("${}", money.0);
+    let total = GAME_END_MONEY;
+    text.sections[1].value = format!("${} out of ${total}", money.0);
 }
 
 fn on_finish_quest(
     _trigger: Trigger<FinishQuest>,
-    mut money: ResMut<Money>,
+    mut commands: Commands,
     mut active_quest: Option<ResMut<ActiveQuest>>,
 ) {
     let Some(active_quest) = active_quest.as_mut() else {
@@ -48,8 +51,18 @@ fn on_finish_quest(
         QuestPlace::MailNpc => 3.0,
         _ => 0.0,
     };
+    commands.trigger(GainMoney(pay));
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Reflect, Event, Deref, DerefMut)]
+#[reflect(Debug, PartialEq)]
+pub struct GainMoney(pub f32);
+
+fn on_gain_money(trigger: Trigger<GainMoney>, mut money: ResMut<Money>, mut commands: Commands) {
+    let pay = trigger.event().0;
     money.0 += pay;
     info!("Received ${pay}");
+    commands.trigger(PlaySfx::Key(SfxKey::Cash));
 }
 
 fn reset_money(mut money: ResMut<Money>) {

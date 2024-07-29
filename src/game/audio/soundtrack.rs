@@ -23,7 +23,7 @@ fn play_soundtrack(
     };
     let source = match soundtrack_key {
         SoundtrackKey::Gameplay => &soundtrack_handles.gameplay,
-        SoundtrackKey::Credits => &soundtrack_handles.credits,
+        SoundtrackKey::Credits => &soundtrack_handles.gameplay,
     }
     .clone_weak();
     commands.spawn((
