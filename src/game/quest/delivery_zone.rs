@@ -84,7 +84,7 @@ fn on_create_delivery_zone(
                         sampling_mode: SamplingMode::Interior,
                     },
                     particle_lifetime: ParticleLifetime {
-                        lifetime_secs: 0.7,
+                        lifetime_secs: 0.5,
                         despawn_animation_secs: 0.5,
                     },
                     particle_visuals: particle_visuals.0.clone(),
