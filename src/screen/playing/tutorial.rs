@@ -75,10 +75,6 @@ fn enter_tutorial(mut commands: Commands, fonts: Res<FontHandles>) {
                         regular.clone(),
                     ));
 
-                    children.spawn(TextBundle::from_section(
-                        "You can regain time by bumping into objects.",
-                        regular.clone(),
-                    ));
 
                     children.spawn(TextBundle::from_sections(vec![
                         TextSection::new("Alternate ", regular.clone()),
@@ -101,6 +97,14 @@ fn enter_tutorial(mut commands: Commands, fonts: Res<FontHandles>) {
                         TextSection::new(" or performing ", regular.clone()),
                         TextSection::new("stunts", bold.clone()),
                         TextSection::new(".", regular.clone()),
+                    ]));
+
+                    children.spawn(TextBundle::from_sections(vec![
+                        TextSection::new("Regain time by driving into ", regular.clone()),
+                        TextSection::new("small objects", bold.clone()),
+                        TextSection::new(" and ", regular.clone()),
+                        TextSection::new("launching them", bold.clone()),
+                        TextSection::new(" on impact.", regular.clone()),
                     ]));
 
                     children.spawn(TextBundle {
