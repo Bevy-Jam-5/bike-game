@@ -40,10 +40,7 @@ fn end_game(
     money: Res<Money>,
     mut next_state: ResMut<NextState<PlayState>>,
 ) {
-    if remaining_time.is_zero() {
-        next_state.set(PlayState::GameEnded);
-    }
-    if money.0 >= GAME_END_MONEY {
+    if remaining_time.is_zero() || money.0 >= GAME_END_MONEY {
         next_state.set(PlayState::GameEnded);
     }
 }
