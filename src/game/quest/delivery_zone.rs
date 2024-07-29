@@ -7,7 +7,10 @@ use crate::{game::spawn::player::Player, third_party::avian::DisableSensor};
 use avian3d::prelude::*;
 use bevy::{color::palettes::tailwind, prelude::*};
 
-use super::{advance_quest::AdvanceQuest, quest_place::QuestPlace};
+use super::{
+    advance_quest::{ActiveQuest, AdvanceQuest},
+    quest_place::QuestPlace,
+};
 use crate::game::particle_emitter::{
     ParticleEmitter, ParticleEmitterBundle, ParticleLifetime, ParticleVisuals, SamplingMode,
 };
@@ -147,6 +150,7 @@ fn control_emitters(
     q_disabled_collider: Query<(), With<DisableSensor>>,
     children: Query<&Children>,
     mut emitters: Query<(&mut PointLight, &mut ParticleEmitter<Extrusion<Annulus>>)>,
+    quest: Option<Res<ActiveQuest>>,
 ) {
     let dt = time.delta_seconds();
     let player_transform = single!(q_player);
@@ -154,8 +158,8 @@ fn control_emitters(
         let distance_sq = player_transform
             .translation
             .distance_squared(zone_transform.translation());
-        const CUT_OFF: f32 = 20.0;
-        let is_too_far = distance_sq > CUT_OFF * CUT_OFF;
+        let cut_off = if quest.is_some() { 40.0 } else { 20.0 };
+        let is_too_far = distance_sq > cut_off * cut_off;
         let is_disabled = q_disabled_collider.contains(link.0) || is_too_far;
         let mut iter =
             emitters.iter_many_mut(iter::once(entity).chain(children.iter_descendants(entity)));

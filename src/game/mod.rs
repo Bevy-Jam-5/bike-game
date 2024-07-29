@@ -15,6 +15,7 @@ pub mod particle_emitter;
 pub mod prop_yeet;
 pub mod quest;
 pub mod spawn;
+pub mod stunt;
 pub mod time;
 pub mod view_model;
 
@@ -34,5 +35,6 @@ pub(super) fn plugin(app: &mut App) {
         fov_speed::plugin,
         particle_emitter::plugin::<Extrusion<Annulus>, SingleColorMaterial>,
         materials::plugin,
+        stunt::plugin,
     ));
 }

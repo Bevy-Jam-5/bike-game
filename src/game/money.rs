@@ -31,8 +31,11 @@ pub struct Money(pub f32);
 
 fn update_money_text(money: Res<Money>, mut money_text: Query<&mut Text, With<MoneyText>>) {
     let mut text = single_mut!(money_text);
+    let current = money.0;
     let total = GAME_END_MONEY;
-    text.sections[1].value = format!("${} out of ${total}", money.0);
+    // format to two decimal places
+    let label = format!("${:.2} / ${:.2}", current, total);
+    text.sections[1].value = label;
 }
 
 fn on_finish_quest(
