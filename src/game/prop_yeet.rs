@@ -1,3 +1,5 @@
+use std::time::Duration;
+
 use avian3d::prelude::*;
 use bevy::{prelude::*, utils::HashSet};
 use rand::Rng;
@@ -7,12 +9,15 @@ use crate::{
     util::single,
 };
 
-use super::spawn::player::Player;
+use super::{spawn::player::Player, time::RemainingTime};
 
 pub(super) fn plugin(app: &mut App) {
     app.add_systems(Update, yeet_props);
     app.register_type::<YeetCollider>();
 }
+
+/// How much time is regained from an awesome yeet :D
+pub const AWESOME_YEET_TIME_GAIN: Duration = Duration::from_secs(3);
 
 #[derive(Debug, Clone, Copy, Reflect, Component)]
 #[reflect(Debug, Component)]
@@ -27,6 +32,7 @@ fn yeet_props(
         &mut ExternalImpulse,
         &mut ExternalAngularImpulse,
     )>,
+    mut remaining_time: ResMut<RemainingTime>,
     mut last_collisions: Local<HashSet<Entity>>,
     mut commands: Commands,
 ) {
@@ -68,6 +74,7 @@ fn yeet_props(
         const AWESOME_SPEED: f32 = 12.0;
         if player_speed > AWESOME_SPEED {
             any_awesome = true;
+            remaining_time.0 += AWESOME_YEET_TIME_GAIN;
         }
     }
     if any_awesome {

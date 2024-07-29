@@ -3,7 +3,7 @@
 use bevy::prelude::*;
 
 use crate::{
-    game::{assets::FontHandles, quest::advance_quest::ActiveQuest},
+    game::{assets::FontHandles, game_end::GAME_END_MONEY, quest::advance_quest::ActiveQuest},
     screen::Screen,
     util::single_mut,
 };
@@ -48,6 +48,7 @@ fn spawn_hud(_trigger: Trigger<SpawnHud>, mut commands: Commands, fonts: Res<Fon
             NodeBundle {
                 background_color: Color::srgba(0.0, 0.0, 0.1, 0.7).into(),
                 style: Style {
+                    width: Px(240.0),
                     padding: UiRect::all(Px(10.0)),
                     top: Px(0.0),
                     left: Px(0.0),
@@ -66,7 +67,7 @@ fn spawn_hud(_trigger: Trigger<SpawnHud>, mut commands: Commands, fonts: Res<Fon
                 MoneyText,
                 TextBundle::from_sections([
                     TextSection::new("Money: ", text_style.clone()),
-                    TextSection::new("$0", text_style.clone()),
+                    TextSection::new(format!("$0 out of ${}", GAME_END_MONEY), text_style.clone()),
                 ]),
             ));
             children.spawn((
