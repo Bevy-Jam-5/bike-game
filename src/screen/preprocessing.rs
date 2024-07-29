@@ -18,12 +18,12 @@ pub(super) fn plugin(app: &mut App) {
     );
 }
 
-fn enter_preprocessing(mut commands: Commands) {
+fn enter_preprocessing(mut commands: Commands, fonts: Res<FontHandles>) {
     commands
         .ui_root()
         .insert(StateScoped(Screen::Preprocessing))
         .with_children(|children| {
-            children.label("Preprocessing Assets...");
+            children.label("Preprocessing Assets...", fonts.rubik_regular.clone_weak());
         });
 }
 

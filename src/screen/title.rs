@@ -3,7 +3,7 @@
 use bevy::prelude::*;
 
 use super::Screen;
-use crate::ui::prelude::*;
+use crate::{game::assets::FontHandles, ui::prelude::*};
 
 pub(super) fn plugin(app: &mut App) {
     app.add_systems(OnEnter(Screen::Title), enter_title);
@@ -22,16 +22,49 @@ enum TitleAction {
     Exit,
 }
 
-fn enter_title(mut commands: Commands) {
+fn enter_title(mut commands: Commands, fonts: Res<FontHandles>) {
     commands
         .ui_root()
         .insert(StateScoped(Screen::Title))
         .with_children(|children| {
-            children.button("Play").insert(TitleAction::Play);
-            children.button("Credits").insert(TitleAction::Credits);
+            children
+                .spawn((
+                    Name::new("Title text"),
+                    NodeBundle {
+                        style: Style {
+                            width: Val::Px(500.0),
+                            height: Val::Px(65.0),
+                            justify_content: JustifyContent::Center,
+                            align_items: AlignItems::Center,
+                            ..default()
+                        },
+                        ..default()
+                    },
+                ))
+                .with_children(|children| {
+                    children.spawn((
+                        Name::new("Header Text"),
+                        TextBundle::from_section(
+                            "Crazy Bike",
+                            TextStyle {
+                                font: fonts.rubik_bold.clone_weak(),
+                                font_size: 42.0,
+                                color: Color::WHITE,
+                            },
+                        ),
+                    ));
+                });
+            children
+                .button("Play", fonts.rubik_regular.clone_weak())
+                .insert(TitleAction::Play);
+            children
+                .button("Credits", fonts.rubik_regular.clone_weak())
+                .insert(TitleAction::Credits);
 
             #[cfg(not(target_family = "wasm"))]
-            children.button("Exit").insert(TitleAction::Exit);
+            children
+                .button("Exit", fonts.rubik_regular.clone_weak())
+                .insert(TitleAction::Exit);
         });
 }
 

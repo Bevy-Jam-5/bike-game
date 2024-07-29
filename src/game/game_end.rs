@@ -1,6 +1,6 @@
 use bevy::prelude::*;
 
-use super::{money::Money, time::InGameTime};
+use super::{assets::FontHandles, money::Money, time::InGameTime};
 use crate::{
     game::time::format_duration_to_mm_ss,
     screen::{PlayState, Screen},
@@ -37,19 +37,24 @@ fn end_game(money: Res<Money>, mut next_state: ResMut<NextState<PlayState>>) {
     }
 }
 
-fn on_game_end(mut commands: Commands, money: Res<Money>, time: Res<InGameTime>) {
+fn on_game_end(
+    mut commands: Commands,
+    money: Res<Money>,
+    time: Res<InGameTime>,
+    fonts: Res<FontHandles>,
+) {
     use Val::*;
 
     let header_text_style = TextStyle {
+        font: fonts.rubik_bold.clone_weak(),
         font_size: 42.0,
         color: Color::WHITE,
-        ..default()
     };
 
     let label_text_style = TextStyle {
+        font: fonts.rubik_regular.clone_weak(),
         font_size: 32.0,
         color: Color::WHITE,
-        ..default()
     };
 
     commands.ui_root().with_children(|children| {
@@ -78,7 +83,7 @@ fn on_game_end(mut commands: Commands, money: Res<Money>, time: Res<InGameTime>)
                             margin: UiRect::bottom(Px(10.0)),
                             ..default()
                         },
-                        ..TextBundle::from_section("Game ended", header_text_style)
+                        ..TextBundle::from_section("Game Ended", header_text_style)
                     },
                 ));
 
@@ -94,7 +99,7 @@ fn on_game_end(mut commands: Commands, money: Res<Money>, time: Res<InGameTime>)
                     Name::new("Time text"),
                     TextBundle::from_section(
                         format!("Elapsed time: {}", format_duration_to_mm_ss(time.elapsed())),
-                        label_text_style,
+                        label_text_style.clone(),
                     ),
                 ));
 
@@ -110,10 +115,10 @@ fn on_game_end(mut commands: Commands, money: Res<Money>, time: Res<InGameTime>)
                     })
                     .with_children(|children| {
                         children
-                            .button("Play again")
+                            .button("Play again", label_text_style.font.clone_weak())
                             .insert(GameEndAction::PlayAgain);
                         children
-                            .button("Return to title screen")
+                            .button("Return to title screen", label_text_style.font.clone_weak())
                             .insert(GameEndAction::TitleScreen);
                     });
             });
