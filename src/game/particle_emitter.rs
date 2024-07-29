@@ -2,7 +2,7 @@ use std::time::Duration;
 
 use bevy::{
     ecs::component::{ComponentHooks, StorageType},
-    pbr::NotShadowCaster,
+    pbr::{NotShadowCaster, NotShadowReceiver},
     prelude::*,
 };
 use rand::SeedableRng;
@@ -98,7 +98,7 @@ pub enum SamplingMode {
 }
 
 /// Component for spawned particles.
-#[derive(Component, Reflect, Clone)]
+#[derive(Component, Reflect, Clone, Copy)]
 #[reflect(Component)]
 struct Particle {
     progress: f32,
@@ -116,7 +116,6 @@ struct DespawnParticle {
 #[reflect(Component)]
 pub struct EmitterCooldown(pub Timer);
 
-#[allow(clippy::too_many_arguments)]
 fn spawn_particles<S: ShapeSample<Output = Vec3> + Send + Sync + 'static, M: Material>(
     mut commands: Commands,
     mut random_source: ResMut<RandomSource>,
@@ -147,13 +146,14 @@ fn spawn_particles<S: ShapeSample<Output = Vec3> + Send + Sync + 'static, M: Mat
 
                 children.spawn((
                     MaterialMeshBundle {
-                        mesh: particle_visuals.mesh.clone(),
-                        material: particle_visuals.material.clone(),
+                        mesh: particle_visuals.mesh.clone_weak(),
+                        material: particle_visuals.material.clone_weak(),
                         transform: Transform::from_translation(sample).with_scale(Vec3::ZERO),
                         ..default()
                     },
                     Particle { progress: 0.0 },
                     NotShadowCaster,
+                    NotShadowReceiver,
                 ));
             }
         });
