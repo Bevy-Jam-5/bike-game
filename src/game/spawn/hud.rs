@@ -10,7 +10,12 @@ use crate::{
 
 pub(super) fn plugin(app: &mut App) {
     app.observe(spawn_hud);
-    app.add_systems(Update, update_active_quests);
+    app.add_systems(
+        Update,
+        update_active_quests.run_if(
+            resource_exists_and_changed::<ActiveQuest>.or_else(resource_removed::<ActiveQuest>()),
+        ),
+    );
 }
 
 #[derive(Event, Debug)]
@@ -89,6 +94,7 @@ fn spawn_hud(_trigger: Trigger<SpawnHud>, mut commands: Commands, fonts: Res<Fon
                     align_items: AlignItems::End,
                     ..default()
                 },
+                visibility: Visibility::Hidden,
                 border_radius: BorderRadius::bottom_left(Px(10.0)),
                 ..default()
             },
