@@ -4,13 +4,14 @@ use bevy::{
     prelude::*,
     render::texture::{ImageLoaderSettings, ImageSampler},
 };
+use ui_palette::DARK_BACKGROUND;
 
 use super::Screen;
 use crate::{ui::prelude::*, AppSet};
 
 pub(super) fn plugin(app: &mut App) {
     // Spawn splash screen.
-    app.insert_resource(ClearColor(SPLASH_BACKGROUND_COLOR));
+    app.insert_resource(ClearColor(DARK_BACKGROUND));
     app.add_systems(OnEnter(Screen::Splash), spawn_splash);
 
     // Animate splash screen.
@@ -37,7 +38,6 @@ pub(super) fn plugin(app: &mut App) {
     );
 }
 
-const SPLASH_BACKGROUND_COLOR: Color = Color::srgb(0.157, 0.157, 0.157);
 const SPLASH_DURATION_SECS: f32 = 1.8;
 const SPLASH_FADE_DURATION_SECS: f32 = 0.6;
 
@@ -46,7 +46,7 @@ fn spawn_splash(mut commands: Commands, asset_server: Res<AssetServer>) {
         .ui_root()
         .insert((
             Name::new("Splash screen"),
-            BackgroundColor(SPLASH_BACKGROUND_COLOR),
+            BackgroundColor(DARK_BACKGROUND),
             StateScoped(Screen::Splash),
         ))
         .with_children(|children| {

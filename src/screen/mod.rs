@@ -48,6 +48,7 @@ pub enum PlayState {
     #[default]
     Spawning,
     LoadingPipelines,
+    Tutorial,
     Active,
     GameEnded,
 }
