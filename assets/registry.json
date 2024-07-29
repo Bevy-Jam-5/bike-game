@@ -52,6 +52,27 @@
       "type": "array",
       "typeInfo": "Tuple"
     },
+    "(bike_game::game::materials::single_color::SingleColorMaterial, bevy_asset::handle::Handle<bike_game::game::materials::single_color::SingleColorMaterial>)": {
+      "isComponent": false,
+      "isResource": false,
+      "items": false,
+      "long_name": "(bike_game::game::materials::single_color::SingleColorMaterial, bevy_asset::handle::Handle<bike_game::game::materials::single_color::SingleColorMaterial>)",
+      "prefixItems": [
+        {
+          "type": {
+            "$ref": "#/$defs/bike_game::game::materials::single_color::SingleColorMaterial"
+          }
+        },
+        {
+          "type": {
+            "$ref": "#/$defs/bevy_asset::handle::Handle<bike_game::game::materials::single_color::SingleColorMaterial>"
+          }
+        }
+      ],
+      "short_name": "(SingleColorMaterial, Handle<SingleColorMaterial>)",
+      "type": "array",
+      "typeInfo": "Tuple"
+    },
     "(bike_game::game::movement::LastPedal, bike_game::game::movement::PedalTimer, bike_game::game::movement::DesiredVelocity)": {
       "isComponent": false,
       "isResource": false,
@@ -78,11 +99,32 @@
       "type": "array",
       "typeInfo": "Tuple"
     },
-    "(bike_game::game::quest::delivery_zone::DeliveryZone, bike_game::game::quest::delivery_zone::DeliveryZoneLink)": {
+    "(bike_game::game::particle_emitter::ParticleVisuals<bike_game::game::materials::single_color::SingleColorMaterial>, bike_game::game::particle_emitter::ParticleLifetime)": {
       "isComponent": false,
       "isResource": false,
       "items": false,
-      "long_name": "(bike_game::game::quest::delivery_zone::DeliveryZone, bike_game::game::quest::delivery_zone::DeliveryZoneLink)",
+      "long_name": "(bike_game::game::particle_emitter::ParticleVisuals<bike_game::game::materials::single_color::SingleColorMaterial>, bike_game::game::particle_emitter::ParticleLifetime)",
+      "prefixItems": [
+        {
+          "type": {
+            "$ref": "#/$defs/bike_game::game::particle_emitter::ParticleVisuals<bike_game::game::materials::single_color::SingleColorMaterial>"
+          }
+        },
+        {
+          "type": {
+            "$ref": "#/$defs/bike_game::game::particle_emitter::ParticleLifetime"
+          }
+        }
+      ],
+      "short_name": "(ParticleVisuals<SingleColorMaterial>, ParticleLifetime)",
+      "type": "array",
+      "typeInfo": "Tuple"
+    },
+    "(bike_game::game::quest::delivery_zone::DeliveryZone, bike_game::game::quest::delivery_zone::DeliveryZoneLink, bike_game::game::quest::delivery_zone::DeliveryZoneParticleVisuals)": {
+      "isComponent": false,
+      "isResource": false,
+      "items": false,
+      "long_name": "(bike_game::game::quest::delivery_zone::DeliveryZone, bike_game::game::quest::delivery_zone::DeliveryZoneLink, bike_game::game::quest::delivery_zone::DeliveryZoneParticleVisuals)",
       "prefixItems": [
         {
           "type": {
@@ -93,9 +135,14 @@
           "type": {
             "$ref": "#/$defs/bike_game::game::quest::delivery_zone::DeliveryZoneLink"
           }
+        },
+        {
+          "type": {
+            "$ref": "#/$defs/bike_game::game::quest::delivery_zone::DeliveryZoneParticleVisuals"
+          }
         }
       ],
-      "short_name": "(DeliveryZone, DeliveryZoneLink)",
+      "short_name": "(DeliveryZone, DeliveryZoneLink, DeliveryZoneParticleVisuals)",
       "type": "array",
       "typeInfo": "Tuple"
     },
@@ -4429,6 +4476,44 @@
       "type": "object",
       "typeInfo": "Enum"
     },
+    "bevy_asset::handle::Handle<bike_game::game::materials::single_color::SingleColorMaterial>": {
+      "isComponent": true,
+      "isResource": false,
+      "long_name": "bevy_asset::handle::Handle<bike_game::game::materials::single_color::SingleColorMaterial>",
+      "oneOf": [
+        {
+          "items": false,
+          "long_name": "Strong",
+          "prefixItems": [
+            {
+              "type": {
+                "$ref": "#/$defs/std::sync::Arc<bevy_asset::handle::StrongHandle>"
+              }
+            }
+          ],
+          "short_name": "Strong",
+          "type": "array",
+          "typeInfo": "Tuple"
+        },
+        {
+          "items": false,
+          "long_name": "Weak",
+          "prefixItems": [
+            {
+              "type": {
+                "$ref": "#/$defs/bevy_asset::id::AssetId<bike_game::game::materials::single_color::SingleColorMaterial>"
+              }
+            }
+          ],
+          "short_name": "Weak",
+          "type": "array",
+          "typeInfo": "Tuple"
+        }
+      ],
+      "short_name": "Handle<SingleColorMaterial>",
+      "type": "object",
+      "typeInfo": "Enum"
+    },
     "bevy_asset::handle::Handle<blenvy::blueprints::spawn_from_blueprints::RawGltfAsset>": {
       "isComponent": true,
       "isResource": false,
@@ -5476,6 +5561,52 @@
         }
       ],
       "short_name": "AssetId<Font>",
+      "type": "object",
+      "typeInfo": "Enum"
+    },
+    "bevy_asset::id::AssetId<bike_game::game::materials::single_color::SingleColorMaterial>": {
+      "isComponent": false,
+      "isResource": false,
+      "long_name": "bevy_asset::id::AssetId<bike_game::game::materials::single_color::SingleColorMaterial>",
+      "oneOf": [
+        {
+          "additionalProperties": false,
+          "long_name": "Index",
+          "properties": {
+            "index": {
+              "long_name": "index",
+              "type": {
+                "$ref": "#/$defs/bevy_asset::assets::AssetIndex"
+              }
+            }
+          },
+          "required": [
+            "index"
+          ],
+          "short_name": "Index",
+          "type": "object",
+          "typeInfo": "Struct"
+        },
+        {
+          "additionalProperties": false,
+          "long_name": "Uuid",
+          "properties": {
+            "uuid": {
+              "long_name": "uuid",
+              "type": {
+                "$ref": "#/$defs/uuid::Uuid"
+              }
+            }
+          },
+          "required": [
+            "uuid"
+          ],
+          "short_name": "Uuid",
+          "type": "object",
+          "typeInfo": "Struct"
+        }
+      ],
+      "short_name": "AssetId<SingleColorMaterial>",
       "type": "object",
       "typeInfo": "Enum"
     },
@@ -15599,6 +15730,25 @@
       "type": "string",
       "typeInfo": "Enum"
     },
+    "bike_game::game::materials::single_color::SingleColorMaterial": {
+      "additionalProperties": false,
+      "isComponent": false,
+      "isResource": false,
+      "long_name": "bike_game::game::materials::single_color::SingleColorMaterial",
+      "properties": {
+        "color": {
+          "type": {
+            "$ref": "#/$defs/bevy_color::linear_rgba::LinearRgba"
+          }
+        }
+      },
+      "required": [
+        "color"
+      ],
+      "short_name": "SingleColorMaterial",
+      "type": "object",
+      "typeInfo": "Struct"
+    },
     "bike_game::game::money::Money": {
       "isComponent": false,
       "isResource": true,
@@ -15659,6 +15809,56 @@
       "short_name": "PedalTimer",
       "type": "array",
       "typeInfo": "TupleStruct"
+    },
+    "bike_game::game::particle_emitter::ParticleLifetime": {
+      "additionalProperties": false,
+      "isComponent": true,
+      "isResource": false,
+      "long_name": "bike_game::game::particle_emitter::ParticleLifetime",
+      "properties": {
+        "despawn_animation_secs": {
+          "type": {
+            "$ref": "#/$defs/f32"
+          }
+        },
+        "lifetime_secs": {
+          "type": {
+            "$ref": "#/$defs/f32"
+          }
+        }
+      },
+      "required": [
+        "lifetime_secs",
+        "despawn_animation_secs"
+      ],
+      "short_name": "ParticleLifetime",
+      "type": "object",
+      "typeInfo": "Struct"
+    },
+    "bike_game::game::particle_emitter::ParticleVisuals<bike_game::game::materials::single_color::SingleColorMaterial>": {
+      "additionalProperties": false,
+      "isComponent": true,
+      "isResource": false,
+      "long_name": "bike_game::game::particle_emitter::ParticleVisuals<bike_game::game::materials::single_color::SingleColorMaterial>",
+      "properties": {
+        "material": {
+          "type": {
+            "$ref": "#/$defs/bevy_asset::handle::Handle<bike_game::game::materials::single_color::SingleColorMaterial>"
+          }
+        },
+        "mesh": {
+          "type": {
+            "$ref": "#/$defs/bevy_asset::handle::Handle<bevy_render::mesh::mesh::Mesh>"
+          }
+        }
+      },
+      "required": [
+        "mesh",
+        "material"
+      ],
+      "short_name": "ParticleVisuals<SingleColorMaterial>",
+      "type": "object",
+      "typeInfo": "Struct"
     },
     "bike_game::game::prop_yeet::YeetCollider": {
       "additionalProperties": false,
@@ -15739,6 +15939,22 @@
         }
       ],
       "short_name": "DeliveryZoneLink",
+      "type": "array",
+      "typeInfo": "TupleStruct"
+    },
+    "bike_game::game::quest::delivery_zone::DeliveryZoneParticleVisuals": {
+      "isComponent": false,
+      "isResource": true,
+      "items": false,
+      "long_name": "bike_game::game::quest::delivery_zone::DeliveryZoneParticleVisuals",
+      "prefixItems": [
+        {
+          "type": {
+            "$ref": "#/$defs/bike_game::game::particle_emitter::ParticleVisuals<bike_game::game::materials::single_color::SingleColorMaterial>"
+          }
+        }
+      ],
+      "short_name": "DeliveryZoneParticleVisuals",
       "type": "array",
       "typeInfo": "TupleStruct"
     },
