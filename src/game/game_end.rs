@@ -1,6 +1,10 @@
 use bevy::prelude::*;
 
-use super::{assets::FontHandles, money::Money, time::InGameTime};
+use super::{
+    assets::FontHandles,
+    money::Money,
+    time::{InGameTime, RemainingTime},
+};
 use crate::{
     game::{assets::SfxKey, audio::sfx::PlaySfx, time::format_duration_to_mm_ss},
     screen::{PlayState, Screen},
@@ -16,7 +20,7 @@ pub(super) fn plugin(app: &mut App) {
     app.add_systems(
         Update,
         (
-            end_game.run_if(resource_changed::<Money>),
+            end_game.run_if(resource_changed::<Money>.or_else(resource_changed::<RemainingTime>)),
             handle_game_end_action.run_if(in_state(PlayState::GameEnded)),
         )
             .chain(),
@@ -31,8 +35,12 @@ enum GameEndAction {
     TitleScreen,
 }
 
-fn end_game(money: Res<Money>, mut next_state: ResMut<NextState<PlayState>>) {
-    if money.0 >= GAME_END_MONEY {
+fn end_game(
+    remaining_time: Res<RemainingTime>,
+    money: Res<Money>,
+    mut next_state: ResMut<NextState<PlayState>>,
+) {
+    if remaining_time.is_zero() || money.0 >= GAME_END_MONEY {
         next_state.set(PlayState::GameEnded);
     }
 }
@@ -41,6 +49,7 @@ fn on_game_end(
     mut commands: Commands,
     money: Res<Money>,
     time: Res<InGameTime>,
+    remaining_time: Res<RemainingTime>,
     fonts: Res<FontHandles>,
 ) {
     use Val::*;
@@ -78,6 +87,13 @@ fn on_game_end(
                 StateScoped(Screen::Playing),
             ))
             .with_children(|children| {
+                let won = money.0 >= GAME_END_MONEY;
+                let game_end_text = if won {
+                    "You Won!"
+                } else {
+                    "You Ran Out of Time."
+                };
+
                 children.spawn((
                     Name::new("Game end text"),
                     TextBundle {
@@ -85,7 +101,7 @@ fn on_game_end(
                             margin: UiRect::bottom(Px(10.0)),
                             ..default()
                         },
-                        ..TextBundle::from_section("You Won!", header_text_style)
+                        ..TextBundle::from_section(game_end_text, header_text_style)
                     },
                 ));
 
@@ -97,10 +113,26 @@ fn on_game_end(
                     ),
                 ));
 
+                if won {
+                    children.spawn((
+                        Name::new("Remaining time text"),
+                        TextBundle::from_section(
+                            format!(
+                                "Remaining time: {}",
+                                format_duration_to_mm_ss(remaining_time.0)
+                            ),
+                            label_text_style.clone(),
+                        ),
+                    ));
+                }
+
                 children.spawn((
                     Name::new("Time text"),
                     TextBundle::from_section(
-                        format!("Elapsed time: {}", format_duration_to_mm_ss(time.elapsed())),
+                        format!(
+                            "Total elapsed time: {}",
+                            format_duration_to_mm_ss(time.elapsed())
+                        ),
                         label_text_style.clone(),
                     ),
                 ));

@@ -3,6 +3,7 @@ use ui_palette::DARK_BACKGROUND;
 
 use super::PlayState;
 use crate::game::assets::FontHandles;
+use crate::game::game_end::GAME_END_MONEY;
 use crate::ui::prelude::*;
 
 pub(super) fn plugin(app: &mut App) {
@@ -67,7 +68,15 @@ fn enter_tutorial(mut commands: Commands, fonts: Res<FontHandles>) {
                     });
 
                     children.spawn(TextBundle::from_section(
-                        "Your job is to help the citizens of Beville and perform deliveries for them. Collect enough money to win the game!",
+                        format!(
+                                "Your job is to help the citizens of Beville and perform deliveries. Earn ${} before time runs out to win the game!",
+                                GAME_END_MONEY,
+                            ),
+                        regular.clone(),
+                    ));
+
+                    children.spawn(TextBundle::from_section(
+                        "You can regain time by bumping into objects.",
                         regular.clone(),
                     ));
 
@@ -76,7 +85,7 @@ fn enter_tutorial(mut commands: Commands, fonts: Res<FontHandles>) {
                         TextSection::new("A", bold.clone()),
                         TextSection::new(" and ", regular.clone()),
                         TextSection::new("D", bold.clone()),
-                        TextSection::new(" to pedal.", regular.clone()),
+                        TextSection::new(" to pedal your bike.", regular.clone()),
                     ]));
 
                     children.spawn(TextBundle::from_sections(vec![
