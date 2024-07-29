@@ -16016,6 +16016,31 @@
       "type": "object",
       "typeInfo": "Struct"
     },
+    "bike_game::game::stunt::StuntStopwatch": {
+      "additionalProperties": false,
+      "isComponent": false,
+      "isResource": true,
+      "long_name": "bike_game::game::stunt::StuntStopwatch",
+      "properties": {
+        "air": {
+          "type": {
+            "$ref": "#/$defs/bevy_time::stopwatch::Stopwatch"
+          }
+        },
+        "ground": {
+          "type": {
+            "$ref": "#/$defs/bevy_time::stopwatch::Stopwatch"
+          }
+        }
+      },
+      "required": [
+        "air",
+        "ground"
+      ],
+      "short_name": "StuntStopwatch",
+      "type": "object",
+      "typeInfo": "Struct"
+    },
     "bike_game::game::time::InGameTime": {
       "isComponent": false,
       "isResource": true,

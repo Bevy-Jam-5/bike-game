@@ -35,10 +35,11 @@ fn enter_credits(mut commands: Commands, fonts: Res<FontHandles>) {
         .with_children(|children| {
             children.header("Made by", fonts.rubik_bold.clone_weak());
             children.label(
-                "Jan Hohenheim - Something",
+                "Jan Hohenheim - code and map",
                 fonts.rubik_regular.clone_weak(),
             );
-            children.label("Joona Aalto - Something", fonts.rubik_regular.clone_weak());
+            children.label("Joona Aalto - code and UI", fonts.rubik_regular.clone_weak());
+            children.label("Mathias Fischler - main theme", fonts.rubik_regular.clone_weak());
 
             children.header("Assets", fonts.rubik_bold.clone_weak());
             children.label(
@@ -46,11 +47,12 @@ fn enter_credits(mut commands: Commands, fonts: Res<FontHandles>) {
                 fonts.rubik_regular.clone_weak(),
             );
             children.label(
-                "Ducky sprite - CC0 by Caz Creates Games",
+                "Rest - CC0 or CC BY 3.0",
                 fonts.rubik_regular.clone_weak(),
             );
+
             children.label(
-                "Music - CC BY 3.0 by Kevin MacLeod",
+                "See the list in the description",
                 fonts.rubik_regular.clone_weak(),
             );
 
