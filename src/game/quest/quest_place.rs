@@ -32,6 +32,19 @@ impl QuestPlace {
     pub fn is_post_office(self) -> bool {
         matches!(self, Self::PostOffice)
     }
+
+    pub fn description(self) -> String {
+        match self {
+            QuestPlace::PizzaNpc => "Go to a pizzeria".to_string(),
+            QuestPlace::Pizzeria => "Deliver the pizza".to_string(),
+            QuestPlace::MailNpc => "Go to the post office".to_string(),
+            QuestPlace::PostOffice => {
+                // We never return to the mail NPC, so we should never have an active quest.
+                error!("Unexpected advance mail event");
+                String::new()
+            }
+        }
+    }
 }
 
 impl Component for QuestPlace {

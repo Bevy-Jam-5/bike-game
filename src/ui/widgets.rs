@@ -7,17 +7,17 @@ use super::{interaction::InteractionPalette, palette::*};
 /// An extension trait for spawning UI widgets.
 pub trait Widgets {
     /// Spawn a simple button with text.
-    fn button(&mut self, text: impl Into<String>) -> EntityCommands;
+    fn button(&mut self, text: impl Into<String>, font: Handle<Font>) -> EntityCommands;
 
     /// Spawn a simple header label. Bigger than [`Widgets::label`].
-    fn header(&mut self, text: impl Into<String>) -> EntityCommands;
+    fn header(&mut self, text: impl Into<String>, font: Handle<Font>) -> EntityCommands;
 
     /// Spawn a simple text label.
-    fn label(&mut self, text: impl Into<String>) -> EntityCommands;
+    fn label(&mut self, text: impl Into<String>, font: Handle<Font>) -> EntityCommands;
 }
 
 impl<T: Spawn> Widgets for T {
-    fn button(&mut self, text: impl Into<String>) -> EntityCommands {
+    fn button(&mut self, text: impl Into<String>, font: Handle<Font>) -> EntityCommands {
         let mut entity = self.spawn((
             Name::new("Button"),
             ButtonBundle {
@@ -27,6 +27,7 @@ impl<T: Spawn> Widgets for T {
                     align_items: AlignItems::Center,
                     ..default()
                 },
+                border_radius: BorderRadius::all(Px(10.0)),
                 background_color: BackgroundColor(NODE_BACKGROUND),
                 ..default()
             },
@@ -42,9 +43,9 @@ impl<T: Spawn> Widgets for T {
                 TextBundle::from_section(
                     text,
                     TextStyle {
-                        font_size: 24.0,
+                        font: font.clone_weak(),
+                        font_size: 32.0,
                         color: BUTTON_TEXT,
-                        ..default()
                     },
                 ),
             ));
@@ -52,7 +53,7 @@ impl<T: Spawn> Widgets for T {
         entity
     }
 
-    fn header(&mut self, text: impl Into<String>) -> EntityCommands {
+    fn header(&mut self, text: impl Into<String>, font: Handle<Font>) -> EntityCommands {
         let mut entity = self.spawn((
             Name::new("Header"),
             NodeBundle {
@@ -73,9 +74,9 @@ impl<T: Spawn> Widgets for T {
                 TextBundle::from_section(
                     text,
                     TextStyle {
-                        font_size: 40.0,
+                        font: font.clone_weak(),
+                        font_size: 42.0,
                         color: HEADER_TEXT,
-                        ..default()
                     },
                 ),
             ));
@@ -83,7 +84,7 @@ impl<T: Spawn> Widgets for T {
         entity
     }
 
-    fn label(&mut self, text: impl Into<String>) -> EntityCommands {
+    fn label(&mut self, text: impl Into<String>, font: Handle<Font>) -> EntityCommands {
         let mut entity = self.spawn((
             Name::new("Label"),
             NodeBundle {
@@ -102,9 +103,9 @@ impl<T: Spawn> Widgets for T {
                 TextBundle::from_section(
                     text,
                     TextStyle {
-                        font_size: 24.0,
+                        font: font.clone_weak(),
+                        font_size: 32.0,
                         color: LABEL_TEXT,
-                        ..default()
                     },
                 ),
             ));

@@ -3,6 +3,7 @@ use bevy_pipelines_ready::PipelinesReady;
 use ui_palette::LABEL_TEXT;
 
 use super::{LoadingText, PlayState};
+use crate::game::assets::FontHandles;
 use crate::util::single_mut;
 use crate::{third_party::pipelines_ready::EXPECTED_PIPELINES, ui::prelude::*};
 
@@ -18,12 +19,15 @@ pub(super) fn plugin(app: &mut App) {
     );
 }
 
-fn enter_loading_pipelines(mut commands: Commands) {
+fn enter_loading_pipelines(mut commands: Commands, fonts: Res<FontHandles>) {
     commands
         .ui_root()
         .insert(StateScoped(PlayState::LoadingPipelines))
         .with_children(|children| {
-            children.label("Loading graphics pipelines...");
+            children.label(
+                "Loading graphics pipelines...",
+                fonts.rubik_regular.clone_weak(),
+            );
             children
                 .spawn((
                     Name::new("Loading Indicator"),
@@ -44,9 +48,9 @@ fn enter_loading_pipelines(mut commands: Commands) {
                         TextBundle::from_section(
                             "",
                             TextStyle {
+                                font: fonts.rubik_regular.clone_weak(),
                                 font_size: 24.0,
                                 color: LABEL_TEXT,
-                                ..default()
                             },
                         ),
                     ));
