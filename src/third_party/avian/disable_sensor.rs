@@ -46,7 +46,7 @@ impl<'w, 's> DisableSensorCommandsExt for Commands<'w, 's> {
                 world.get::<Sensor>(entity).is_some(),
                 "Cannot disable sensor of entity without sensor component."
             );
-            world.entity_mut(entity).insert(DisableSensor::default());
+            world.entity_mut(entity).insert(DisableSensor);
         });
     }
 
