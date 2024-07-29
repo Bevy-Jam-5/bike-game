@@ -2,7 +2,10 @@ use avian3d::prelude::*;
 use bevy::{prelude::*, utils::HashSet};
 use rand::Rng;
 
-use crate::util::single;
+use crate::{
+    game::{assets::SfxKey, audio::sfx::PlaySfx},
+    util::single,
+};
 
 use super::spawn::player::Player;
 
@@ -25,6 +28,7 @@ fn yeet_props(
         &mut ExternalAngularImpulse,
     )>,
     mut last_collisions: Local<HashSet<Entity>>,
+    mut commands: Commands,
 ) {
     let colliding_entities = single!(q_yeeter);
     let velocity = single!(q_player);
@@ -34,6 +38,7 @@ fn yeet_props(
         .copied()
         .collect();
     *last_collisions = colliding_entities.0.clone();
+    let mut any_awesome = false;
     for entity in new_collisions {
         let Ok(collider_parent) = q_collider.get(entity) else {
             error!("Player collided with a non-collider?!");
@@ -59,6 +64,14 @@ fn yeet_props(
         const ANGULAR_YEET_FACTOR: f32 = 0.3;
         let torque = torque_dir * player_speed * ANGULAR_YEET_FACTOR;
         external_angular_impulse.apply_impulse(torque);
+
+        const AWESOME_SPEED: f32 = 12.0;
+        if player_speed > AWESOME_SPEED {
+            any_awesome = true;
+        }
+    }
+    if any_awesome {
+        commands.trigger(PlaySfx::Key(SfxKey::Yeet));
     }
 }
 

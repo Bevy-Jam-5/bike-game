@@ -321,33 +321,25 @@ pub struct AudioSfxHandles {
     pub button_hover: Handle<AudioSource>,
     #[asset(path = "audio/sfx/button_press.ogg")]
     pub button_press: Handle<AudioSource>,
-    #[asset(path = "audio/sfx/step1.ogg")]
-    pub step1: Handle<AudioSource>,
-    #[asset(path = "audio/sfx/step2.ogg")]
-    pub step2: Handle<AudioSource>,
-    #[asset(path = "audio/sfx/step3.ogg")]
-    pub step3: Handle<AudioSource>,
-    #[asset(path = "audio/sfx/step4.ogg")]
-    pub step4: Handle<AudioSource>,
     #[asset(path = "audio/sfx/cash.mp3")]
     pub cash: Handle<AudioSource>,
+    #[asset(path = "audio/sfx/awesome.mp3")]
+    pub awesome: Handle<AudioSource>,
+    #[asset(path = "audio/sfx/yeet.mp3")]
+    pub yeet: Handle<AudioSource>,
 }
 
 #[derive(Copy, Clone, Eq, PartialEq, Hash, Reflect, Component)]
 pub enum SfxKey {
     ButtonHover,
     ButtonPress,
-    Step1,
-    Step2,
-    Step3,
-    Step4,
     Cash,
+    Awesome,
+    Yeet,
 }
 
 #[derive(AssetCollection, Resource)]
 pub struct AudioSoundtrackHandles {
-    #[asset(path = "audio/soundtracks/Monkeys Spinning Monkeys.ogg")]
-    pub credits: Handle<AudioSource>,
     #[asset(path = "audio/soundtracks/ingame.mp3")]
     pub gameplay: Handle<AudioSource>,
 }

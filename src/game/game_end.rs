@@ -2,7 +2,7 @@ use bevy::prelude::*;
 
 use super::{assets::FontHandles, money::Money, time::InGameTime};
 use crate::{
-    game::time::format_duration_to_mm_ss,
+    game::{assets::SfxKey, audio::sfx::PlaySfx, time::format_duration_to_mm_ss},
     screen::{PlayState, Screen},
     ui::prelude::*,
 };
@@ -57,6 +57,8 @@ fn on_game_end(
         color: Color::WHITE,
     };
 
+    commands.trigger(PlaySfx::Key(SfxKey::Awesome));
+
     commands.ui_root().with_children(|children| {
         children
             .spawn((
@@ -83,7 +85,7 @@ fn on_game_end(
                             margin: UiRect::bottom(Px(10.0)),
                             ..default()
                         },
-                        ..TextBundle::from_section("Game Ended", header_text_style)
+                        ..TextBundle::from_section("You Won!", header_text_style)
                     },
                 ));
 
