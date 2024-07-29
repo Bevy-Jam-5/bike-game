@@ -46,6 +46,11 @@ pub struct BlueprintHandles {
     // building big (yes, there is a typo)
     #[asset(path = "blueprints/Buliding Big.glb")]
     _building_big: Handle<Gltf>,
+    // bus stop sign
+    #[asset(path = "blueprints/Bus Stop Sign.glb")]
+    _bus_stop_sign: Handle<Gltf>,
+    // bus stop
+    #[asset(path = "blueprints/Bus Stop.glb")]
     // bush
     #[asset(path = "blueprints/Bush.glb")]
     _bush: Handle<Gltf>,
@@ -85,6 +90,9 @@ pub struct BlueprintHandles {
     // overpass tunnel
     #[asset(path = "blueprints/Overpass Tunnel.glb")]
     _overpass_tunnel: Handle<Gltf>,
+    // poster
+    #[asset(path = "blueprints/Poster.glb")]
+    _poster: Handle<Gltf>,
     // road corner curved
     #[asset(path = "blueprints/Road Corner Curved.glb")]
     _road_corner_curved: Handle<Gltf>,
@@ -191,6 +199,9 @@ pub struct MaterialHandles {
     // Headlights
     #[asset(path = "materials/Headlights.glb")]
     _headlights: Handle<Gltf>,
+    // LightBlue_BusStop
+    #[asset(path = "materials/LightBlue_BusStop.glb")]
+    _light_blue_bus_stop: Handle<Gltf>,
     // LightYellow
     #[asset(path = "materials/LightYellow.glb")]
     _light_yellow: Handle<Gltf>,
@@ -215,15 +226,15 @@ pub struct MaterialHandles {
     // metal_shade1
     #[asset(path = "materials/metal_shade1.glb")]
     _metal_shade1: Handle<Gltf>,
+    // Orang
+    #[asset(path = "materials/Orang.glb")]
+    _orang: Handle<Gltf>,
     // Orange
     #[asset(path = "materials/Orange.glb")]
     _orange: Handle<Gltf>,
-    // OrangeWallMaterial
-    #[asset(path = "materials/OrangeWallMaterial.glb")]
-    _orange_wall_material: Handle<Gltf>,
-    // RampMaterial
-    #[asset(path = "materials/RampMaterial.glb")]
-    _ramp_material: Handle<Gltf>,
+    // poster
+    #[asset(path = "materials/poster.glb")]
+    _poster: Handle<Gltf>,
     // red
     #[asset(path = "materials/red.glb")]
     _red: Handle<Gltf>,
@@ -233,6 +244,9 @@ pub struct MaterialHandles {
     // sandstone
     #[asset(path = "materials/sandstone.glb")]
     _sandstone: Handle<Gltf>,
+    // Sidewalk
+    #[asset(path = "materials/Sidewalk.glb")]
+    _sidewalk: Handle<Gltf>,
     // sign_shade2
     #[asset(path = "materials/sign_shade2.glb")]
     _sign_shade2: Handle<Gltf>,
