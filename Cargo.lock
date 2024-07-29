@@ -1357,6 +1357,7 @@ dependencies = [
  "leafwing-input-manager",
  "log",
  "rand",
+ "rand_chacha",
  "tracing",
 ]
 
