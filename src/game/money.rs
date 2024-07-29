@@ -34,6 +34,7 @@ fn update_money_text(money: Res<Money>, mut money_text: Query<&mut Text, With<Mo
 
 fn on_finish_quest(
     _trigger: Trigger<FinishQuest>,
+    mut commands: Commands,
     mut money: ResMut<Money>,
     mut active_quest: Option<ResMut<ActiveQuest>>,
 ) {
@@ -48,7 +49,15 @@ fn on_finish_quest(
         QuestPlace::MailNpc => 3.0,
         _ => 0.0,
     };
-    money.0 += pay;
+    commands.trigger(GainMoney(pay));
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Reflect, Event, Deref, DerefMut)]
+#[reflect(Debug, PartialEq)]
+pub struct GainMoney(pub f32);
+
+fn on_gain_money(trigger: Trigger<GainMoney>, mut money: ResMut<Money>) {
+    money.0 += trigger.event().0;
     info!("Received ${pay}");
 }
 
