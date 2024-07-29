@@ -50,7 +50,7 @@ impl Component for Player {
                         Name::new("Yeet Collider"),
                         YeetCollider,
                         Sensor,
-                        Collider::capsule(0.6, 1.0),
+                        Collider::cylinder(1.0, 2.0),
                         CollisionLayerPreset::YeetCollider,
                     ));
                 });

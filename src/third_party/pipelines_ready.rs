@@ -15,7 +15,7 @@ pub(super) fn plugin(app: &mut App) {
 // during normal use and noting the maximum value.
 #[cfg(not(target_arch = "wasm32"))]
 // Sometimes 28, idk.
-pub const EXPECTED_PIPELINES: usize = 25;
+pub const EXPECTED_PIPELINES: usize = 24;
 // The value will likely differ on the web due to different implementations of some
 // render features.
 #[cfg(target_arch = "wasm32")]
