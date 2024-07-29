@@ -28,6 +28,6 @@ fn print(ready: Res<PipelinesReady>) {
 
 fn transition(ready: Res<PipelinesReady>, mut next_state: ResMut<NextState<PlayState>>) {
     if ready.get() >= EXPECTED_PIPELINES {
-        next_state.set(PlayState::Active);
+        next_state.set(PlayState::Tutorial);
     }
 }

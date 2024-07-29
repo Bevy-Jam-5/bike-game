@@ -10,6 +10,7 @@ use crate::game::audio::soundtrack::PlaySoundtrack;
 pub mod active;
 pub mod loading_pipelines;
 pub mod spawning;
+pub mod tutorial;
 
 pub(super) fn plugin(app: &mut App) {
     app.add_systems(OnExit(Screen::Playing), exit_playing);
@@ -22,7 +23,12 @@ pub(super) fn plugin(app: &mut App) {
                 .run_if(in_state(Screen::Playing).and_then(input_just_pressed(KeyCode::Escape))),
         );
     }
-    app.add_plugins((spawning::plugin, loading_pipelines::plugin, active::plugin));
+    app.add_plugins((
+        spawning::plugin,
+        loading_pipelines::plugin,
+        tutorial::plugin,
+        active::plugin,
+    ));
 }
 
 fn exit_playing(mut commands: Commands) {
