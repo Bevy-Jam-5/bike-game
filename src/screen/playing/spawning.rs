@@ -1,6 +1,6 @@
 use bevy::{prelude::*, ui::Val::*};
 use blenvy::{BlueprintInfo, BlueprintInstanceReady};
-use ui_palette::LABEL_TEXT;
+use ui_palette::{DARK_BACKGROUND, LABEL_TEXT};
 
 use super::{LoadingText, PlayState};
 use crate::game::assets::FontHandles;
@@ -19,8 +19,22 @@ fn enter_spawning(mut commands: Commands, fonts: Res<FontHandles>) {
     commands.trigger(SpawnLevel);
 
     commands
-        .ui_root()
-        .insert(StateScoped(PlayState::Spawning))
+        .spawn((
+            NodeBundle {
+                style: Style {
+                    width: Percent(100.0),
+                    height: Percent(100.0),
+                    justify_content: JustifyContent::Center,
+                    align_items: AlignItems::Center,
+                    flex_direction: FlexDirection::Column,
+                    row_gap: Px(20.0),
+                    ..default()
+                },
+                background_color: DARK_BACKGROUND.into(),
+                ..default()
+            },
+            StateScoped(PlayState::Spawning),
+        ))
         .with_children(|children| {
             children.label("Spawning Level...", fonts.rubik_regular.clone_weak());
             children.label("", fonts.rubik_regular.clone_weak());
@@ -37,6 +51,7 @@ fn enter_spawning(mut commands: Commands, fonts: Res<FontHandles>) {
                             width: Px(500.0),
                             justify_content: JustifyContent::Center,
                             align_items: AlignItems::Center,
+                            margin: UiRect::top(Px(20.0)),
                             ..default()
                         },
                         ..default()

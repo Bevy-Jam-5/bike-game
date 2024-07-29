@@ -1,6 +1,6 @@
 use bevy::{prelude::*, ui::Val::*};
 use bevy_pipelines_ready::PipelinesReady;
-use ui_palette::LABEL_TEXT;
+use ui_palette::{DARK_BACKGROUND, LABEL_TEXT};
 
 use super::{LoadingText, PlayState};
 use crate::game::assets::FontHandles;
@@ -21,8 +21,22 @@ pub(super) fn plugin(app: &mut App) {
 
 fn enter_loading_pipelines(mut commands: Commands, fonts: Res<FontHandles>) {
     commands
-        .ui_root()
-        .insert(StateScoped(PlayState::LoadingPipelines))
+        .spawn((
+            NodeBundle {
+                style: Style {
+                    width: Percent(100.0),
+                    height: Percent(100.0),
+                    justify_content: JustifyContent::Center,
+                    align_items: AlignItems::Center,
+                    flex_direction: FlexDirection::Column,
+                    row_gap: Px(10.0),
+                    ..default()
+                },
+                background_color: DARK_BACKGROUND.into(),
+                ..default()
+            },
+            StateScoped(PlayState::LoadingPipelines),
+        ))
         .with_children(|children| {
             children.label(
                 "Loading graphics pipelines...",
@@ -36,6 +50,7 @@ fn enter_loading_pipelines(mut commands: Commands, fonts: Res<FontHandles>) {
                             width: Px(500.0),
                             justify_content: JustifyContent::Center,
                             align_items: AlignItems::Center,
+                            margin: UiRect::top(Px(20.0)),
                             ..default()
                         },
                         ..default()
