@@ -37,8 +37,8 @@ fn follow_player(
 fn rotate_camera(mut q_camera: Query<(&mut Transform, &ActionState<CameraAction>)>) {
     let (mut transform, action) = single_mut!(q_camera);
     if let Some(axis) = action.axis_pair(&CameraAction::RotateCamera) {
-        let x = cleanse_evil(axis.x());
-        let y = cleanse_evil(axis.y());
+        let x = validate_axis(axis.x());
+        let y = validate_axis(axis.y());
 
         let yaw = -x * 0.003;
         let pitch = -y * 0.002;
@@ -50,7 +50,7 @@ fn rotate_camera(mut q_camera: Query<(&mut Transform, &ActionState<CameraAction>
 /// Some machines are experiencing a continuous
 /// mouse input of exactly 1.5 specifically on itch.io,
 /// but not on local Wasm or native builds ¯\_(ツ)_/¯
-fn cleanse_evil(input: f32) -> f32 {
+fn validate_axis(input: f32) -> f32 {
     const EVIL_DRIFT_VALUE: f32 = 1.5;
     const EPSILON: f32 = 0.01;
     if nearly_eq(input, EVIL_DRIFT_VALUE, EPSILON) {
