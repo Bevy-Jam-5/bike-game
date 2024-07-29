@@ -1,9 +1,9 @@
 use std::f32::consts::PI;
 use std::iter;
 
-use crate::game::materials::SingleColorMaterial;
 use crate::AppSet;
-use crate::{game::spawn::player::Player, third_party::avian::DisableCollider};
+use crate::{game::materials::SingleColorMaterial, util::single};
+use crate::{game::spawn::player::Player, third_party::avian::DisableSensor};
 use avian3d::prelude::*;
 use bevy::{color::palettes::tailwind, prelude::*};
 
@@ -21,7 +21,8 @@ pub(super) fn plugin(app: &mut App) {
         (
             on_delivery_player_collision.in_set(AppSet::ReadCollisions),
             control_emitters,
-        ),
+        )
+            .chain(),
     );
 }
 
@@ -110,7 +111,7 @@ fn on_delivery_player_collision(
     mut commands: Commands,
     q_delivery_zone: Query<
         (Entity, &CollidingEntities),
-        (With<DeliveryZone>, Without<DisableCollider>),
+        (With<DeliveryZone>, Without<DisableSensor>),
     >,
     q_parent: Query<&Parent>,
     q_place: Query<Entity, With<QuestPlace>>,
@@ -133,6 +134,7 @@ fn on_delivery_player_collision(
                 error!("Failed to get place of delivery zone entity.");
                 return;
             };
+            info!("collision");
             commands.trigger_targets(AdvanceQuest, place_entity);
         }
     }
@@ -140,15 +142,23 @@ fn on_delivery_player_collision(
 
 fn control_emitters(
     time: Res<Time>,
-    q_delivery_zone: Query<(Entity, &DeliveryZoneLink)>,
-    q_disabled_collider: Query<(), With<DisableCollider>>,
+    q_player: Query<&Transform, With<Player>>,
+    q_delivery_zone: Query<(Entity, &DeliveryZoneLink, &GlobalTransform)>,
+    q_disabled_collider: Query<(), With<DisableSensor>>,
     children: Query<&Children>,
     mut emitters: Query<(&mut PointLight, &mut ParticleEmitter<Extrusion<Annulus>>)>,
 ) {
     let dt = time.delta_seconds();
-    for (entity, link) in &q_delivery_zone {
-        let is_disabled = q_disabled_collider.contains(link.0);
-        let mut iter = emitters.iter_many_mut(children.iter_descendants(entity));
+    let player_transform = single!(q_player);
+    for (entity, link, zone_transform) in &q_delivery_zone {
+        let distance_sq = player_transform
+            .translation
+            .distance_squared(zone_transform.translation());
+        const CUT_OFF: f32 = 20.0;
+        let is_too_far = distance_sq > CUT_OFF * CUT_OFF;
+        let is_disabled = q_disabled_collider.contains(link.0) || is_too_far;
+        let mut iter =
+            emitters.iter_many_mut(iter::once(entity).chain(children.iter_descendants(entity)));
         while let Some((mut light, mut emitter)) = iter.fetch_next() {
             emitter.enabled = !is_disabled;
             let target = if is_disabled { 0.0 } else { INTENSITY };

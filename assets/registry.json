@@ -16098,20 +16098,14 @@
       "type": "string",
       "typeInfo": "Enum"
     },
-    "bike_game::third_party::avian::disable_collider::DisableCollider": {
+    "bike_game::third_party::avian::disable_sensor::DisableSensor": {
       "additionalProperties": false,
       "isComponent": true,
       "isResource": false,
-      "long_name": "bike_game::third_party::avian::disable_collider::DisableCollider",
-      "properties": {
-        "previous_collision_layers": {
-          "type": {
-            "$ref": "#/$defs/core::option::Option<avian3d::collision::layers::CollisionLayers>"
-          }
-        }
-      },
+      "long_name": "bike_game::third_party::avian::disable_sensor::DisableSensor",
+      "properties": {},
       "required": [],
-      "short_name": "DisableCollider",
+      "short_name": "DisableSensor",
       "type": "object",
       "typeInfo": "Struct"
     },

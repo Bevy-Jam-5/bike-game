@@ -1,6 +1,6 @@
 use bevy::prelude::*;
 
-use crate::{screen::PlayState, third_party::avian::DisableColliderCommandsExt as _};
+use crate::{screen::PlayState, third_party::avian::DisableSensorCommandsExt as _};
 
 use super::{delivery_zone::DeliveryZoneLink, quest_place::QuestPlace};
 
