@@ -327,6 +327,8 @@ pub struct AudioSfxHandles {
     pub awesome: Handle<AudioSource>,
     #[asset(path = "audio/sfx/yeet.mp3")]
     pub yeet: Handle<AudioSource>,
+    #[asset(path = "audio/sfx/quest.mp3")]
+    pub quest: Handle<AudioSource>,
 }
 
 #[derive(Copy, Clone, Eq, PartialEq, Hash, Reflect, Component)]
@@ -336,6 +338,7 @@ pub enum SfxKey {
     Cash,
     Awesome,
     Yeet,
+    Quest,
 }
 
 #[derive(AssetCollection, Resource)]

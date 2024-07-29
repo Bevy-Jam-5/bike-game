@@ -24,6 +24,7 @@ fn play_sfx(
         SfxKey::Cash => &sfx_handles.cash,
         SfxKey::Awesome => &sfx_handles.awesome,
         SfxKey::Yeet => &sfx_handles.yeet,
+        SfxKey::Quest => &sfx_handles.quest,
     }
     .clone_weak();
     commands.spawn((

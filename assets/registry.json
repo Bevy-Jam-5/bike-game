@@ -15688,7 +15688,8 @@
         "ButtonPress",
         "Cash",
         "Awesome",
-        "Yeet"
+        "Yeet",
+        "Quest"
       ],
       "short_name": "SfxKey",
       "type": "string",

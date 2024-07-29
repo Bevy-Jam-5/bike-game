@@ -1,6 +1,10 @@
 use bevy::prelude::*;
 
-use crate::game::quest::{commands_ext::QuestCommandsExt as _, finish_quest::FinishQuest};
+use crate::game::{
+    assets::SfxKey,
+    audio::sfx::PlaySfx,
+    quest::{commands_ext::QuestCommandsExt as _, finish_quest::FinishQuest},
+};
 
 use super::quest_place::QuestPlace;
 
@@ -90,6 +94,7 @@ fn on_advance_pizza_npc(
                 place: QuestPlace::PizzaNpc,
             }],
         });
+        commands.trigger(PlaySfx::Key(SfxKey::Quest));
         commands.activate_pizzeria();
     }
 }
@@ -113,6 +118,7 @@ fn on_advance_mail_npc(
             place: QuestPlace::MailNpc,
         }],
     });
+    commands.trigger(PlaySfx::Key(SfxKey::Quest));
     commands.activate_post_office();
 }
 
@@ -138,6 +144,7 @@ fn on_advance_pizzeria(
     });
     let quest_giver = active_quest.quest_giver().unwrap();
     debug_assert_eq!(quest_giver.place, QuestPlace::PizzaNpc);
+    commands.trigger(PlaySfx::Key(SfxKey::Quest));
     commands.activate_entity(quest_giver.entity);
 }
 
